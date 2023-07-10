@@ -5,9 +5,9 @@ export const AddButton = () => {
     return(
         <Col xs={4}>
             <div className='divContainerAddButton'>
-              <Button className='addButtonContainer' variant='outline-primary'>
+              <Button className='addButtonButton' variant='outline-primary'>
                 <Image
-                  className='addButton'
+                  className='addButtonImage'
                   src='AddButton.png'
                   alt='Add Button'
                   roundedCircle
