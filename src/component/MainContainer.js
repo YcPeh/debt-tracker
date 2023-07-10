@@ -19,52 +19,49 @@ export function MainContainer() {
 
 
   const renderUserColumns = () => {
-    const columns = userInfo.map((user) => (
-      <Col key={user.id} xs={4}>
-        <div className='userImageContainer'>
-          <Image
-            className='userImage'
-            src={user.path}
-            alt={user.name}
-            roundedCircle
-          />
-        </div>
-      </Col>
-    ));
-  
     const rows = [];
-    let remainingColumns = columns;
-    while (remainingColumns.length > 0) {
-      const slicedColumns = remainingColumns.slice(0, 3);
-      const addAddButton = slicedColumns.length < 3 && remainingColumns.length <= 3;
-  
+    for (let i = 0; i < userInfo.length; i += 3) {
+      const user3Columns = userInfo.slice(i, i + 3).map((user) => (
+        <Col key={user.id} xs={4}>
+          <div className="userImageContainer">
+            <Image
+              className='userImage'
+              src={user.path}
+              alt={user.name}
+              roundedCircle
+            />
+          </div>
+        </Col>
+      ))
+
+      const addButtonSameRow = (userInfo.length - i <= 3)
+        
       const row = (
         <Row key={rows.length} className='mb-5'>
-          {slicedColumns}
-          {addAddButton && (
+          {user3Columns}
+          {addButtonSameRow && 
             <Col xs={4}>
-              <div className='userImageContainer'>
-                <Button className='userAddImageContainer' variant='outline-primary'>
-                  <Image
-                    className='userAddImage'
-                    src='AddButton.png'
-                    alt='Add Button'
-                    roundedCircle
-                  />
-                </Button>
-              </div>
-            </Col>
-          )}
+            <div className='userImageContainer'>
+              <Button className='userAddImageContainer' variant='outline-primary'>
+                <Image
+                  className='userAddImage'
+                  src='AddButton.png'
+                  alt='Add Button'
+                  roundedCircle
+                />
+              </Button>
+            </div>
+          </Col>
+          }
         </Row>
-      );
+      )
       rows.push(row);
-  
-      remainingColumns = remainingColumns.slice(3);
     }
-  
     return rows;
   };
+
   
+
 
   return (
     <Container>
