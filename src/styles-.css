@@ -1,0 +1,39 @@
+:root {
+    --user-image-container-size: 25vw;
+  }
+
+.userAddImageContainerColumn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2;
+}
+
+.userImageContainer, .userAddImageContainer {
+    width: var(--user-image-container-size);
+    height: var(--user-image-container-size);
+    position: relative;
+}
+
+.userAddImageContainer{
+    width: calc(var(--user-image-container-size)/2);
+    height: calc(var(--user-image-container-size)/2);
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: center; */
+    background-color: transparent;
+}
+
+.userImage, .userAddImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.userAddImage {
+    height: 50%;
+    transform: translateY(50%);
+}
