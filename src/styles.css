@@ -1,24 +1,37 @@
 :root {
-    --user-image-container-size: 25vw;
+    --user-image-container-size: 15vw;
   }
 
-.userAddImageContainerColumn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 2;
-}
 
-.userImageContainer, .userAddImageContainer {
+.divContainerUser {
     width: var(--user-image-container-size);
     height: var(--user-image-container-size);
     position: relative;
+    left: 25%;
+}
+
+.divContainerAddButton{
+    width: var(--user-image-container-size);
+    height: var(--user-image-container-size);
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    left: 25%;
 }
 
-.userAddImageContainer{
+.userImage{
+    width: 100%;
+    height: 100%;
+    /* position: absolute;
+    left:10px; */
+}
+
+
+
+
+.addButtonContainer{
+    position: relative;
     width: calc(var(--user-image-container-size)/4);
     height: calc(var(--user-image-container-size)/4);
     /* display: flex;
@@ -28,12 +41,20 @@
     background-color: transparent;
 }
 
-.userImage, .userAddImage {
+
+
+.addButton{
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
 }
+
+
+h5{
+    text-align: center;
+}
+
 
 

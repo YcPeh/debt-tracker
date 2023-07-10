@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addUserInfo } from '../features/user/userSlice';
 import { Button } from 'react-bootstrap';
 import '../styles.css';
+import { UserProfile } from './UserProfile';
+import { AddButton } from './AddButton';
 
-export function MainContainer() {
+export const MainContainer = () => {
   const { userInfo } = useSelector((store) => store.user);
   // const firstRowRef = useRef();
 
@@ -18,20 +20,11 @@ export function MainContainer() {
   // }, []);
 
 
-  const renderUserColumns = () => {
+  const renderUserProfiles = () => {
     const rows = [];
     for (let i = 0; i < userInfo.length; i += 3) {
       const user3Columns = userInfo.slice(i, i + 3).map((user) => (
-        <Col key={user.id} xs={4}>
-          <div className="userImageContainer">
-            <Image
-              className='userImage'
-              src={user.path}
-              alt={user.name}
-              roundedCircle
-            />
-          </div>
-        </Col>
+        <UserProfile {...user}/>
       ))
 
       const addButtonSameRow = (userInfo.length - i <= 3)
@@ -40,18 +33,7 @@ export function MainContainer() {
         <Row key={rows.length} className='mb-5'>
           {user3Columns}
           {addButtonSameRow && 
-            <Col xs={4}>
-            <div className='userImageContainer'>
-              <Button className='userAddImageContainer' variant='outline-primary'>
-                <Image
-                  className='userAddImage'
-                  src='AddButton.png'
-                  alt='Add Button'
-                  roundedCircle
-                />
-              </Button>
-            </div>
-          </Col>
+            <AddButton/>
           }
         </Row>
       )
@@ -65,7 +47,7 @@ export function MainContainer() {
 
   return (
     <Container>
-      {renderUserColumns()}
+      {renderUserProfiles()}
     </Container>
   );
 }
