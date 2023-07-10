@@ -24,9 +24,9 @@ export const userInfo = [
         name: 'Elon',
         path: 'user_elon.jfif',
     },
-    {
-        id: '6',
-        name: 'Elon',
-        path: 'user_elon.jfif',
-    },
+    // {
+    //     id: '6',
+    //     name: 'Elon',
+    //     path: 'user_elon.jfif',
+    // },
 ]
