@@ -1,9 +1,14 @@
 import { Col, Image } from "react-bootstrap"
+import { useSelector } from "react-redux"
 // import '../styles.css';
 
-export const UserProfile = (user) => {
+export const UserProfile = (user ) => {
+    // const {colWidthUser} = useSelector((store) => store.user)
+    // const colWidthUser = usersNum === 1 ? 6 : 4
+    // console.log(user)
+    // console.log(colWidthUser)
     return (
-        <Col key={user.id} xs={4}>
+        <Col xs={user.colWidthUser}>
             <div className="divContainerUser">
                 <Image
                     className='userImage'
