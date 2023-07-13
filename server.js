@@ -42,13 +42,18 @@ const Storage = multer.diskStorage({
 //   })
 // })
 
+// // Create storage configuration for multer
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
+
+// Create storage configuration for multer
 const upload = multer({ storage: Storage });
 
 // app.use(express.json());
 
 // app.get('/',(req,res) => res.send('Hellooo'));
 app.use('/api/v1/User', User);
-
+// app.use('/api/v1/User', upload.single('image'), User);;
 
 // Your other server configurations and routes
 
