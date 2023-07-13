@@ -20,37 +20,35 @@ const Storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({
-  storage: Storage
-}).single('image');
-app.post('/api/v1/User',(req,res)=>{
-  upload(req,res,(err)=>{
-    if (err) {
-      console.log(err)
-    } else {
-      const newUser = new UserModel({
-        name: req.body.name,
-        image: {
-          data: req.file.filename,
-          contentType: 'image/png',
-        }
-      })
-      newUser.save()
-        .then(() => res.send("successfully uploaded"))
-        .catch((err) => console.log(err));
-    }
-  })
-})
+// const upload = multer({
+//   storage: Storage
+// }).single('image');
+// app.post('/api/v1/User',(req,res)=>{
+//   upload(req,res,(err)=>{
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       const newUser = new UserModel({
+//         name: req.body.name,
+//         image: {
+//           data: req.file.filename,
+//           contentType: 'image/png',
+//         }
+//       })
+//       newUser.save()
+//         .then(() => res.send("successfully uploaded"))
+//         .catch((err) => console.log(err));
+//     }
+//   })
+// })
 
-// // Create storage configuration for multer
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+const upload = multer({ storage: Storage });
 
 // app.use(express.json());
 
 // app.get('/',(req,res) => res.send('Hellooo'));
-// app.use('/api/v1/User', User);
-// app.use('/api/v1/User', upload.single('image'), User);;
+app.use('/api/v1/User', User);
+
 
 // Your other server configurations and routes
 
