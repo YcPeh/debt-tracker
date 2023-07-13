@@ -47,7 +47,7 @@ const Storage = multer.diskStorage({
 // const upload = multer({ storage: storage });
 
 // Create storage configuration for multer
-const upload = multer({ storage: Storage });
+const upload = multer({ storage: Storage }).single('image');
 
 // app.use(express.json());
 
