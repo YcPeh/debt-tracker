@@ -1,5 +1,6 @@
 const UserModel = require('../models/User')
 const multer = require('multer');
+const fs = require('fs');
 
 const Storage = multer.diskStorage({
     destination: 'uploads',
@@ -35,7 +36,8 @@ exports.addUser = async (req, res, next) => {
         const newUser = new UserModel({
           name: req.body.name,
           image: {
-            data: req.file.filename,
+            // data: req.file.filename,
+            data: fs.readFileSync("uploads/" + req.file.filename),
             contentType: 'image/png',
           }
         })
