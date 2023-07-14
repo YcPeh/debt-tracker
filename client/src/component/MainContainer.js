@@ -21,6 +21,7 @@ export const MainContainer = () => {
 
   // const [userNum, setUsersNum] = useState(0)
 
+
   const renderUserProfiles = () => {
     const rows = [];
     if (userInfo.length > 0) {
@@ -41,7 +42,7 @@ export const MainContainer = () => {
         }
 
         const user3Columns = userInfo.slice(i, i + 3).map((user) => (
-          <UserProfile key={user.id} {...user} colWidthUser={colWidthUser}/>
+          <UserProfile key={user._id} {...user} colWidthUser={colWidthUser}/>
         ))
   
         const addButtonSameRow = (userInfo.length - i <= 3)
@@ -70,9 +71,11 @@ export const MainContainer = () => {
 
 
   return (
+    userInfo !== null && (
     <Container>
       {showForm ? <UserRegisterForm/>
       : renderUserProfiles()}
     </Container>
+    )
   );
 }

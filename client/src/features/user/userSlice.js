@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { userInfo } from '../../userInfo'
+// import { userInfo } from '../../userInfo'
 
 const initialState = {
-    userInfo: userInfo,
+    // userInfo: userInfo,
+    userInfo: null,
     showForm: false,
     colWidthUser: 12,
     colWidthAddButton:12,
@@ -12,6 +13,11 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        initialiseUserInfo: (state,action) => {
+            console.log('action.payload');
+            console.log(action.payload);
+            state.userInfo = action.payload;
+        },
         addUserInfo: (state,action) => {
             // console.log([...state.userInfo])
             const {name, path} = action.payload;
@@ -50,5 +56,5 @@ export const userSlice = createSlice({
     },
 })
 
-export const { addUserInfo, setColWidth, openForm, closeForm } = userSlice.actions
+export const { initialiseUserInfo, addUserInfo, setColWidth, openForm, closeForm } = userSlice.actions
 export default userSlice.reducer
