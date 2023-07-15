@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
     name:{
         type: String,
-        required:[true, 'Mongoose backend require name of user']
+        // required:[true, 'Mongoose backend require name of user']
     },
     // image:{
     //     type: String,
