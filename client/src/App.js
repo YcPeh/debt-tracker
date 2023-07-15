@@ -19,27 +19,12 @@ function App() {
       .catch((err) => console.log(err, "it has an error"));
   },[]);
 
-  console.log('hihi');
-  console.log(data);
+  // console.log('hihi');
+  // console.log(data);
 
   return (
     <>
       <MainContainer/>
-      <br /><br />
-      <h1>Test</h1>
-      <br /><br />
-      {Array.isArray(data) && data.map((singleData) => {
-        const base64String = btoa(
-          String.fromCharCode(...new Uint8Array(singleData.image.data.data))
-        );
-        return (
-          <>
-          <img src={`data:image/png;base64,${base64String}`} width="300"/>
-          {/* <h5>{JSON.stringify(singleData.name)}</h5> */}
-          <h5>{singleData.name}</h5>
-          </>
-        )
-      })}
     </>
   );
 }
