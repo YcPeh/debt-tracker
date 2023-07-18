@@ -14,7 +14,7 @@ function App() {
       .get("http://localhost:5000")
       .then((res) => {
         const userInfo = res.data.data.map(({name, imageName, customId, _id }) => ({name, imageName, customId, _id}))
-        console.log('initialising')
+        console.log('initialising UseEffect')
         dispatch(initialiseUserInfo(userInfo));
       })
       .catch((err) => console.log(err, "it has an error"));
