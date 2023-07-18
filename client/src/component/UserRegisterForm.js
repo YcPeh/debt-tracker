@@ -11,7 +11,7 @@ export const UserRegisterForm = () => {
         try {
             e.preventDefault();
             console.log('submitting form')
-            dispatch(closeForm());
+            
 
             const name = e.target.elements.name.value;
             const imageFile = e.target.elements.imageFile.files[0];
@@ -39,7 +39,16 @@ export const UserRegisterForm = () => {
 
             // console.log('updatedUserInfo')
             // console.log(updatedUserInfo)
-            dispatch(addUserInfo({name:name, imagName:imageFileName, customId:timeForCustomId}));
+
+
+            dispatch(addUserInfo({name:name, imageName:imageFileName, customId:timeForCustomId}));
+
+            dispatch(closeForm());
+
+            // console.log('0s')
+            // setTimeout(() => {dispatch(addUserInfo({name:name, imagName:imageFileName, customId:timeForCustomId}))},2000)
+            // console.log('2s')
+
             // console.log('in try')
         } catch (error) {
             // Handle any errors

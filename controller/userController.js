@@ -50,9 +50,25 @@ exports.addUser = async (req, res, next) => {
         //   data: fs.readFileSync("uploads/" + req.file.filename)
         // }
       })
+
       newUser.save()
         .then(() => res.send("successfully uploaded"))
         .catch((err) => console.log(err));
+
+      // newUser.save()
+      //   .then(() => {
+      //     setTimeout(() => {
+      //       res.send("successfully uploaded");
+      //     }, 2000);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     return res.status(500).json({
+      //       success: false,
+      //       error: "Server Error",
+      //     });
+      //   });
+
     })
   } catch (error) {
     console.log(error);
