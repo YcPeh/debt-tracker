@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
+    customId:{
+        type: String,
+        // required:[true, 'Mongoose backend require name of user']
+    },
     name:{
         type: String,
         // required:[true, 'Mongoose backend require name of user']
@@ -9,6 +13,9 @@ const UserSchema = new mongoose.Schema({
     //     type: String,
     //     required:[true, 'Mongoose backend require name of user']
     // },
+    imageName:{
+        type:String
+    },
     image:{
         data: Buffer,
         contentType: String,

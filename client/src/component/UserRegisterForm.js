@@ -10,22 +10,40 @@ export const UserRegisterForm = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+            console.log('submitting form')
             dispatch(closeForm());
+
             const name = e.target.elements.name.value;
             const imageFile = e.target.elements.imageFile.files[0];
+            const imageFileName = e.target.elements.imageFile.files[0].name;
+            const timeForCustomId = new Date().getTime().toString();
+
+
             const formData = new FormData();
             formData.append('name', name);
             formData.append('image', imageFile)
+            formData.append('customId', timeForCustomId)
             // Make the API request
             await axios.post('http://localhost:5000', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            });
+            })
+
+            // const res = await axios.get("http://localhost:5000");
+            // const updatedUserInfo = res.data.data.map(({ name, imageName, _id: id }) => ({
+            //     name,
+            //     imageName,
+            //     id,
+            // }));
+
+            // console.log('updatedUserInfo')
+            // console.log(updatedUserInfo)
+            dispatch(addUserInfo({name:name, imagName:imageFileName, customId:timeForCustomId}));
             // console.log('in try')
         } catch (error) {
             // Handle any errors
-            // console.log('in catch')
+            console.log('Submit form fail')
             console.log(error);
         }
 
