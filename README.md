@@ -1,3 +1,12 @@
+Set up backend with NodeJS and express by referrring to the video below
+- https://youtu.be/KyWaXA_NvT0
+Uploading an Image using Nodejs and Retrive Image in React | Multer | Mongo db
+- https://youtu.be/NzROCbkvIE0
+Nodejs Image Upload using Multer | Nodejs and Expressjs and MongoDB
+- https://youtu.be/GyzC-30Bqfc
+Image and File Uploading in React JS with Axios and FormData
+- https://youtu.be/YOGgaYUW1OA
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

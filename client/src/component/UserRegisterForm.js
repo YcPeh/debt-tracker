@@ -22,10 +22,10 @@ export const UserRegisterForm = () => {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log('in try')
+            // console.log('in try')
         } catch (error) {
             // Handle any errors
-            console.log('in catch')
+            // console.log('in catch')
             console.log(error);
         }
 
