@@ -82,7 +82,12 @@ exports.addUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   // res.send('DELETE user');
   try {
-    const deleteUser = await UserModel.findByIdAndRemove(req.params.customId)
+    // const deleteUser = await UserModel.findByIdAndRemove(req.params.idFromFrontEnd)
+    const deleteUser = await UserModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
+    console.log('req.params.idFromFrontEnd')
+    console.log(req.params.idFromFrontEnd)
+    console.log('req.params')
+    console.log(req.params)
     if (!deleteUser) {
       return res.status(404).json({
         success: false,
@@ -105,9 +110,10 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   try {
-    const { customId } = req.params;
+    const { idFromFrontEnd } = req.params;
     const { name } = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate(customId, { name }, { new: true });
+    // const updatedUser = await UserModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
+    const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { name }, { new: true });
     if (!updatedUser) {
       return res.status(404).json({
         success: false,

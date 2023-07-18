@@ -35,7 +35,8 @@ export const userSlice = createSlice({
         },
         deleteUserInfo:(state,action) =>  {
             const idToRemove = action.payload;
-            state.userInfo = state.userInfo.filter((user) => user._id !== idToRemove)
+            // state.userInfo = state.userInfo.filter((user) => user._id !== idToRemove)
+            state.userInfo = state.userInfo.filter((user) => user.customId !== idToRemove)
         },
         // startRender: (state) => {
         //     state.reRender = true;

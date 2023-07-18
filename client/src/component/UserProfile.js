@@ -20,8 +20,10 @@ export const UserProfile = (user) => {
   const handleDelete = async () => {
     try {
       // console.log(user._id);
-      await axios.delete(`http://localhost:5000/${user._id}`);
-      dispatch(deleteUserInfo(user._id))
+      // await axios.delete(`http://localhost:5000/${user._id}`);
+      // dispatch(deleteUserInfo(user._id))
+      await axios.delete(`http://localhost:5000/${user.customId}`);
+      dispatch(deleteUserInfo(user.customId))
     } catch (error) {
       console.log(error)
     }
@@ -29,8 +31,8 @@ export const UserProfile = (user) => {
 
   const handleNameUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/${user._id}`, { name: editedName });
-      // Optionally, you can update the user profile in the Redux store with the edited name
+      // await axios.put(`http://localhost:5000/${user._id}`, { name: editedName });
+      await axios.put(`http://localhost:5000/${user.customId}`, { name: editedName });
     } catch (error) {
       console.log(error);
     }
