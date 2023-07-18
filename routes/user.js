@@ -5,6 +5,6 @@ const {getUser, addUser, deleteUser, updateUser} = require('../controller/userCo
 // router.get('/',(req,res) => res.send('hahahaaa'));
 
 router.route('/').get(getUser).post(addUser);
-router.route('/:customId').delete(deleteUser).put(updateUser);
+router.route('/:idFromFrontEnd').delete(deleteUser).put(updateUser);
 
 module.exports = router;
