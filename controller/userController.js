@@ -2,8 +2,10 @@ const UserModel = require('../models/User')
 const multer = require('multer');
 const fs = require('fs');
 
+// const timeForCustomId = new Date().getTime().toString();
+
 const Storage = multer.diskStorage({
-  destination: 'uploads',
+  destination: 'client/public/uploads',
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -35,10 +37,12 @@ exports.addUser = async (req, res, next) => {
   try {
     upload(req, res, (err) => {
       const newUser = new UserModel({
+        customId: req.body.customId,
         name: req.body.name,
+        imageName: req.file.filename,
         image: {
           // data: req.file.filename,
-          data: fs.readFileSync("uploads/" + req.file.filename),
+          data: fs.readFileSync("client/public/uploads/" + req.file.filename),
           contentType: 'image/png',
           // contentType: req.file.mimetype,
         }
@@ -62,7 +66,7 @@ exports.addUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   // res.send('DELETE user');
   try {
-    const deleteUser = await UserModel.findByIdAndRemove(req.params.id)
+    const deleteUser = await UserModel.findByIdAndRemove(req.params.customId)
     if (!deleteUser) {
       return res.status(404).json({
         success: false,
@@ -85,9 +89,9 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { customId } = req.params;
     const { name } = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate(id, { name }, { new: true });
+    const updatedUser = await UserModel.findByIdAndUpdate(customId, { name }, { new: true });
     if (!updatedUser) {
       return res.status(404).json({
         success: false,

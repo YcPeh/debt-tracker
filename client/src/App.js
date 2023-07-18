@@ -7,21 +7,19 @@ import { initialiseUserInfo } from "./features/user/userSlice";
 
 
 function App() {
-  const [data, setData] = useState([]);
-  const {userInfo} = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const {userInfo} = useSelector((store) => store.user);
   useEffect(() => {
     axios
       .get("http://localhost:5000")
       .then((res) => {
-        setData(res.data.data);
-        dispatch(initialiseUserInfo(res.data.data));
+        const userInfo = res.data.data.map(({name, imageName, customId, _id }) => ({name, imageName, customId, _id}))
+        console.log('initialising')
+        dispatch(initialiseUserInfo(userInfo));
       })
       .catch((err) => console.log(err, "it has an error"));
-  },[userInfo]);
+  },[]);
 
-  // console.log('hihi');
-  // console.log(data);
 
   return (
     <>

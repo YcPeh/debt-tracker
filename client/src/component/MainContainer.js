@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from 'react-redux';
-import { addUserInfo, setColWidth } from '../features/user/userSlice';
+import { addUserInfo } from '../features/user/userSlice';
 import { Button } from 'react-bootstrap';
 import '../styles.css';
 import { UserProfile } from './UserProfile';
@@ -40,7 +40,7 @@ export const MainContainer = () => {
           colWidthUser = 4;
           colWidthAddButton = 4;
         }
-
+        console.log('renderUserProfiles')
         const user3Columns = userInfo.slice(i, i + 3).map((user) => (
           <UserProfile key={user._id} {...user} colWidthUser={colWidthUser}/>
         ))

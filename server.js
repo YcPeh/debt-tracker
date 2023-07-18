@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const multer = require('multer');
 const cors = require('cors');
+const path = require('path');
 
 
 const connectDB = require('./config/db');
@@ -19,6 +20,15 @@ app.use(cors());
 connectDB();
 
 app.use(express.json());
+
+// // Configure a route for serving the images
+// app.use('/uploadsFromBackEnd', express.static(path.join(__dirname, 'uploads')));
+// // Serve the React app
+// app.use(express.static(path.join(__dirname, 'client/build')));
+// // Handle other routes and return the React app
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
 
 // app.get('/',(req,res) => res.send('Hellooo'));
 // app.use('/api/v1/User', User);
