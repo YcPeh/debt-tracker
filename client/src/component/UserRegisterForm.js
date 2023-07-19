@@ -24,7 +24,7 @@ export const UserRegisterForm = () => {
 
             dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
 
-            // dispatch(closeForm())
+            dispatch(closeForm())
 
             const formData = new FormData();
             formData.append('name', name);
