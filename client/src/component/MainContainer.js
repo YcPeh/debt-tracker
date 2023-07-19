@@ -1,27 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
-import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUserInfo } from '../features/user/userSlice';
-import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import '../styles.css';
 import { UserProfile } from './UserProfile';
 import { AddButton } from './AddButton';
 import { UserRegisterForm } from './UserRegisterForm';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 export const MainContainer = () => {
   const { userInfo, showForm } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
-  
-  // useEffect(() => {
-  //   dispatch(setColWidth(userNum));
-  // }, [userNum]);
-
-  // const [userNum, setUsersNum] = useState(0)
-
-
+  const navigate = useNavigate();
+  console.log('userInfo inside MainContainer but outside of Routes and Container')
+  console.log(userInfo)
   const renderUserProfiles = () => {
     const rows = [];
     if (userInfo.length > 0) {
@@ -70,12 +60,47 @@ export const MainContainer = () => {
   };
 
 
+  // return (
+  //   userInfo !== null && (
+  //   <Container>
+  //     {showForm ? <UserRegisterForm/>
+  //     : renderUserProfiles()}
+  //   </Container>
+  //   )
+  // );
+
+  // Can work most
+  // return (
+  //   <Container>
+  //     <Routes>
+  //       {console.log('inside Routes of MainContainer.js')}
+  //       {userInfo !== null && <Route path="/" element={renderUserProfiles()} />}
+  //       <Route path="/form" element={<UserRegisterForm />} />
+  //     </Routes>
+  //   </Container>
+  // );
+
   return (
-    userInfo !== null && (
     <Container>
-      {showForm ? <UserRegisterForm/>
-      : renderUserProfiles()}
+      <Routes>
+        {console.log('inside Routes of MainContainer.js')}
+        {userInfo !== null && (showForm ? <Route path="/form" element={<UserRegisterForm />} />
+        : <Route path="/" element={renderUserProfiles()} />)}
+      </Routes>
     </Container>
-    )
   );
+
+  // return (
+  //   <Container>
+  //     {console.log('inside <Container> of MainContainer.js')}
+  //     {console.log('userInfo beside Routes')}
+  //     {console.log(userInfo)}
+  //     {userInfo !== null && (showForm ? navigate('/form')
+  //      : navigate('/'))}
+  //     <Routes>
+  //       <Route path="/" element={renderUserProfiles()} />
+  //       <Route path="/form" element={<UserRegisterForm />} />
+  //     </Routes>
+  //   </Container>
+  // );
 }

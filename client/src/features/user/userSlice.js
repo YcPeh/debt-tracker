@@ -1,11 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
-// import { userInfo } from '../../userInfo'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     userInfo: null,
     showForm: false,
-    // reRender: false,
     colWidthUser: 12,
     colWidthAddButton: 12,
 }
@@ -28,24 +25,13 @@ export const userSlice = createSlice({
             console.log('newUser')
             console.log(newUser)
             state.userInfo.push(newUser);
-            // console.log('...action.payload')
-            // console.log(...action.payload)
-            // state.userInfo.push(...action.payload);
-            // console.log(state.userInfo)
         },
         deleteUserInfo:(state,action) =>  {
             const idToRemove = action.payload;
-            // state.userInfo = state.userInfo.filter((user) => user._id !== idToRemove)
             state.userInfo = state.userInfo.filter((user) => user.customId !== idToRemove)
         },
-        // startRender: (state) => {
-        //     state.reRender = true;
-        // },
-        // stopRender: (state) => {
-        //     state.reRender = false;
-        // },
     },
 })
 
-export const { initialiseUserInfo, openForm, closeForm, startRender, stopRender, addUserInfo, deleteUserInfo } = userSlice.actions
+export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo } = userSlice.actions
 export default userSlice.reducer

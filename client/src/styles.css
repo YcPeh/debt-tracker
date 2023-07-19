@@ -2,12 +2,7 @@
     --user-image-container-size: 15vw;
 }
 
-/* .userColumn{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
+
 .divContainerUser {
     display: flex;
     flex-direction: column;
@@ -25,6 +20,7 @@
 .userImage {
     width: var(--user-image-container-size);
     height: var(--user-image-container-size);
+    cursor: pointer;
 }
 
 
@@ -48,7 +44,7 @@
 }
 
 
-h5, input {
+h5, .divContainerUser input {
     text-align: center;
 }
 
@@ -57,9 +53,8 @@ h5, input {
 .divContainerUser {
     position: relative;
 }
-.divContainerUser:hover, .cross-button {
-    /* display: block; */
-}.cross-button {
+
+.cross-button {
     position: absolute;
     padding: 0;
     margin: 0;

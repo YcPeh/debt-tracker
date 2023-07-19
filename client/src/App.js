@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import './App.css';
 import { MainContainer } from './component/MainContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { initialiseUserInfo } from "./features/user/userSlice";
+import { Routes, Route } from 'react-router-dom';
+import { UserRegisterForm } from "./component/UserRegisterForm";
 
 
 function App() {
   const dispatch = useDispatch();
-  const {userInfo} = useSelector((store) => store.user);
   useEffect(() => {
     axios
       .get("http://localhost:5000")
@@ -22,9 +23,13 @@ function App() {
 
 
   return (
-    <>
-      <MainContainer/>
-    </>
+    // <>
+    //   <MainContainer/>
+    // </>
+    <Routes>
+      {console.log('inside Routes in App.js')}
+      <Route path='/*' element={<MainContainer />} />
+    </Routes>
   );
 }
 
