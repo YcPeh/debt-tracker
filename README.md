@@ -6,6 +6,8 @@ Nodejs Image Upload using Multer | Nodejs and Expressjs and MongoDB
 - https://youtu.be/GyzC-30Bqfc
 Image and File Uploading in React JS with Axios and FormData
 - https://youtu.be/YOGgaYUW1OA
+Open a file input box on button click in React
+- https://bobbyhadz.com/blog/react-open-file-input-on-button-click#:~:text=To%20open%20a%20file%20input,prop%20on%20the%20file%20input.
 
 # Getting Started with Create React App
 

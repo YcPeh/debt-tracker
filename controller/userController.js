@@ -34,8 +34,18 @@ exports.getUser = async (req, res, next) => {
 };
 exports.addUser = async (req, res, next) => {
   // res.send('POST user');
+  // console.log('addUser')
+  // console.log('req.body')
+  // console.log(req.body)
+  // console.log('req.file')
+  // console.log(req.file)
   try {
     upload(req, res, (err) => {
+      console.log('addUser upload')
+      console.log('req.body')
+      console.log(req.body)
+      console.log('req.file')
+      console.log(req.file)
       const newUser = new UserModel({
         customId: req.body.customId,
         name: req.body.name,
@@ -54,21 +64,6 @@ exports.addUser = async (req, res, next) => {
       newUser.save()
         .then(() => res.send("successfully uploaded"))
         .catch((err) => console.log(err));
-
-      // newUser.save()
-      //   .then(() => {
-      //     setTimeout(() => {
-      //       res.send("successfully uploaded");
-      //     }, 2000);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     return res.status(500).json({
-      //       success: false,
-      //       error: "Server Error",
-      //     });
-      //   });
-
     })
   } catch (error) {
     console.log(error);
@@ -108,7 +103,7 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUserName = async (req, res, next) => {
   try {
     const { idFromFrontEnd } = req.params;
     const { name } = req.body;
@@ -124,6 +119,112 @@ exports.updateUser = async (req, res, next) => {
       success: true,
       data: updatedUser,
     });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error: 'Server Error',
+    });
+  }
+};
+
+// exports.updateUserPhoto = async (req, res, next) => {
+//   try {
+//     const { idFromFrontEnd } = req.params;
+//     const { image, imageName } = req.body;
+//     console.log('updateUserPhoto')
+//     // console.log('req')
+//     // console.log(req)
+//     console.log('req.file')
+//     console.log(req.file)
+//     console.log('req.body')
+//     console.log(req.body)
+//     console.log('idFromFrontEnd')
+//     console.log(idFromFrontEnd)
+//     console.log('image')
+//     console.log(image)
+//     console.log('imageName')
+//     console.log(imageName)
+//     // const updatedUser = await UserModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
+//     const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
+//     if (!updatedUser) {
+//       return res.status(404).json({
+//         success: false,
+//         error: 'User not found',
+//       });
+//     }
+//     return res.status(200).json({
+//       success: true,
+//       data: updatedUser,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       error: 'Server Error',
+//     });
+//   }
+// };
+
+exports.updateUserPhoto = async (req, res, next) => {
+  try {
+    upload(req, res, async (err) => {
+      const { idFromFrontEnd } = req.params;
+      const { image, imageName } = req.body;
+      console.log('updateUserPhoto upload')
+      console.log('req.body')
+      console.log(req.body)
+      console.log('image')
+      console.log(image)
+      console.log('req.file')
+      console.log(req.file)
+      
+      // const imageData = {
+      //   data: fs.readFileSync("client/public/uploads/" + req.file.filename),
+      //   contentType: 'image/png', // Update the contentType based on your image type
+      // };
+
+      // console.log('imageData')
+      // console.log(imageData)
+
+      const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
+      if (!updatedUser) {
+        return res.status(404).json({
+          success: false,
+          error: 'User not found',
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        data: updatedUser,
+      });
+
+    })
+    // const { idFromFrontEnd } = req.params;
+    // const { image, imageName } = req.body;
+    // console.log('updateUserPhoto')
+    // console.log('req.file')
+    // console.log(req.file)
+    // console.log('req.body')
+    // console.log(req.body)
+    // console.log('idFromFrontEnd')
+    // console.log(idFromFrontEnd)
+    // console.log('image')
+    // console.log(image)
+    // console.log('imageName')
+    // console.log(imageName)
+    // const updatedUser = await UserModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
+    // const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
+    // if (!updatedUser) {
+    //   return res.status(404).json({
+    //     success: false,
+    //     error: 'User not found',
+    //   });
+    // }
+    // return res.status(200).json({
+    //   success: true,
+    //   data: updatedUser,
+    // });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

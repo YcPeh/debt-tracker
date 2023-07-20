@@ -1,14 +1,16 @@
 import { Button, Col, Image } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import '../styles.css';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
-import { deleteUserInfo } from "../features/user/userSlice";
+import { deleteUserInfo, updateUserPhoto } from "../features/user/userSlice";
 
 export const UserProfile = (user) => {
   const [isHovered, setIsHovered] = useState(false);
   const [editedName, setEditedName] = useState(user.name);
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
+
   console.log('user')
   console.log(user)
 
@@ -27,6 +29,40 @@ export const UserProfile = (user) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  
+  const handlePhotoUpdate = async (e) => {
+    console.log('handlePhotoUpdate')
+    inputRef.current.click();
+  }
+
+  const handleFileChange = async (e) => {
+    try {
+      const imageFile = e.target.files && e.target.files[0];
+      if (!imageFile) {
+        return;
+      }
+      // console.log('imageFile is', imageFile)
+      // console.log(e.target.files);;
+      // e.target.value = null;
+      // console.log(e.target.files);
+      console.log(imageFile);
+      console.log(imageFile.name);
+      dispatch(updateUserPhoto({ imageName: imageFile.name, customId: user.customId }));
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      formData.append("imageName", imageFile.name);
+      const res = await axios.put(`http://localhost:5000/${user.customId}/userPhoto`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+      console.log('res')
+      console.log(res)
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   const handleNameChange = (e) => {
@@ -53,7 +89,13 @@ export const UserProfile = (user) => {
         />
         {isHovered && (
           <div className="topRightUserIcons">
-            <Button className="change-photo" variant='outline-primary'>
+            <input
+              style={{ display: 'none' }}
+              ref={inputRef}
+              type="file"
+              onChange={handleFileChange}
+            />
+            <Button className="change-photo" variant='outline-primary' onClick={handlePhotoUpdate}>
             <Image
                 className="change-photo-image"
                 src="change photo.png"
@@ -71,7 +113,7 @@ export const UserProfile = (user) => {
             </Button>
           </div>
         )}
-        <h5><input type="text" value={editedName} onChange={handleNameChange} onBlur={handleNameUpdate} /></h5>
+        <h1><input type="text" value={editedName} onChange={handleNameChange} onBlur={handleNameUpdate} /></h1>
       </div>
 
     </Col>
