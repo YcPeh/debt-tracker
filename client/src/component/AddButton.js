@@ -10,8 +10,10 @@ export const AddButton = ({ colWidthAddButton }) => {
   return (
     <Col xs={colWidthAddButton}>
       <div className='divContainerAddButton'>
-        <Button className='addButtonButton' variant='outline-primary' onClick={()=>dispatch(openForm())}>
+        <Button className='addButtonButton' variant='outline-primary'>
+        {/* <Button className='addButtonButton' variant='outline-primary' onClick={()=>dispatch(openForm())}> */}
           <Link to="/form">
+          {/* <Link to="/form" className='addButtonButton'> */}
             <Image
               className='addButtonImage'
               src='AddButton.png'

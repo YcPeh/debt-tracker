@@ -2,7 +2,7 @@ import { Button, Form  } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import { addUserInfo, closeForm } from "../features/user/userSlice";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,8 +14,8 @@ export const UserRegisterForm = () => {
             e.preventDefault();
             console.log('submitting form')
             
-            navigate('/');
-            console.log('navigate to /');
+            // navigate('/');
+            // console.log('navigate to /');
 
             const name = e.target.elements.name.value;
             const imageFile = e.target.elements.imageFile.files[0];
@@ -24,7 +24,10 @@ export const UserRegisterForm = () => {
 
             dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
 
-            dispatch(closeForm())
+            // dispatch(closeForm())
+
+            navigate('/');
+            console.log('navigate to /');
 
             const formData = new FormData();
             formData.append('name', name);
@@ -38,8 +41,6 @@ export const UserRegisterForm = () => {
                 },
             });
             console.log('after axios post');
-
-            ;
 
 
         } catch (error) {

@@ -1,0 +1,122 @@
+:root {
+    --user-image-container-size: 15vw;
+}
+
+
+.divContainerUser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.divContainerAddButton {
+    height: calc(var(--user-image-container-size) + 13.28px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userImage {
+    width: var(--user-image-container-size);
+    height: var(--user-image-container-size);
+    cursor: pointer;
+}
+
+
+
+
+.addButtonButton {
+    position: relative;
+    width: calc(var(--user-image-container-size)/4);
+    height: calc(var(--user-image-container-size)/4);
+    background-color: transparent;
+}
+
+
+
+.addButtonImage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+h5, .divContainerUser input {
+    text-align: center;
+}
+
+
+/* for cross button on top right of user profiles when hovered */
+.divContainerUser {
+    position: relative;
+}
+
+.topRightUserIcons{
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    top: 0px;
+    /* display: none; */
+    right: 0px;
+    width: calc(var(--user-image-container-size) / 10 * 2);
+    height: calc(var(--user-image-container-size) / 10 * 2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.cross-button {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    top: 0px;
+    /* display: none; */
+    right: 0px;
+    width: calc(var(--user-image-container-size) / 10);
+    height: calc(var(--user-image-container-size) / 10);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+.cross-button-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.change-photo {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    top: 0px;
+    /* display: none; */
+    /* right: 0px; */
+    right: calc(var(--user-image-container-size) / 10 * 2);
+    /* right: calc(100% + 10px); */
+    width: calc(var(--user-image-container-size) / 10);
+    height: calc(var(--user-image-container-size) / 10);
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+.change-photo-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* right: calc(var(--user-image-container-size) / 10); */
+}

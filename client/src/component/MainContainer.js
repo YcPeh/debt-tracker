@@ -10,7 +10,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 export const MainContainer = () => {
   const { userInfo, showForm } = useSelector((store) => store.user);
   const navigate = useNavigate();
-  console.log('userInfo inside MainContainer but outside of Routes and Container')
+  console.log('userInfo inside MainContainer.js but outside of Routes and Container')
   console.log(userInfo)
   const renderUserProfiles = () => {
     const rows = [];
@@ -70,25 +70,25 @@ export const MainContainer = () => {
   // );
 
   // Can work most
-  // return (
-  //   <Container>
-  //     <Routes>
-  //       {console.log('inside Routes of MainContainer.js')}
-  //       {userInfo !== null && <Route path="/" element={renderUserProfiles()} />}
-  //       <Route path="/form" element={<UserRegisterForm />} />
-  //     </Routes>
-  //   </Container>
-  // );
-
   return (
     <Container>
       <Routes>
         {console.log('inside Routes of MainContainer.js')}
-        {userInfo !== null && (showForm ? <Route path="/form" element={<UserRegisterForm />} />
-        : <Route path="/" element={renderUserProfiles()} />)}
+        {userInfo !== null && <Route path="/" element={renderUserProfiles()} />}
+        <Route path="/form" element={<UserRegisterForm />} />
       </Routes>
     </Container>
   );
+
+  // return (
+  //   <Container>
+  //     <Routes>
+  //       {console.log('inside Routes of MainContainer.js')}
+  //       {userInfo !== null && (showForm ? <Route path="/form" element={<UserRegisterForm />} />
+  //       : <Route path="/" element={renderUserProfiles()} />)}
+  //     </Routes>
+  //   </Container>
+  // );
 
   // return (
   //   <Container>
