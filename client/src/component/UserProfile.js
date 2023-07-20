@@ -52,14 +52,24 @@ export const UserProfile = (user) => {
           roundedCircle
         />
         {isHovered && (
-          <Button className="cross-button" variant='outline-primary' onClick={handleDelete}>
+          <div className="topRightUserIcons">
+            <Button className="change-photo" variant='outline-primary'>
             <Image
-              className="cross-button-image"
-              src="cross button.png"
-              alt="Cross Button"
-              roundedCircle
-            />
-          </Button>
+                className="change-photo-image"
+                src="change photo.png"
+                alt="Change Photo"
+                roundedCircle
+              />
+            </Button>
+            <Button className="cross-button" variant='outline-primary' onClick={handleDelete}>
+              <Image
+                className="cross-button-image"
+                src="cross button.png"
+                alt="Cross Button"
+                roundedCircle
+              />
+            </Button>
+          </div>
         )}
         <h5><input type="text" value={editedName} onChange={handleNameChange} onBlur={handleNameUpdate} /></h5>
       </div>
