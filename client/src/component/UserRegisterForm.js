@@ -22,6 +22,9 @@ export const UserRegisterForm = () => {
             const imageFileName = e.target.elements.imageFile.files[0].name;
             const timeForCustomId = new Date().getTime().toString();
 
+            console.log('imageFile')
+            console.log(imageFile)
+
             dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
 
             // dispatch(closeForm())

@@ -30,8 +30,22 @@ export const userSlice = createSlice({
             const idToRemove = action.payload;
             state.userInfo = state.userInfo.filter((user) => user.customId !== idToRemove)
         },
+        updateUserPhoto: (state,action) => {
+            console.log('updateUserPhoto action.payload');
+            console.log(action.payload);
+            const {customId, imageName} = action.payload;
+            state.userInfo = state.userInfo.map((user) =>{ 
+                // console.log(' inside updateUserPhoto map function')
+                // console.log(user)
+                if(user.customId === customId){
+                    return {...user, imageName:imageName};
+                } else {
+                    return user;
+                }
+            })
+        },
     },
 })
 
-export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo } = userSlice.actions
+export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo, updateUserPhoto } = userSlice.actions
 export default userSlice.reducer

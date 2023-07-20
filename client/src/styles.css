@@ -21,6 +21,8 @@
     width: var(--user-image-container-size);
     height: var(--user-image-container-size);
     cursor: pointer;
+    border-radius: 50%;
+    border: 5px solid #ff0000;
 }
 
 
@@ -47,6 +49,12 @@
 h5,
 .divContainerUser input {
     text-align: center;
+    width: var(--user-image-container-size);
+    height: auto;
+    /* height: var(--user-image-container-size); */
+    /* outline: none; */
+    border: none;
+    line-height: 1.5;
 }
 
 
@@ -57,44 +65,29 @@ h5,
 
 .topRightUserIcons {
     position: absolute;
-    padding: 0;
-    margin: 0;
-    z-index: 2;
     top: 0;
     right: 0;
-    /* width: calc(var(--user-image-container-size) / 10 * 2);
-    height: calc(var(--user-image-container-size) / 10 * 2); */
     display: flex;
-    justify-content: center;
-    align-items: center;
+
 }
 
 .cross-button,
 .change-photo {
-    margin-left: 0;
-    /* To remove any default margin that might affect positioning */
     width: calc(var(--user-image-container-size) / 10);
     height: calc(var(--user-image-container-size) / 10);
     display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
     position: relative;
 }
-
 
 .cross-button-image,
 .change-photo-image {
     width: 100%;
-    /* height: auto; */
     height: 100%;
-    /* Add other styles for the images as needed */
-    z-index: 3;
+    /* z-index: 3; */
     position: absolute;
     top: 0;
-    left:0;
+    left: 0;
 }
-
 /* .cross-button-image{
     position: absolute;
     top: 0;
