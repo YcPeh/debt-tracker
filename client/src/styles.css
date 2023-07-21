@@ -23,9 +23,12 @@
     cursor: pointer;
     border-radius: 50%;
     border: 5px solid #ff0000;
+
+    line-height: var(--user-image-container-size);
+    text-align: center;
+    /* font-size: 3vw; */
+    font-size: calc(var(--user-image-container-size)/4);
 }
-
-
 
 
 .addButtonButton {
@@ -88,6 +91,7 @@ h5,
     top: 0;
     left: 0;
 }
+
 /* .cross-button-image{
     position: absolute;
     top: 0;
