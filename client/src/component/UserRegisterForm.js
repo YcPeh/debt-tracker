@@ -22,10 +22,8 @@ export const UserRegisterForm = () => {
             const imageFileName = e.target.elements.imageFile.files[0].name;
             const timeForCustomId = new Date().getTime().toString();
 
-            console.log('imageFile')
-            console.log(imageFile)
-
             dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
+            console.log('dispatch addUserInfo');
 
             // dispatch(closeForm())
 
@@ -38,12 +36,14 @@ export const UserRegisterForm = () => {
             formData.append('customId', timeForCustomId)
             
             console.log('before axios post')
-            await axios.post('http://localhost:5000', formData, {
+            const res = await axios.post('http://localhost:5000', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
             console.log('after axios post');
+            console.log('res from server.js in UserRegisterForm.js')
+            console.log(res)
 
 
         } catch (error) {

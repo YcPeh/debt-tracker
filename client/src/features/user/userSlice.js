@@ -22,9 +22,10 @@ export const userSlice = createSlice({
         },
         addUserInfo:(state,action) =>  {
             const newUser = action.payload;
-            console.log('newUser')
+            console.log('uerSlice addUserInfo newUser')
             console.log(newUser)
-            state.userInfo.push(newUser);
+            // state.userInfo.push(newUser);
+            state.userInfo = [...state.userInfo, newUser];
         },
         deleteUserInfo:(state,action) =>  {
             const idToRemove = action.payload;

@@ -10,16 +10,33 @@ import { UserRegisterForm } from "./component/UserRegisterForm";
 
 function App() {
   const dispatch = useDispatch();
+
+  const getData = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000');
+      const userInfo = res.data.data.map(({ name, imageName, customId, _id }) => ({ name, imageName, customId, _id }))
+      console.log('initialising UseEffect')
+      dispatch(initialiseUserInfo(userInfo));
+    } catch (error) {
+      console.log(error, "it has an error");
+    }
+
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000")
-      .then((res) => {
-        const userInfo = res.data.data.map(({name, imageName, customId, _id }) => ({name, imageName, customId, _id}))
-        console.log('initialising UseEffect')
-        dispatch(initialiseUserInfo(userInfo));
-      })
-      .catch((err) => console.log(err, "it has an error"));
-  },[]);
+    getData();
+  }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000")
+  //     .then((res) => {
+  //       const userInfo = res.data.data.map(({name, imageName, customId, _id }) => ({name, imageName, customId, _id}))
+  //       console.log('initialising UseEffect')
+  //       dispatch(initialiseUserInfo(userInfo));
+  //     })
+  //     .catch((err) => console.log(err, "it has an error"));
+  // },[]);
 
 
   return (

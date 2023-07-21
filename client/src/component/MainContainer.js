@@ -30,9 +30,9 @@ export const MainContainer = () => {
           colWidthUser = 4;
           colWidthAddButton = 4;
         }
-        console.log('renderUserProfiles')
+        console.log('renderUserProfiles for loop')
         const user3Columns = userInfo.slice(i, i + 3).map((user) => (
-          <UserProfile key={user._id} {...user} colWidthUser={colWidthUser}/>
+          <UserProfile key={user.customId} {...user} colWidthUser={colWidthUser}/>
         ))
   
         const addButtonSameRow = (userInfo.length - i <= 3)

@@ -2,7 +2,6 @@ const UserModel = require('../models/User')
 const multer = require('multer');
 const fs = require('fs');
 
-// const timeForCustomId = new Date().getTime().toString();
 
 const Storage = multer.diskStorage({
   destination: 'client/public/uploads',
@@ -32,15 +31,10 @@ exports.getUser = async (req, res, next) => {
     });
   }
 };
+
 exports.addUser = async (req, res, next) => {
-  // res.send('POST user');
-  // console.log('addUser')
-  // console.log('req.body')
-  // console.log(req.body)
-  // console.log('req.file')
-  // console.log(req.file)
   try {
-    upload(req, res, (err) => {
+    upload(req, res, async (err) => {
       console.log('addUser upload')
       console.log('req.body')
       console.log(req.body)
@@ -51,19 +45,12 @@ exports.addUser = async (req, res, next) => {
         name: req.body.name,
         imageName: req.file.filename,
         image: {
-          // data: req.file.filename,
           data: fs.readFileSync("client/public/uploads/" + req.file.filename),
           contentType: 'image/png',
-          // contentType: req.file.mimetype,
         }
-        // image: {
-        //   data: fs.readFileSync("uploads/" + req.file.filename)
-        // }
       })
-
-      newUser.save()
-        .then(() => res.send("successfully uploaded"))
-        .catch((err) => console.log(err));
+      await newUser.save();
+      res.send("(addUser) successfully uploaded");
     })
   } catch (error) {
     console.log(error);
@@ -128,43 +115,6 @@ exports.updateUserName = async (req, res, next) => {
   }
 };
 
-// exports.updateUserPhoto = async (req, res, next) => {
-//   try {
-//     const { idFromFrontEnd } = req.params;
-//     const { image, imageName } = req.body;
-//     console.log('updateUserPhoto')
-//     // console.log('req')
-//     // console.log(req)
-//     console.log('req.file')
-//     console.log(req.file)
-//     console.log('req.body')
-//     console.log(req.body)
-//     console.log('idFromFrontEnd')
-//     console.log(idFromFrontEnd)
-//     console.log('image')
-//     console.log(image)
-//     console.log('imageName')
-//     console.log(imageName)
-//     // const updatedUser = await UserModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
-//     const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
-//     if (!updatedUser) {
-//       return res.status(404).json({
-//         success: false,
-//         error: 'User not found',
-//       });
-//     }
-//     return res.status(200).json({
-//       success: true,
-//       data: updatedUser,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json({
-//       success: false,
-//       error: 'Server Error',
-//     });
-//   }
-// };
 
 exports.updateUserPhoto = async (req, res, next) => {
   try {
@@ -178,14 +128,6 @@ exports.updateUserPhoto = async (req, res, next) => {
       console.log(image)
       console.log('req.file')
       console.log(req.file)
-      
-      // const imageData = {
-      //   data: fs.readFileSync("client/public/uploads/" + req.file.filename),
-      //   contentType: 'image/png', // Update the contentType based on your image type
-      // };
-
-      // console.log('imageData')
-      // console.log(imageData)
 
       const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
       if (!updatedUser) {
@@ -200,31 +142,6 @@ exports.updateUserPhoto = async (req, res, next) => {
       });
 
     })
-    // const { idFromFrontEnd } = req.params;
-    // const { image, imageName } = req.body;
-    // console.log('updateUserPhoto')
-    // console.log('req.file')
-    // console.log(req.file)
-    // console.log('req.body')
-    // console.log(req.body)
-    // console.log('idFromFrontEnd')
-    // console.log(idFromFrontEnd)
-    // console.log('image')
-    // console.log(image)
-    // console.log('imageName')
-    // console.log(imageName)
-    // const updatedUser = await UserModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
-    // const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
-    // if (!updatedUser) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     error: 'User not found',
-    //   });
-    // }
-    // return res.status(200).json({
-    //   success: true,
-    //   data: updatedUser,
-    // });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

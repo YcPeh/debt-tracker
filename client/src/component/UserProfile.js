@@ -11,7 +11,7 @@ export const UserProfile = (user) => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
 
-  console.log('user')
+  console.log('user in UserProfile.js')
   console.log(user)
 
   const handleDelete = async () => {
@@ -51,7 +51,7 @@ export const UserProfile = (user) => {
       dispatch(updateUserPhoto({ imageName: imageFile.name, customId: user.customId }));
       const formData = new FormData();
       formData.append("image", imageFile);
-      formData.append("imageName", imageFile.name);
+      // formData.append("imageName", imageFile.name);
       const res = await axios.put(`http://localhost:5000/${user.customId}/userPhoto`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
