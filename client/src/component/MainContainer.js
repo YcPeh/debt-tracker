@@ -6,6 +6,7 @@ import { UserProfile } from './UserProfile';
 import { AddButton } from './AddButton';
 import { UserRegisterForm } from './UserRegisterForm';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { UserTransaction } from './UserTransaction';
 
 export const MainContainer = () => {
   const { userInfo, showForm } = useSelector((store) => store.user);
@@ -41,7 +42,7 @@ export const MainContainer = () => {
           <Row key={rows.length} className='mb-5'>
             {user3Columns}
             {addButtonSameRow && 
-              <AddButton colWidthAddButton={colWidthAddButton} />
+              <AddButton colWidthAddButton={colWidthAddButton} divClassName={'divContainerAddButton'}/>
             }
           </Row>
         )
@@ -76,6 +77,7 @@ export const MainContainer = () => {
         {console.log('inside Routes of MainContainer.js')}
         {userInfo !== null && <Route path="/" element={renderUserProfiles()} />}
         <Route path="/form" element={<UserRegisterForm />} />
+        <Route path="/userTransaction" element={<UserTransaction />} />
       </Routes>
     </Container>
   );

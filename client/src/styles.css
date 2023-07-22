@@ -17,6 +17,13 @@
     align-items: center;
 }
 
+.divContainerAddButtonTransaction{
+    height: calc(var(--user-image-container-size) / 6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .userImage {
     width: var(--user-image-container-size);
     height: var(--user-image-container-size);
@@ -92,55 +99,20 @@ h5,
     left: 0;
 }
 
-/* .cross-button-image{
-    position: absolute;
-    top: 0;
-    left:0;
+.UserTransactionTitles {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.change-photo-image{
-    position: absolute;
-    top: 0;
-    left:0;
-} */
+h1 {
+    text-align: center;
+}
 
-/* .cross-button {
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    z-index: 2;
-    top: 0px;
-    right: 0px;
-    width: calc(var(--user-image-container-size) / 10);
-    height: calc(var(--user-image-container-size) / 10);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.vl {
+    border-left: 4px solid red;
+    height: 500px;
 }
-.cross-button-image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+.hl {
+    border: 4px solid red;
 }
-.change-photo {
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    z-index: 2;
-    top: 0px;
-    right: calc(var(--user-image-container-size) / 10 * 2);
-    width: calc(var(--user-image-container-size) / 10);
-    height: calc(var(--user-image-container-size) / 10);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.change-photo-image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-} */

@@ -4,12 +4,14 @@ import '../styles.css';
 import { useState, useRef } from "react";
 import axios from "axios";
 import { deleteUserInfo, updateUserPhoto } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export const UserProfile = (user) => {
   const [isHovered, setIsHovered] = useState(false);
   const [editedName, setEditedName] = useState(user.name);
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   console.log('user in UserProfile.js')
   console.log(user)
@@ -77,6 +79,10 @@ export const UserProfile = (user) => {
     setIsHovered(false);
   };
 
+  const handleUserImageClick = () => {
+    navigate(`/userTransaction`, {state:user});
+  }
+
   const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`
   return (
     <Col xs={user.colWidthUser} className="userColumn">
@@ -86,6 +92,7 @@ export const UserProfile = (user) => {
           src={imagePath}
           alt={user.name}
           roundedCircle
+          onClick={handleUserImageClick}
         />
         {isHovered && (
           <div className="topRightUserIcons">
