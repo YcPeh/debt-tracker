@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { openForm } from "../features/user/userSlice";
 import { Link } from 'react-router-dom';
 
-export const AddButton = ({ colWidthAddButton, divClassName }) => {
+export const AddButton = ({ colWidthAddButton, divClassName, linkToRoute }) => {
 
   const dispatch = useDispatch();
 
@@ -12,7 +12,7 @@ export const AddButton = ({ colWidthAddButton, divClassName }) => {
       <div className={divClassName}>
         <Button className='addButtonButton' variant='outline-primary'>
         {/* <Button className='addButtonButton' variant='outline-primary' onClick={()=>dispatch(openForm())}> */}
-          <Link to="/userRegisterForm">
+          <Link to={linkToRoute}>
           {/* <Link to="/form" className='addButtonButton'> */}
             <Image
               className='addButtonImage'

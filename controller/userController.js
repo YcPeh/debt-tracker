@@ -1,4 +1,5 @@
 const UserModel = require('../models/User')
+const UserTransactionModel = require('../models/UserTransaction')
 const multer = require('multer');
 const fs = require('fs');
 

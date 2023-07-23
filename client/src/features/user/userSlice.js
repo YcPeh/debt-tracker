@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     userInfo: null,
+    selectedUserInfo: null,
     showForm: false,
     colWidthUser: 12,
     colWidthAddButton: 12,
@@ -45,8 +46,11 @@ export const userSlice = createSlice({
                 }
             })
         },
+        selectUser: (state,action) => {
+            state.selectedUserInfo = action.payload;
+        },
     },
 })
 
-export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo, updateUserPhoto } = userSlice.actions
+export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo, updateUserPhoto, selectUser } = userSlice.actions
 export default userSlice.reducer

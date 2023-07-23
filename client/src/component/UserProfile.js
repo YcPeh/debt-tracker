@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import '../styles.css';
 import { useState, useRef } from "react";
 import axios from "axios";
-import { deleteUserInfo, updateUserPhoto } from "../features/user/userSlice";
+import { deleteUserInfo, selectUser, updateUserPhoto } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
-export const UserProfile = (user) => {
+export const UserProfile = ({user,colWidthUser}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [editedName, setEditedName] = useState(user.name);
   const dispatch = useDispatch();
@@ -15,6 +15,8 @@ export const UserProfile = (user) => {
 
   console.log('user in UserProfile.js')
   console.log(user)
+  console.log('colWidthUser')
+  console.log(colWidthUser)
 
   const handleDelete = async () => {
     try {
@@ -80,12 +82,14 @@ export const UserProfile = (user) => {
   };
 
   const handleUserImageClick = () => {
-    navigate(`/userTransaction`, {state:user});
+    // navigate(`/userTransaction`, {state:user});
+    navigate('/userTransaction');
+    dispatch(selectUser(user));
   }
 
   const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`
   return (
-    <Col xs={user.colWidthUser} className="userColumn">
+    <Col xs={colWidthUser} className="userColumn">
       <div className="divContainerUser" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Image
           className='userImage'
