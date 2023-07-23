@@ -129,7 +129,7 @@ exports.updateUserPhoto = async (req, res, next) => {
       console.log('req.file')
       console.log(req.file)
 
-      const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName }, { new: true });
+      const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName: req.file.filename }, { new: true });
       if (!updatedUser) {
         return res.status(404).json({
           success: false,

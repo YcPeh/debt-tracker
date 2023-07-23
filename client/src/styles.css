@@ -17,10 +17,10 @@
     align-items: center;
 }
 
-.divContainerAddButtonTransaction{
+.divContainerAddButtonTransaction {
     height: calc(var(--user-image-container-size) / 6);
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
 }
 
@@ -111,8 +111,41 @@ h1 {
 
 .vl {
     border-left: 4px solid red;
-    height: 500px;
+    height: 100vh;
 }
+
 .hl {
-    border: 4px solid red;
+    border-top: 4px solid red;
 }
+
+.user-transaction-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+section {
+    flex: 1;
+    /* padding: 10px; */
+    /* border-bottom: 4px solid red; */
+    text-align: center;
+}
+
+.accordian-test:hover {
+    background-color: red;
+}
+
+.accordion-item:hover .accordion-button {
+    background-color: lightgray;
+}
+
+/* 
+.accordion {
+    --bs-accordion-active-bg: purple;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #ffffff;
+    background-color: #29008a;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+} */
