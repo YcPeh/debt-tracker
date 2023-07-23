@@ -8,6 +8,8 @@ import { Routes, Route } from 'react-router-dom';
 import { UserRegisterForm } from "./component/UserRegisterForm";
 import { UserTransaction } from "./component/UserTransaction";
 import { NotFound } from "./component/NotFound";
+import { UserTransactionForm } from "./component/UserTransactionForm";
+import { UserTransactionRoutes } from "./component/UserTransactionRoutes";
 
 
 
@@ -51,7 +53,8 @@ function App() {
       {console.log('inside Routes in App.js')}
       <Route path='/' element={<MainContainer />} />
       <Route path="/userRegisterForm" element={<UserRegisterForm />} />
-      <Route path="/userTransaction" element={<UserTransaction />} />
+      <Route path='/userTransaction' element={<UserTransaction />} /> 
+      <Route path="/userTransaction/*" element={<UserTransactionRoutes />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

@@ -33,7 +33,7 @@ export const MainContainer = () => {
         }
         console.log('renderUserProfiles for loop')
         const user3Columns = userInfo.slice(i, i + 3).map((user) => (
-          <UserProfile key={user.customId} {...user} colWidthUser={colWidthUser}/>
+          <UserProfile key={user.customId} user={user} colWidthUser={colWidthUser}/>
         ))
   
         const addButtonSameRow = (userInfo.length - i <= 3)
@@ -42,7 +42,7 @@ export const MainContainer = () => {
           <Row key={rows.length} className='mb-5'>
             {user3Columns}
             {addButtonSameRow && 
-              <AddButton colWidthAddButton={colWidthAddButton} divClassName={'divContainerAddButton'}/>
+              <AddButton colWidthAddButton={colWidthAddButton} divClassName={'divContainerAddButton'} linkToRoute={'/userRegisterForm'}/>
             }
           </Row>
         )

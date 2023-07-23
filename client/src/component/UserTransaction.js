@@ -1,15 +1,28 @@
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { useLocation, useParams } from "react-router-dom";
 import { AddButton } from "./AddButton";
+import { useSelector } from "react-redux";
 
 export const UserTransaction = () => {
-    // const {user} = useParams();
-    const location = useLocation();
-    console.log(location.state);
+    // const location = useLocation();
+    // const user = location.state || {}; 
+    // const { name, customId } = user;
+    const {selectedUserInfo} = useSelector((store) => store.user);
+
+    
+
+    const {name, customId} = selectedUserInfo || {};
+    if (!name || !customId) {
+        return <div>Loading...</div>
+    }
+
+    console.log('selectedUserInfo in UserTransaction')
+    console.log(selectedUserInfo)
+
     return (
         <Container fluid>
             <Row>
-                <Col xs={12}><center><h1>User</h1></center></Col>
+                <Col xs={12}><center><h1>{name}</h1></center></Col>
             </Row>
             <div className="hl"></div>
 
@@ -20,7 +33,7 @@ export const UserTransaction = () => {
                             <h1>Debts</h1>
                         </Col>
                         <Col xs={2}>
-                            <AddButton divClassName={'divContainerAddButtonTransaction'} />
+                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'}/>
                         </Col>
                     </Row>
                     <Row>
@@ -60,7 +73,8 @@ export const UserTransaction = () => {
                 </section>
 
             </div>
+            {console.log('UserTransaction end')}
         </Container>
-
+        
     );
 }
