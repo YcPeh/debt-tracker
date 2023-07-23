@@ -6,7 +6,7 @@ import { UserProfile } from './UserProfile';
 import { AddButton } from './AddButton';
 import { UserRegisterForm } from './UserRegisterForm';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { UserTransaction } from './UserTransaction';
+// import { UserTransaction } from './UserTransaction';
 
 export const MainContainer = () => {
   const { userInfo, showForm } = useSelector((store) => store.user);
@@ -73,12 +73,12 @@ export const MainContainer = () => {
   // Can work most
   return (
     <Container>
-      <Routes>
+      {/* <Routes> */}
         {console.log('inside Routes of MainContainer.js')}
-        {userInfo !== null && <Route path="/" element={renderUserProfiles()} />}
-        <Route path="/form" element={<UserRegisterForm />} />
-        <Route path="/userTransaction" element={<UserTransaction />} />
-      </Routes>
+        {userInfo !== null && renderUserProfiles()}
+        {/* <Route path="/form" element={<UserRegisterForm />} /> */}
+        {/* <Route path="/userTransaction" element={<UserTransaction />} /> */}
+      {/* </Routes> */}
     </Container>
   );
 

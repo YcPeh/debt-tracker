@@ -6,6 +6,10 @@ import axios from "axios";
 import { initialiseUserInfo } from "./features/user/userSlice";
 import { Routes, Route } from 'react-router-dom';
 import { UserRegisterForm } from "./component/UserRegisterForm";
+import { UserTransaction } from "./component/UserTransaction";
+import { NotFound } from "./component/NotFound";
+
+
 
 
 function App() {
@@ -45,7 +49,10 @@ function App() {
     // </>
     <Routes>
       {console.log('inside Routes in App.js')}
-      <Route path='/*' element={<MainContainer />} />
+      <Route path='/' element={<MainContainer />} />
+      <Route path="/userRegisterForm" element={<UserRegisterForm />} />
+      <Route path="/userTransaction" element={<UserTransaction />} />
+      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }

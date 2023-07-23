@@ -12,7 +12,7 @@ export const AddButton = ({ colWidthAddButton, divClassName }) => {
       <div className={divClassName}>
         <Button className='addButtonButton' variant='outline-primary'>
         {/* <Button className='addButtonButton' variant='outline-primary' onClick={()=>dispatch(openForm())}> */}
-          <Link to="/form">
+          <Link to="/userRegisterForm">
           {/* <Link to="/form" className='addButtonButton'> */}
             <Image
               className='addButtonImage'
