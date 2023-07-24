@@ -13,6 +13,8 @@ export const UserRegisterForm = () => {
         try {
             e.preventDefault();
             console.log('submitting form')
+            console.log('e')
+            console.log(e)
 
             // navigate('/');
             // console.log('navigate to /');

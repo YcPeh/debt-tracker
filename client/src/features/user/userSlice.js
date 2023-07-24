@@ -52,5 +52,5 @@ export const userSlice = createSlice({
     },
 })
 
-export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo, updateUserPhoto, selectUser } = userSlice.actions
-export default userSlice.reducer
+export const { initialiseUserInfo, openForm, closeForm, addUserInfo, deleteUserInfo, updateUserPhoto, selectUser } = userSlice.actions;
+export default userSlice.reducer;
