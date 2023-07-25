@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getUser, addUser, deleteUser, updateUserName, updateUserPhoto} = require('../controller/userController');
-const { addTransaction, deleteTransaction, getTransaction } = require('../controller/transactionController');
+const { addTransaction, deleteTransaction, getTransaction, updateTransaction } = require('../controller/transactionController');
 
 // router.get('/',(req,res) => res.send('hahahaaa'));
 
@@ -11,6 +11,6 @@ router.route('/:idFromFrontEnd').delete(deleteUser).put(updateUserName);
 router.route('/:idFromFrontEnd/userPhoto').put(updateUserPhoto);
 
 router.route('/userTransaction').get(getTransaction).post(addTransaction);
-router.route('/userTransaction/:idFromFrontEnd').delete(deleteTransaction);
+router.route('/userTransaction/:idFromFrontEnd').delete(deleteTransaction).put(updateTransaction);
 
 module.exports = router;

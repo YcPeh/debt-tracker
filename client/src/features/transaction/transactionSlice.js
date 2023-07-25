@@ -23,8 +23,12 @@ const transactionSlice = createSlice({
             // console.log(idToRemove)
             state.transaction = state.transaction.filter((trans) => trans.customId !== idToRemove)
         },
+        updateTransaction: (state, action) => {
+            console.log('action.payload in updateTransaction')
+            console.log(action.payload)
+        },
     }
 });
 
-export const { initiliaseTransaction, addTransaction, deleteTransaction } = transactionSlice.actions;
+export const { initiliaseTransaction, addTransaction, deleteTransaction, updateTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;

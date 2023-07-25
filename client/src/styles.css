@@ -139,6 +139,11 @@ section {
     background-color: lightgray;
 }
 
+.accordion-button::after {
+    margin: 0;
+    margin-left:0;
+}
+
 /* 
 .accordion {
     --bs-accordion-active-bg: purple;

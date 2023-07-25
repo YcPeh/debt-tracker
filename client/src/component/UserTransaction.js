@@ -1,11 +1,12 @@
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AddButton } from "./AddButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { deleteTransaction, initiliaseTransaction } from "../features/transaction/transactionSlice";
 import { DeleteButton } from "./DeleteButton";
+import { EditButton } from "./EditButton";
 
 export const UserTransaction = () =>{ 
     // const location = useLocation();
@@ -17,6 +18,7 @@ export const UserTransaction = () =>{
     console.log('transaction in UserTransaction start')
     console.log(transaction)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const getData = async () => {
         try {
@@ -45,13 +47,20 @@ export const UserTransaction = () =>{
 
     const handleDelete = async (customId) => {
         try {
-            console.log('customId in handleDelete of UserTransaction')
-            console.log(customId)
+            console.log('customId in handleDelete of UserTransaction');
+            console.log(customId);
             await axios.delete(`http://localhost:5000/userTransaction/${customId}`);
-            dispatch(deleteTransaction(customId))
+            dispatch(deleteTransaction(customId));
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
+    }
+
+    const handleUpdate = (props) => {
+        console.log('handleUpdate')
+        console.log('props')
+        console.log(props)
+        navigate('/userTransaction/userTransactionForm', {state: props})
     }
 
     const handleTransaction = (category) => {
@@ -68,18 +77,33 @@ export const UserTransaction = () =>{
                             <Accordion key={trans.customId}>
                                 <Accordion.Item eventKey={trans.customId}>
                                     <Row>
-                                        <Col className="p-0 d-flex justify-content-center align-items-center" xs={{ span: 2, offset: 0 }}>
+                                        <Col className="p-0 d-flex justify-content-center align-items-center" xs={{ span: 1, offset: 1 }}>
+                                            {/* <DeleteButton/> */}
                                             <DeleteButton handleDelete={()=>handleDelete(trans.customId)} key={trans.customId}/>
                                         </Col>
-                                        <Col xs={{ span: 10, offset: 0 }}>
+                                        <Col className="p-0 d-flex justify-content-center align-items-center" xs={{ span: 1, offset: 0 }}>
+                                            <EditButton handleUpdate={() => handleUpdate({
+                                                category,
+                                                userNameCustomId: customId,
+                                                userName: name,
+                                                title: trans.title,
+                                                category: trans.category,
+                                                type: trans.type,
+                                                currency: trans.currency,
+                                                amount: trans.amount,
+                                                description: trans.description,
+                                                customId: trans.customId,
+                                            })} />
+                                        </Col>
+                                        <Col xs={{ span: 9, offset: 0 }}>
                                             <Accordion.Header>
-                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 6, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 5, offset: 0 }}>
                                                     {trans.title}
                                                 </Col>
                                                 <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
                                                     |
                                                 </Col>
-                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 3, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-end" xs={{ span: 3, offset: 0 }}>
                                                     {trans.currency} {trans.amount}
                                                 </Col>
                                             </Accordion.Header>
@@ -88,13 +112,13 @@ export const UserTransaction = () =>{
                                     <Accordion.Body>
                                         {bodyInfo.map((info, innerIndex) => (
                                             <Row key={innerIndex}>
-                                                <Col className="p-0 d-flex justify-content-end" xs={{ span: 3, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-start" xs={{ span: 3, offset: 1 }}>
                                                     {info.label}
                                                 </Col>
                                                 <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
                                                     :
                                                 </Col>
-                                                <Col className="p-0 d-flex justify-content-start" xs={{ span: 8, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-start" xs={{ span: 7, offset: 0 }}>
                                                     {info.value}
                                                 </Col>
                                             </Row>
