@@ -9,11 +9,22 @@ const transactionSlice = createSlice({
     initialState,
     reducers: {
         initiliaseTransaction: (state, action) => {
-            // console.log(action.payload)
             state.transaction = action.payload
+        },
+        addTransaction: (state, action) => {
+            const newTransaction = action.payload;
+            console.log('newTransaction')
+            console.log(newTransaction)
+            // state.transaction = [...state.transaction, newTransaction]
+        },
+        deleteTransaction: (state, action) => {
+            const idToRemove = action.payload;
+            // console.log('idToRemove in deleteTransaction')
+            // console.log(idToRemove)
+            state.transaction = state.transaction.filter((trans) => trans.customId !== idToRemove)
         },
     }
 });
 
-export const { initiliaseTransaction } = transactionSlice.actions;
+export const { initiliaseTransaction, addTransaction, deleteTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;

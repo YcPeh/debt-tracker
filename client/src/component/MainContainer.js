@@ -61,48 +61,11 @@ export const MainContainer = () => {
   };
 
 
-  // return (
-  //   userInfo !== null && (
-  //   <Container>
-  //     {showForm ? <UserRegisterForm/>
-  //     : renderUserProfiles()}
-  //   </Container>
-  //   )
-  // );
-
-  // Can work most
   return (
     <Container>
-      {/* <Routes> */}
         {console.log('inside Routes of MainContainer.js')}
         {userInfo !== null && renderUserProfiles()}
-        {/* <Route path="/form" element={<UserRegisterForm />} /> */}
-        {/* <Route path="/userTransaction" element={<UserTransaction />} /> */}
-      {/* </Routes> */}
     </Container>
   );
 
-  // return (
-  //   <Container>
-  //     <Routes>
-  //       {console.log('inside Routes of MainContainer.js')}
-  //       {userInfo !== null && (showForm ? <Route path="/form" element={<UserRegisterForm />} />
-  //       : <Route path="/" element={renderUserProfiles()} />)}
-  //     </Routes>
-  //   </Container>
-  // );
-
-  // return (
-  //   <Container>
-  //     {console.log('inside <Container> of MainContainer.js')}
-  //     {console.log('userInfo beside Routes')}
-  //     {console.log(userInfo)}
-  //     {userInfo !== null && (showForm ? navigate('/form')
-  //      : navigate('/'))}
-  //     <Routes>
-  //       <Route path="/" element={renderUserProfiles()} />
-  //       <Route path="/form" element={<UserRegisterForm />} />
-  //     </Routes>
-  //   </Container>
-  // );
 }

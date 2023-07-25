@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { deleteUserInfo, selectUser, updateUserPhoto } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { UserTopRightIcons } from "./UserTopRightIcons";
 
 export const UserProfile = ({user,colWidthUser}) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -12,11 +13,12 @@ export const UserProfile = ({user,colWidthUser}) => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  // const {transaction} = useSelector((store) => store.transaction);
 
-  console.log('user in UserProfile.js')
-  console.log(user)
-  console.log('colWidthUser')
-  console.log(colWidthUser)
+  // console.log('user in UserProfile.js')
+  // console.log(user)
+  // console.log('colWidthUser')
+  // console.log(colWidthUser)
 
   const handleDelete = async () => {
     try {
@@ -50,8 +52,8 @@ export const UserProfile = ({user,colWidthUser}) => {
       // console.log(e.target.files);;
       // e.target.value = null;
       // console.log(e.target.files);
-      console.log(imageFile);
-      console.log(imageFile.name);
+      // console.log(imageFile);
+      // console.log(imageFile.name);
       dispatch(updateUserPhoto({ imageName: imageFile.name, customId: user.customId }));
       const formData = new FormData();
       formData.append("image", imageFile);
@@ -83,6 +85,7 @@ export const UserProfile = ({user,colWidthUser}) => {
 
   const handleUserImageClick = () => {
     // navigate(`/userTransaction`, {state:user});
+    // navigate(`/userTransaction`, {state:transaction});
     navigate('/userTransaction');
     dispatch(selectUser(user));
   }
@@ -98,32 +101,12 @@ export const UserProfile = ({user,colWidthUser}) => {
           roundedCircle
           onClick={handleUserImageClick}
         />
-        {isHovered && (
-          <div className="topRightUserIcons">
-            <input
-              style={{ display: 'none' }}
-              ref={inputRef}
-              type="file"
-              onChange={handleFileChange}
-            />
-            <Button className="change-photo" variant='outline-primary' onClick={handlePhotoUpdate}>
-            <Image
-                className="change-photo-image"
-                src="change photo.png"
-                alt="Change Photo"
-                roundedCircle
-              />
-            </Button>
-            <Button className="cross-button" variant='outline-primary' onClick={handleDelete}>
-              <Image
-                className="cross-button-image"
-                src="cross button.png"
-                alt="Cross Button"
-                roundedCircle
-              />
-            </Button>
-          </div>
-        )}
+        {isHovered && <UserTopRightIcons 
+        handleDelete={handleDelete} 
+        handlePhotoUpdate={handlePhotoUpdate} 
+        handleFileChange={handleFileChange} 
+        inputRef={inputRef}/>
+        }
         <h1><input type="text" value={editedName} onChange={handleNameChange} onBlur={handleNameUpdate} /></h1>
       </div>
 

@@ -14,8 +14,8 @@ exports.getTransaction = async (req, res, next) => {
 };
 exports.addTransaction = async (req, res, next) => {
     try {
-        const { userNameCustomId, userName, title, category, type, currency, amount, description } = req.body;
-        const transaction = await transactionModel.create({ userNameCustomId, userName, title, category, type, currency, amount, description });
+        const { userNameCustomId, userName, customId, title, category, type, currency, amount, description } = req.body;
+        const transaction = await transactionModel.create({ userNameCustomId, userName, customId, title, category, type, currency, amount, description });
         return res.status(201).json({
             success: true,
             data: transaction
@@ -27,7 +27,7 @@ exports.addTransaction = async (req, res, next) => {
 exports.deleteTransaction = async (req, res, next) => {
     try {
         // const transaction = await transactionModel.findByIdAndRemove(req.params.idFromFrontEnd);
-        const transaction = await transactionModel.findOneAndDelete({ userNameCustomId: req.params.idFromFrontEnd });
+        const transaction = await transactionModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
 
         console.log('req.params.idFromFrontEnd')
         console.log(req.params.idFromFrontEnd)
