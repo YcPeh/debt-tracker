@@ -11,7 +11,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 export const MainContainer = () => {
   const { userInfo, showForm } = useSelector((store) => store.user);
   const navigate = useNavigate();
-  console.log('userInfo inside MainContainer.js but outside of Routes and Container')
+  console.log('userInfo inside MainContainer.js but outside of return statement')
   console.log(userInfo)
   const renderUserProfiles = () => {
     const rows = [];
@@ -63,7 +63,7 @@ export const MainContainer = () => {
 
   return (
     <Container>
-        {console.log('inside Routes of MainContainer.js')}
+        {console.log('inside return statement of MainContainer.js')}
         {userInfo !== null && renderUserProfiles()}
     </Container>
   );

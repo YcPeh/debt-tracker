@@ -44,7 +44,7 @@ function App() {
   //     .catch((err) => console.log(err, "it has an error"));
   // },[]);
 
-
+  console.log('App.js')
   return (
     // <>
     //   <MainContainer/>

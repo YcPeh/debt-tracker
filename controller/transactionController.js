@@ -48,3 +48,27 @@ exports.deleteTransaction = async (req, res, next) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.updateTransaction = async (req, res, next) => {
+    try {
+        console.log('req.body')
+        console.log(req.body)
+        console.log('req.params')
+        console.log(req.params)
+        const { idFromFrontEnd } = req.params;
+        const { userNameCustomId, userName, customId, title, category, type, currency, amount, description } = req.body;
+        const updatedUser = await transactionModel.findOneAndUpdate({ customId: idFromFrontEnd }, { title, category, type, currency, amount, description }, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({
+                success: false,
+                error: 'User not found',
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: updatedUser,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

@@ -37,8 +37,8 @@ export const UserProfile = ({user,colWidthUser}) => {
     }
   };
   
-  const handlePhotoUpdate = async (e) => {
-    console.log('handlePhotoUpdate')
+  const handleUpdate = async (e) => {
+    console.log('handleUpdate')
     inputRef.current.click();
   }
 
@@ -103,7 +103,7 @@ export const UserProfile = ({user,colWidthUser}) => {
         />
         {isHovered && <UserTopRightIcons 
         handleDelete={handleDelete} 
-        handlePhotoUpdate={handlePhotoUpdate} 
+        handleUpdate={handleUpdate} 
         handleFileChange={handleFileChange} 
         inputRef={inputRef}/>
         }

@@ -4,51 +4,91 @@ import { UserTransaction } from "./UserTransaction";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addTransaction } from "../features/transaction/transactionSlice";
+import { addTransaction, updateTransaction } from "../features/transaction/transactionSlice";
 
 export const UserTransactionForm = () => {
     const [show, setShow] = useState(true);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
-    const { category, userNameCustomId, userName } = location.state || {};
+    const { userNameCustomId,
+        userName,
+        title,
+        category,
+        type,
+        currency,
+        amount,
+        description,
+        customId, } = location.state || {};
+
+    const [isEditMode, setIsEditMode] = useState(!!location.state?.title);
+
     const handleClose = () => {
         setShow(false);
         navigate('/userTransaction');
     }
     const handleShow = () => setShow(true);
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setShow(false);
-        
-        navigate('/userTransaction');
-        const title = e.target.elements.title.value;
-        const category = e.target.elements.category.value;
-        const type = e.target.elements.type.value;
-        const currency = e.target.elements.currency.value;
-        const amount = e.target.elements.amount.value;
-        const description = e.target.elements.description.value;
-        const customId = new Date().getTime().toString();
 
-        const data = {
-            userNameCustomId,
-            userName,
-            title,
-            category,
-            type,
-            currency,
-            amount,
-            description,
-            customId,
-        };
-        dispatch(addTransaction(data))
-        console.log('before axios post')
-        const res = await axios.post('http://localhost:5000/userTransaction', data, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        console.log('after axios post');
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            setShow(false);
+
+            navigate('/userTransaction');
+            const title = e.target.elements.title.value;
+            const category = e.target.elements.category.value;
+            const type = e.target.elements.type.value;
+            const currency = e.target.elements.currency.value;
+            const amount = e.target.elements.amount.value;
+            const description = e.target.elements.description.value;
+
+            console.log('customId inside handleSubmit')
+            console.log(customId)
+            if (isEditMode) {
+                // const customId = customId
+
+                const data = {
+                    userNameCustomId,
+                    userName,
+                    title,
+                    category,
+                    type,
+                    currency,
+                    amount,
+                    description,
+                    customId,
+                };
+                dispatch(updateTransaction(data))
+                const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+            } else {
+                const customId = new Date().getTime().toString();
+
+                const data = {
+                    userNameCustomId,
+                    userName,
+                    title,
+                    category,
+                    type,
+                    currency,
+                    amount,
+                    description,
+                    customId,
+                };
+                dispatch(addTransaction(data))
+                const res = await axios.post('http://localhost:5000/userTransaction', data, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -63,7 +103,7 @@ export const UserTransactionForm = () => {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group as={Row} className="mb-3" controlId="title">
                             <Form.Label column sm={2}>Title:</Form.Label>
-                            <Col sm={10}><Form.Control type="text" /></Col>
+                            <Col sm={10}><Form.Control type="text" defaultValue={title} /></Col>
                         </Form.Group>
                         <FloatingLabel className="mb-3" controlId="category" label="Category">
                             <Form.Select aria-label="Floating label select example" defaultValue={category}>
@@ -72,25 +112,25 @@ export const UserTransactionForm = () => {
                             </Form.Select>
                         </FloatingLabel>
                         <FloatingLabel className="mb-3" controlId="type" label="Type">
-                            <Form.Select aria-label="Floating label select example">
+                            <Form.Select aria-label="Floating label select example" defaultValue={type}>
                                 <option value="Consumables">Consumables</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Online Transfer">Online Transfer</option>
                             </Form.Select>
                         </FloatingLabel>
                         <FloatingLabel className="mb-3" controlId="currency" label="Currency">
-                            <Form.Select aria-label="Floating label select example">
+                            <Form.Select aria-label="Floating label select example" defaultValue={currency}>
                                 <option value="RM">RM</option>
                                 <option value="THB">THB</option>
                             </Form.Select>
                         </FloatingLabel>
                         <Form.Group as={Row} className="mb-3" controlId="amount">
                             <Form.Label column sm={2}>Amount:</Form.Label>
-                            <Col sm={10}><Form.Control type="number" /></Col>
+                            <Col sm={10}><Form.Control type="number" defaultValue={amount} /></Col>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="description">
                             <Form.Label>Description:</Form.Label>
-                            <Form.Control as="textarea" rows={4} />
+                            <Form.Control as="textarea" rows={4} defaultValue={description} />
                         </Form.Group>
                         <Form.Group as={Row}>
                             <Col className="p-0" xs={{ span: 2, offset: 8 }}>
@@ -99,9 +139,15 @@ export const UserTransactionForm = () => {
                                 </Button>
                             </Col>
                             <Col className="p-0" xs={{ span: 2, offset: 0 }}>
-                                <Button variant="primary" type="submit">
-                                    Submit
-                                </Button>
+                                {isEditMode ? (
+                                    <Button variant="primary" type="submit">
+                                        Edit
+                                    </Button>
+                                ) : (
+                                    <Button variant="primary" type="submit">
+                                        Add
+                                    </Button>
+                                )}
                             </Col>
                         </Form.Group>
                     </Form>
