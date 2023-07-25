@@ -1,31 +1,34 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    userNameCustomId:{
+    userNameCustomId: {
         type: String,
         // required:[true, 'Mongoose backend require name of user']
     },
-    userName:{
+    userName: {
         type: String,
         // required:[true, 'Mongoose backend require name of user']
     },
-    title:{
-        type:String,
+    customId: {
+        type: String,
     },
-    category:{
-        type:String,
+    title: {
+        type: String,
     },
-    type:{
-        type:String,
+    category: {
+        type: String,
     },
-    currency:{
-        type:String,
+    type: {
+        type: String,
     },
-    amount:{
-        type:Number,
+    currency: {
+        type: String,
     },
-    description:{
-        type:String,
+    amount: {
+        type: Number,
+    },
+    description: {
+        type: String,
     },
 })
 

@@ -3,13 +3,15 @@ import { Button, Col, FloatingLabel, Form, Modal, Row } from "react-bootstrap"
 import { UserTransaction } from "./UserTransaction";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addTransaction } from "../features/transaction/transactionSlice";
 
 export const UserTransactionForm = () => {
     const [show, setShow] = useState(true);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
     const { category, userNameCustomId, userName } = location.state || {};
-
     const handleClose = () => {
         setShow(false);
         navigate('/userTransaction');
@@ -18,26 +20,15 @@ export const UserTransactionForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShow(false);
+        
         navigate('/userTransaction');
         const title = e.target.elements.title.value;
         const category = e.target.elements.category.value;
         const type = e.target.elements.type.value;
         const currency = e.target.elements.currency.value;
+        const amount = e.target.elements.amount.value;
         const description = e.target.elements.description.value;
-        console.log('title')
-        console.log(title)
-        console.log('category')
-        console.log(category)
-        console.log('type')
-        console.log(type)
-        console.log('currency')
-        console.log(currency)
-        console.log('description')
-        console.log(description)
-        console.log('userNameCustomId')
-        console.log(userNameCustomId)
-        console.log('userName')
-        console.log(userName)
+        const customId = new Date().getTime().toString();
 
         const data = {
             userNameCustomId,
@@ -46,8 +37,11 @@ export const UserTransactionForm = () => {
             category,
             type,
             currency,
+            amount,
             description,
+            customId,
         };
+        dispatch(addTransaction(data))
         console.log('before axios post')
         const res = await axios.post('http://localhost:5000/userTransaction', data, {
             headers: {

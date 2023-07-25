@@ -1,23 +1,114 @@
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { useLocation, useParams } from "react-router-dom";
 import { AddButton } from "./AddButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
+import { deleteTransaction, initiliaseTransaction } from "../features/transaction/transactionSlice";
+import { DeleteButton } from "./DeleteButton";
 
-export const UserTransaction = () => {
+export const UserTransaction = () =>{ 
     // const location = useLocation();
     // const user = location.state || {}; 
-    // const { name, customId } = user;
+    // console.log('user in UserTransaction')
+    // console.log(user)
     const { selectedUserInfo } = useSelector((store) => store.user);
+    const { transaction } = useSelector((store) => store.transaction);
+    console.log('transaction in UserTransaction start')
+    console.log(transaction)
+    const dispatch = useDispatch();
 
+    const getData = async () => {
+        try {
+            const res = await axios.get('http://localhost:5000/userTransaction')
+            const transaction = res.data.data.map(({
+                userName, userNameCustomId, customId, title, category, type, currency, amount, description,
+            }) => ({
+                userName, userNameCustomId, customId, title, category, type, currency, amount, description,
+            }));
+            dispatch(initiliaseTransaction(transaction));
+        } catch (error) {
+            console.log(error)
+        }
+
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
 
 
     const { name, customId } = selectedUserInfo || {};
     if (!name || !customId) {
-        return <div>Loading...</div>
+        return <div>Loading selectedUserInfo from Redux store, go check redux console...</div>
     }
 
-    console.log('selectedUserInfo in UserTransaction')
-    console.log(selectedUserInfo)
+    const handleDelete = async (customId) => {
+        try {
+            console.log('customId in handleDelete of UserTransaction')
+            console.log(customId)
+            await axios.delete(`http://localhost:5000/userTransaction/${customId}`);
+            dispatch(deleteTransaction(customId))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleTransaction = (category) => {
+        return (
+            transaction && transaction.map((trans, index) => {
+                if (trans.userNameCustomId === selectedUserInfo.customId) {
+                    if (trans.category === category) {
+                        const bodyInfo = [
+                            { label: 'type', value: trans.type },
+                            { label: 'category', value: trans.category },
+                            { label: 'description', value: trans.description },
+                        ];
+                        return (
+                            <Accordion key={trans.customId}>
+                                <Accordion.Item eventKey={trans.customId}>
+                                    <Row>
+                                        <Col className="p-0 d-flex justify-content-center align-items-center" xs={{ span: 2, offset: 0 }}>
+                                            <DeleteButton handleDelete={()=>handleDelete(trans.customId)} key={trans.customId}/>
+                                        </Col>
+                                        <Col xs={{ span: 10, offset: 0 }}>
+                                            <Accordion.Header>
+                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 6, offset: 0 }}>
+                                                    {trans.title}
+                                                </Col>
+                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
+                                                    |
+                                                </Col>
+                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 3, offset: 0 }}>
+                                                    {trans.currency} {trans.amount}
+                                                </Col>
+                                            </Accordion.Header>
+                                        </Col>
+                                    </Row>
+                                    <Accordion.Body>
+                                        {bodyInfo.map((info, innerIndex) => (
+                                            <Row key={innerIndex}>
+                                                <Col className="p-0 d-flex justify-content-end" xs={{ span: 3, offset: 0 }}>
+                                                    {info.label}
+                                                </Col>
+                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
+                                                    :
+                                                </Col>
+                                                <Col className="p-0 d-flex justify-content-start" xs={{ span: 8, offset: 0 }}>
+                                                    {info.value}
+                                                </Col>
+                                            </Row>
+                                        ))}
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        )
+                    }
+                }
+            })
+        )
+    }
+    console.log('transaction in UserTransaction end (before return)')
 
     return (
         <Container fluid>
@@ -33,36 +124,11 @@ export const UserTransaction = () => {
                             <h1>Debts</h1>
                         </Col>
                         <Col xs={2}>
-                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{category:'debts',userNameCustomId:customId, userName:name}}/>
+                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{ category: 'Debts', userNameCustomId: customId, userName: name }} />
                         </Col>
                     </Row>
                     <Row>
-                        <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>Accordion Item #1</Accordion.Header>
-                                <Accordion.Body>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum.
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Accordion Item #2</Accordion.Header>
-                                <Accordion.Body>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum.
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
+                        {handleTransaction('Debts')}
                     </Row>
                 </section>
                 <div className="vl"></div>
@@ -72,16 +138,15 @@ export const UserTransaction = () => {
                             <h1>Repayments</h1>
                         </Col>
                         <Col xs={2}>
-                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{category:'repayments',userNameCustomId:customId, userName:name}}/>
+                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{ category: 'Repayments', userNameCustomId: customId, userName: name }} />
                         </Col>
                     </Row>
-                    <p>haha</p>
-                    <p>haha</p>
-                    <p>haha</p>
+                    <Row>
+                        {handleTransaction('Repayments')}
+                    </Row>
                 </section>
 
             </div>
-            {console.log('UserTransaction end')}
         </Container>
 
     );

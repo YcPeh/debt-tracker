@@ -24,13 +24,16 @@ export const UserRegisterForm = () => {
             const imageFileName = e.target.elements.imageFile.files[0].name;
             const timeForCustomId = new Date().getTime().toString();
 
-            dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
-            console.log('dispatch addUserInfo');
+            // dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
+            // console.log('dispatch addUserInfo');
 
             // dispatch(closeForm())
 
             navigate('/');
             console.log('navigate to /');
+
+            dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
+            console.log('dispatch addUserInfo');
 
             const formData = new FormData();
             formData.append('name', name);
