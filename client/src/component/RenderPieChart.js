@@ -1,11 +1,11 @@
 import React from 'react';
 import { BarChart } from './BarChart';
 
-const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
-    console.log('totalDebt')
-    console.log(totalDebt)
-    console.log('remainingDebt')
-    console.log(remainingDebt)
+const RenderPieChart = ({ totalDebt, remainingDebt, labels }) => {
+    // console.log('totalDebt')
+    // console.log(totalDebt)
+    // console.log('remainingDebt')
+    // console.log(remainingDebt)
     const colorForRemainingDebt = remainingDebt > 0 ? 'red' : 'orange';
     const data = {
         labels: [labels],

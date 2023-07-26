@@ -4,7 +4,7 @@ import { UserTransaction } from "./UserTransaction";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addTransaction, updateTransaction } from "../features/transaction/transactionSlice";
+import { addTransaction, calculateDebtRepaymentBalance, updateTransaction } from "../features/transaction/transactionSlice";
 
 export const UserTransactionForm = () => {
     const [show, setShow] = useState(true);
@@ -33,8 +33,9 @@ export const UserTransactionForm = () => {
         try {
             e.preventDefault();
             setShow(false);
-
-            navigate('/userTransaction');
+            console.log('handleSubmit')
+            // navigate('/userTransaction');
+            navigate(`/userTransaction`, {state:userNameCustomId});
             const title = e.target.elements.title.value;
             const category = e.target.elements.category.value;
             const type = e.target.elements.type.value;
@@ -56,7 +57,10 @@ export const UserTransactionForm = () => {
                     description,
                     customId,
                 };
+                console.log('userNameCustomId to pass in calculateDebtRepaymentBalance after submit EDIT')
+                console.log(userNameCustomId)
                 dispatch(updateTransaction(data))
+                dispatch(calculateDebtRepaymentBalance(userNameCustomId));
                 const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
                     headers: {
                         "Content-Type": "application/json",
@@ -77,6 +81,7 @@ export const UserTransactionForm = () => {
                     customId,
                 };
                 dispatch(addTransaction(data))
+                dispatch(calculateDebtRepaymentBalance(userNameCustomId));
                 const res = await axios.post('http://localhost:5000/userTransaction', data, {
                     headers: {
                         "Content-Type": "application/json",
@@ -124,7 +129,7 @@ export const UserTransactionForm = () => {
                         </FloatingLabel>
                         <Form.Group as={Row} className="mb-3" controlId="amount">
                             <Form.Label column sm={2}>Amount:</Form.Label>
-                            <Col sm={10}><Form.Control type="number" defaultValue={amount} /></Col>
+                            <Col sm={10}><Form.Control type="number" step="0.01" defaultValue={amount} /></Col>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="description">
                             <Form.Label>Description:</Form.Label>

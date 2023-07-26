@@ -2,23 +2,23 @@ import React from 'react';
 import { BarChart } from './BarChart';
 
 const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
-    console.log('totalDebt')
-    console.log(totalDebt)
-    console.log('remainingDebt')
-    console.log(remainingDebt)
+    // console.log('totalDebt')
+    // console.log(totalDebt)
+    // console.log('remainingDebt')
+    // console.log(remainingDebt)
     const colorForRemainingDebt = remainingDebt > 0 ? 'red' : 'orange';
     const data = {
         labels: [labels],
         datasets: [
             {
-                label: `Remaining Debt (${remainingDebt})`,
+                label: ['[Remaining Debt]', [`(${remainingDebt})`]],
                 data: [remainingDebt],
                 // backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 backgroundColor: colorForRemainingDebt,
                 borderWidth: 1,
             },
             {
-                label: `Total Debt  (${totalDebt})`,
+                label: [['Total Debt'], [`(${totalDebt})`]],
                 data: [totalDebt],
                 // backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 backgroundColor: 'blue',
@@ -34,7 +34,13 @@ const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
             legend: {
                 // display: false,
                 position: 'bottom',
-                // align: 'start',
+                padding: 25,
+                align: 'start',
+                labels:{
+                    // padding:25,
+                    boxHeight:30,
+                    // boxHeight:(context) => context?.font?.size * 2,
+                }
             },
             title: {
                 display: false,
@@ -47,7 +53,8 @@ const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
                 stacked: true,
             },
             y: {
-                stacked: true,
+                // stacked: true,
+                stacked: false,
             },
         },
         // layout: {
@@ -61,17 +68,17 @@ const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
         //     intersect: true
         // },
         maintainAspectRatio: false,
-        callbacks: {
-            footer: (context) => {
-                const data = context.dataset.data;
-                if (data.length > 0) {
-                    const remainingDebt = data[0];
-                    const totalDebt = data[1];
-                    return `Remaining Debt: ${remainingDebt}\nTotal Debt: ${totalDebt}`;
-                }
-                return '';
-            },
-        },
+        // callbacks: {
+        //     footer: (context) => {
+        //         const data = context.dataset.data;
+        //         if (data.length > 0) {
+        //             const remainingDebt = data[0];
+        //             const totalDebt = data[1];
+        //             return `Remaining Debt: ${remainingDebt}\nTotal Debt: ${totalDebt}`;
+        //         }
+        //         return '';
+        //     },
+        // },
     };
 
     return <BarChart data={data} options={options} />;
