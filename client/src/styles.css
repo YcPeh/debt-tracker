@@ -82,7 +82,8 @@ h5,
 }
 
 .cross-button,
-.change-photo {
+.change-photo,
+.home-button {
     width: calc(var(--user-image-container-size) / 10);
     height: calc(var(--user-image-container-size) / 10);
     display: flex;
@@ -90,7 +91,8 @@ h5,
 }
 
 .cross-button-image,
-.change-photo-image {
+.change-photo-image,
+.home-button-image {
     width: 100%;
     height: 100%;
     /* z-index: 3; */
@@ -154,3 +156,7 @@ section {
     background-color: #29008a;
     box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
 } */
+
+.bar-chart {
+    height:20vh;
+}

@@ -45,8 +45,6 @@ export const UserTransactionForm = () => {
             console.log('customId inside handleSubmit')
             console.log(customId)
             if (isEditMode) {
-                // const customId = customId
-
                 const data = {
                     userNameCustomId,
                     userName,

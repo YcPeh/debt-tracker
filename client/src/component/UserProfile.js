@@ -1,11 +1,12 @@
 import { Button, Col, Image } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import '../styles.css';
+// import '../styles.css';
 import { useState, useRef } from "react";
 import axios from "axios";
 import { deleteUserInfo, selectUser, updateUserPhoto } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { UserTopRightIcons } from "./UserTopRightIcons";
+import { calculateDebtRepaymentBalance } from "../features/transaction/transactionSlice";
 
 export const UserProfile = ({user,colWidthUser}) => {
   const [isHovered, setIsHovered] = useState(false);

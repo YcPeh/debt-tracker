@@ -8,6 +8,10 @@ Image and File Uploading in React JS with Axios and FormData
 - https://youtu.be/YOGgaYUW1OA
 Open a file input box on button click in React
 - https://bobbyhadz.com/blog/react-open-file-input-on-button-click#:~:text=To%20open%20a%20file%20input,prop%20on%20the%20file%20input.
+ChartJS
+- npm i react-chartjs-2 chart.js
+- https://www.npmjs.com/package/react-chartjs-2
+- https://www.chartjs.org/docs/latest/ 
 
 # Getting Started with Create React App
 

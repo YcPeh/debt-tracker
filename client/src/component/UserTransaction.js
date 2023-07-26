@@ -4,9 +4,11 @@ import { AddButton } from "./AddButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
-import { deleteTransaction, initiliaseTransaction } from "../features/transaction/transactionSlice";
+import { calculateDebtRepaymentBalance, deleteTransaction, initiliaseTransaction } from "../features/transaction/transactionSlice";
 import { DeleteButton } from "./DeleteButton";
 import { EditButton } from "./EditButton";
+import { HomeButton } from "./HomeButton";
+import RenderBarChart from "./RenderBarChart";
 
 export const UserTransaction = () =>{ 
     // const location = useLocation();
@@ -14,7 +16,7 @@ export const UserTransaction = () =>{
     // console.log('user in UserTransaction')
     // console.log(user)
     const { selectedUserInfo } = useSelector((store) => store.user);
-    const { transaction } = useSelector((store) => store.transaction);
+    const { transaction, debtRepayment} = useSelector((store) => store.transaction);
     console.log('transaction in UserTransaction start')
     console.log(transaction)
     const dispatch = useDispatch();
@@ -29,6 +31,7 @@ export const UserTransaction = () =>{
                 userName, userNameCustomId, customId, title, category, type, currency, amount, description,
             }));
             dispatch(initiliaseTransaction(transaction));
+            dispatch(calculateDebtRepaymentBalance());
         } catch (error) {
             console.log(error)
         }
@@ -51,6 +54,7 @@ export const UserTransaction = () =>{
             console.log(customId);
             await axios.delete(`http://localhost:5000/userTransaction/${customId}`);
             dispatch(deleteTransaction(customId));
+            dispatch(calculateDebtRepaymentBalance());
         } catch (error) {
             console.log(error);
         }
@@ -97,7 +101,7 @@ export const UserTransaction = () =>{
                                         </Col>
                                         <Col xs={{ span: 9, offset: 0 }}>
                                             <Accordion.Header>
-                                                <Col className="p-0 d-flex justify-content-center" xs={{ span: 5, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-center text-center" xs={{ span: 5, offset: 0 }}>
                                                     {trans.title}
                                                 </Col>
                                                 <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
@@ -136,6 +140,19 @@ export const UserTransaction = () =>{
 
     return (
         <Container fluid>
+            <Row>
+                <Col className="d-flex justify-content-end" xs={{ offset: 11, span: 1 }}>
+                    <HomeButton linkToRoute={'/'}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={{span:3, offset:3}}>
+                    <RenderBarChart totalDebt={debtRepayment.totalDebtRM} remainingDebt={debtRepayment.totalDebtRM-debtRepayment.totalRepayRM} labels='Debts (RM)'/>
+                </Col>
+                <Col xs={{span:3, offset:0}}>
+                    <RenderBarChart totalDebt={debtRepayment.totalDebtTHB} remainingDebt={debtRepayment.totalDebtTHB-debtRepayment.totalRepayTHB} labels='Debts (THB)'/>
+                </Col>
+            </Row>
             <Row>
                 <Col xs={12}><center><h1>{name}</h1></center></Col>
             </Row>
