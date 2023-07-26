@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    transaction:null,
+    transaction: [],
+    debtRepayment: [],
 }
 
 const transactionSlice = createSlice({
@@ -27,8 +28,81 @@ const transactionSlice = createSlice({
             console.log('action.payload in updateTransaction')
             console.log(action.payload)
         },
+        // calculateDebtRepaymentBalance: (state, action) => {
+        //     const totalDebtRM = state.transaction.reduce((total,trans) => {
+        //         if (trans.category === 'Debts' && trans.currency === 'RM') {
+        //             return total + trans.amount;
+        //         }
+        //         return total;
+        //     },0)
+        //     const totalDebtTHB = state.transaction.reduce((total,trans) => {
+        //         if (trans.category === 'Debts' && trans.currency === 'THB') {
+        //             return total + trans.amount;
+        //         }
+        //         return total;
+        //     },0)
+        //     const totalRepayRM = state.transaction.reduce((total,trans) => {
+        //         if (trans.category === 'Repayments' && trans.currency === 'RM') {
+        //             return total + trans.amount;
+        //         }
+        //         return total;
+        //     },0)
+        //     const totalRepayTHB = state.transaction.reduce((total,trans) => {
+        //         if (trans.category === 'Repayments' && trans.currency === 'THB') {
+        //             return total + trans.amount;
+        //         }
+        //         return total;
+        //     },0)
+        //     console.log('totalDebtRM')
+        //     console.log(totalDebtRM)
+        //     console.log('totalDebtTHB')
+        //     console.log(totalDebtTHB)
+        //     console.log('totalRepayRM')
+        //     console.log(totalRepayRM)
+        //     console.log('totalRepayTHB')
+        //     console.log(totalRepayTHB)
+        //     const debtRepayment = {
+        //         totalDebtRM,
+        //         totalDebtTHB,
+        //         totalRepayRM,
+        //         totalRepayTHB,
+        //     }
+        //     state.debtRepayment = debtRepayment;
+        // },
+        calculateDebtRepaymentBalance: (state, action) => {
+            const debtRepayment = {
+                totalDebtRM: 0,
+                totalDebtTHB: 0,
+                totalRepayRM: 0,
+                totalRepayTHB: 0,
+            };
+
+            state.transaction.forEach((trans) => {
+                if (trans.category === 'Debts') {
+                    if (trans.currency === 'RM') {
+                        debtRepayment.totalDebtRM += trans.amount;
+                    } else if (trans.currency === 'THB') {
+                        debtRepayment.totalDebtTHB += trans.amount;
+                    }
+                } else if (trans.category === 'Repayments') {
+                    if (trans.currency === 'RM') {
+                        debtRepayment.totalRepayRM += trans.amount;
+                    } else if (trans.currency === 'THB') {
+                        debtRepayment.totalRepayTHB += trans.amount;
+                    }
+                }
+            });
+
+            console.log('totalDebtRM', debtRepayment.totalDebtRM);
+            console.log('totalDebtTHB', debtRepayment.totalDebtTHB);
+            console.log('totalRepayRM', debtRepayment.totalRepayRM);
+            console.log('totalRepayTHB', debtRepayment.totalRepayTHB);
+
+            state.debtRepayment = debtRepayment;
+        },
+
     }
 });
 
-export const { initiliaseTransaction, addTransaction, deleteTransaction, updateTransaction } = transactionSlice.actions;
+export const { initiliaseTransaction, addTransaction, deleteTransaction, updateTransaction, calculateDebtRepaymentBalance } = transactionSlice.actions;
 export default transactionSlice.reducer;
