@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     transaction: [],
+    // selectedTransaction: [],
     debtRepayment: [],
 }
 
@@ -70,6 +71,9 @@ const transactionSlice = createSlice({
         //     state.debtRepayment = debtRepayment;
         // },
         calculateDebtRepaymentBalance: (state, action) => {
+            const userNameCustomId = action.payload;
+            console.log('userNameCustomId in calculateDebtRepaymentBalance reducer')
+            console.log(userNameCustomId)
             const debtRepayment = {
                 totalDebtRM: 0,
                 totalDebtTHB: 0,
@@ -77,18 +81,35 @@ const transactionSlice = createSlice({
                 totalRepayTHB: 0,
             };
 
+            // const transType = {
+            //     debtConsumablesRM: 0,
+            //     debtCashRM:0,
+            //     debtOnlineTransferRM:0,
+            //     debtConsumablesTHB: 0,
+            //     debtCashTHB:0,
+            //     debtOnlineTransferTHB:0,
+            //     repayConsumablesRM: 0,
+            //     repayCashRM:0,
+            //     repayOnlineTransferRM:0,
+            //     repayConsumablesTHB: 0,
+            //     repayCashTHB:0,
+            //     repayOnlineTransferTHB:0,
+            // };
+
             state.transaction.forEach((trans) => {
-                if (trans.category === 'Debts') {
-                    if (trans.currency === 'RM') {
-                        debtRepayment.totalDebtRM += trans.amount;
-                    } else if (trans.currency === 'THB') {
-                        debtRepayment.totalDebtTHB += trans.amount;
-                    }
-                } else if (trans.category === 'Repayments') {
-                    if (trans.currency === 'RM') {
-                        debtRepayment.totalRepayRM += trans.amount;
-                    } else if (trans.currency === 'THB') {
-                        debtRepayment.totalRepayTHB += trans.amount;
+                if (trans.userNameCustomId === userNameCustomId) {
+                    if (trans.category === 'Debts') {
+                        if (trans.currency === 'RM') {
+                            debtRepayment.totalDebtRM += trans.amount;
+                        } else if (trans.currency === 'THB') {
+                            debtRepayment.totalDebtTHB += trans.amount;
+                        }
+                    } else if (trans.category === 'Repayments') {
+                        if (trans.currency === 'RM') {
+                            debtRepayment.totalRepayRM += trans.amount;
+                        } else if (trans.currency === 'THB') {
+                            debtRepayment.totalRepayTHB += trans.amount;
+                        }
                     }
                 }
             });
@@ -99,6 +120,9 @@ const transactionSlice = createSlice({
             console.log('totalRepayTHB', debtRepayment.totalRepayTHB);
 
             state.debtRepayment = debtRepayment;
+
+
+
         },
 
     }

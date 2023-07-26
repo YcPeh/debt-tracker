@@ -11,14 +11,15 @@ import { HomeButton } from "./HomeButton";
 import RenderBarChart from "./RenderBarChart";
 
 export const UserTransaction = () =>{ 
-    // const location = useLocation();
-    // const user = location.state || {}; 
-    // console.log('user in UserTransaction')
-    // console.log(user)
+    const location = useLocation();
+    const userNameCustomId = location.state || {}; 
+    console.log('userNameCustomId in UserTransaction')
+    console.log(userNameCustomId)
     const { selectedUserInfo } = useSelector((store) => store.user);
     const { transaction, debtRepayment} = useSelector((store) => store.transaction);
-    console.log('transaction in UserTransaction start')
-    console.log(transaction)
+    // console.log('transaction in UserTransaction start')
+    // console.log(transaction)
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ export const UserTransaction = () =>{
                 userName, userNameCustomId, customId, title, category, type, currency, amount, description,
             }));
             dispatch(initiliaseTransaction(transaction));
-            dispatch(calculateDebtRepaymentBalance());
+            dispatch(calculateDebtRepaymentBalance(userNameCustomId));
         } catch (error) {
             console.log(error)
         }
@@ -50,20 +51,20 @@ export const UserTransaction = () =>{
 
     const handleDelete = async (customId) => {
         try {
-            console.log('customId in handleDelete of UserTransaction');
-            console.log(customId);
+            // console.log('customId in handleDelete of UserTransaction');
+            // console.log(customId);
             await axios.delete(`http://localhost:5000/userTransaction/${customId}`);
             dispatch(deleteTransaction(customId));
-            dispatch(calculateDebtRepaymentBalance());
+            dispatch(calculateDebtRepaymentBalance(userNameCustomId));
         } catch (error) {
             console.log(error);
         }
     }
 
     const handleUpdate = (props) => {
-        console.log('handleUpdate')
-        console.log('props')
-        console.log(props)
+        // console.log('handleUpdate')
+        // console.log('props')
+        // console.log(props)
         navigate('/userTransaction/userTransactionForm', {state: props})
     }
 
@@ -136,7 +137,7 @@ export const UserTransaction = () =>{
             })
         )
     }
-    console.log('transaction in UserTransaction end (before return)')
+    // console.log('transaction in UserTransaction end (before return)')
 
     return (
         <Container fluid>
