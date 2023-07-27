@@ -5,9 +5,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addTransaction, calculateDebtRepaymentBalance, updateTransaction } from "../features/transaction/transactionSlice";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const UserTransactionForm = () => {
     const [show, setShow] = useState(true);
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
@@ -25,31 +28,50 @@ export const UserTransactionForm = () => {
 
     const handleClose = () => {
         setShow(false);
-        navigate('/userTransaction');
+        // navigate('/userTransaction');
+        navigate(`/userTransaction`, { state: userNameCustomId });
+
     }
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
 
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            setShow(false);
-            console.log('handleSubmit')
-            // navigate('/userTransaction');
-            navigate(`/userTransaction`, {state:userNameCustomId});
+            handleClose();
             const title = e.target.elements.title.value;
+            const timeZone = 'Asia/Kuala_Lumpur';
+            const options = {
+                timeZone: timeZone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                // millisecond: 'numeric',
+                fractionalSecondDigits: 3,
+            };
+            const date = selectedDate.toLocaleString(undefined,options);
             const category = e.target.elements.category.value;
             const type = e.target.elements.type.value;
             const currency = e.target.elements.currency.value;
             const amount = e.target.elements.amount.value;
             const description = e.target.elements.description.value;
 
-            console.log('customId inside handleSubmit')
-            console.log(customId)
+            // console.log('date inside handleSubmit')
+            // console.log(date)
+            // console.log('Rawdate inside handleSubmit')
+            // console.log(Rawdate)
+            // console.log('dateLocale inside handleSubmit')
+            // console.log(dateLocale)
+            // console.log('typeof(date')
+            // console.log(typeof(date))
             if (isEditMode) {
                 const data = {
                     userNameCustomId,
                     userName,
                     title,
+                    date,
                     category,
                     type,
                     currency,
@@ -57,8 +79,8 @@ export const UserTransactionForm = () => {
                     description,
                     customId,
                 };
-                console.log('userNameCustomId to pass in calculateDebtRepaymentBalance after submit EDIT')
-                console.log(userNameCustomId)
+                // console.log('userNameCustomId to pass in calculateDebtRepaymentBalance after submit EDIT')
+                // console.log(userNameCustomId)
                 dispatch(updateTransaction(data))
                 dispatch(calculateDebtRepaymentBalance(userNameCustomId));
                 const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
@@ -73,6 +95,7 @@ export const UserTransactionForm = () => {
                     userNameCustomId,
                     userName,
                     title,
+                    date,
                     category,
                     type,
                     currency,
@@ -107,6 +130,17 @@ export const UserTransactionForm = () => {
                         <Form.Group as={Row} className="mb-3" controlId="title">
                             <Form.Label column sm={2}>Title:</Form.Label>
                             <Col sm={10}><Form.Control type="text" defaultValue={title} /></Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="date">
+                            <Form.Label column sm={2}>Date:</Form.Label>
+                            <Col sm={10}>
+                                <DatePicker
+                                    selected={selectedDate}
+                                    onChange={(date) => setSelectedDate(date)}
+                                    dateFormat="yyyy-MM-dd"
+                                    className="date"
+                                />
+                            </Col>
                         </Form.Group>
                         <FloatingLabel className="mb-3" controlId="category" label="Category">
                             <Form.Select aria-label="Floating label select example" defaultValue={category}>

@@ -12,6 +12,8 @@ ChartJS
 - npm i react-chartjs-2 chart.js
 - https://www.npmjs.com/package/react-chartjs-2
 - https://www.chartjs.org/docs/latest/ 
+How to Add Text in Center of Donut Chart in React Chart JS 2
+- https://youtu.be/IqlmFSII8AY
 
 # Getting Started with Create React App
 

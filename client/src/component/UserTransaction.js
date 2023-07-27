@@ -9,14 +9,15 @@ import { DeleteButton } from "./DeleteButton";
 import { EditButton } from "./EditButton";
 import { HomeButton } from "./HomeButton";
 import RenderBarChart from "./RenderBarChart";
+import RenderDoughnutChart from "./RenderDoughnutChart";
 
 export const UserTransaction = () =>{ 
     const location = useLocation();
     const userNameCustomId = location.state || {}; 
-    console.log('userNameCustomId in UserTransaction')
-    console.log(userNameCustomId)
+    // console.log('userNameCustomId in UserTransaction')
+    // console.log(userNameCustomId)
     const { selectedUserInfo } = useSelector((store) => store.user);
-    const { transaction, debtRepayment} = useSelector((store) => store.transaction);
+    const { transaction, debtRepayment, transType} = useSelector((store) => store.transaction);
     // console.log('transaction in UserTransaction start')
     // console.log(transaction)
 
@@ -27,9 +28,9 @@ export const UserTransaction = () =>{
         try {
             const res = await axios.get('http://localhost:5000/userTransaction')
             const transaction = res.data.data.map(({
-                userName, userNameCustomId, customId, title, category, type, currency, amount, description,
+                userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
             }) => ({
-                userName, userNameCustomId, customId, title, category, type, currency, amount, description,
+                userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
             }));
             dispatch(initiliaseTransaction(transaction));
             dispatch(calculateDebtRepaymentBalance(userNameCustomId));
@@ -44,7 +45,7 @@ export const UserTransaction = () =>{
     }, []);
 
 
-    const { name, customId } = selectedUserInfo || {};
+    const { name, customId } = selectedUserInfo;
     if (!name || !customId) {
         return <div>Loading selectedUserInfo from Redux store, go check redux console...</div>
     }
@@ -147,11 +148,33 @@ export const UserTransaction = () =>{
                 </Col>
             </Row>
             <Row>
-                <Col xs={{span:3, offset:3}}>
-                    <RenderBarChart totalDebt={debtRepayment.totalDebtRM} remainingDebt={debtRepayment.totalDebtRM-debtRepayment.totalRepayRM} labels='Debts (RM)'/>
+                <Col xs={{span:3, offset:0}}>
+                    <RenderDoughnutChart 
+                    ConsumablesRM={transType.debtConsumablesRM}
+                    CashRM={transType.debtCashRM}
+                    OnlineTransferRM={transType.debtOnlineTransferRM}
+                    ConsumablesTHB={transType.debtConsumablesTHB}
+                    CashTHB={transType.debtCashTHB}
+                    OnlineTransferTHB={transType.debtOnlineTransferTHB}
+                    title={'Debt Transaction Type'}
+                    />
                 </Col>
                 <Col xs={{span:3, offset:0}}>
-                    <RenderBarChart totalDebt={debtRepayment.totalDebtTHB} remainingDebt={debtRepayment.totalDebtTHB-debtRepayment.totalRepayTHB} labels='Debts (THB)'/>
+                    <RenderBarChart totalDebt={debtRepayment.totalDebtRM} remainingDebt={debtRepayment.totalDebtRM-debtRepayment.totalRepayRM} labels='Debts (RM)' currency={'RM'}/>
+                </Col>
+                <Col xs={{span:3, offset:0}}>
+                    <RenderBarChart totalDebt={debtRepayment.totalDebtTHB} remainingDebt={debtRepayment.totalDebtTHB-debtRepayment.totalRepayTHB} labels='Debts (THB)' currency={'THB'}/>
+                </Col>
+                <Col xs={{span:3, offset:0}}>
+                    <RenderDoughnutChart 
+                    ConsumablesRM={transType.repayConsumablesRM}
+                    CashRM={transType.repayCashRM}
+                    OnlineTransferRM={transType.repayOnlineTransferRM}
+                    ConsumablesTHB={transType.repayConsumablesTHB}
+                    CashTHB={transType.repayCashTHB}
+                    OnlineTransferTHB={transType.repayOnlineTransferTHB}
+                    title={'Repayment Transaction Type'}
+                    />
                 </Col>
             </Row>
             <Row>
