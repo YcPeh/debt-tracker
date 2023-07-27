@@ -14,8 +14,8 @@ exports.getTransaction = async (req, res, next) => {
 };
 exports.addTransaction = async (req, res, next) => {
     try {
-        const { userNameCustomId, userName, customId, title, category, type, currency, amount, description } = req.body;
-        const transaction = await transactionModel.create({ userNameCustomId, userName, customId, title, category, type, currency, amount, description });
+        const { userNameCustomId, userName, customId, title, date, category, type, currency, amount, description } = req.body;
+        const transaction = await transactionModel.create({ userNameCustomId, userName, customId, title, date, category, type, currency, amount, description });
         return res.status(201).json({
             success: true,
             data: transaction
@@ -56,8 +56,8 @@ exports.updateTransaction = async (req, res, next) => {
         console.log('req.params')
         console.log(req.params)
         const { idFromFrontEnd } = req.params;
-        const { userNameCustomId, userName, customId, title, category, type, currency, amount, description } = req.body;
-        const updatedUser = await transactionModel.findOneAndUpdate({ customId: idFromFrontEnd }, { title, category, type, currency, amount, description }, { new: true });
+        const { userNameCustomId, userName, customId, title, date, category, type, currency, amount, description } = req.body;
+        const updatedUser = await transactionModel.findOneAndUpdate({ customId: idFromFrontEnd }, { title, date, category, type, currency, amount, description }, { new: true });
         if (!updatedUser) {
             return res.status(404).json({
                 success: false,

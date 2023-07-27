@@ -1,7 +1,6 @@
-import React from 'react';
 import { BarChart } from './BarChart';
 
-const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
+const RenderBarChart = ({ totalDebt, remainingDebt, labels, currency }) => {
     // console.log('totalDebt')
     // console.log(totalDebt)
     // console.log('remainingDebt')
@@ -9,18 +8,19 @@ const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
     const colorForRemainingDebt = remainingDebt > 0 ? 'red' : 'orange';
     const data = {
         labels: [labels],
+        // labels: [''],
         datasets: [
             {
-                label: ['[Remaining Debt]', [`(${remainingDebt})`]],
+                label: [['Remaining Debt'], [`${currency} ${remainingDebt}`]],
+                // label: ['Remaining Debt'],
                 data: [remainingDebt],
-                // backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 backgroundColor: colorForRemainingDebt,
                 borderWidth: 1,
             },
             {
-                label: [['Total Debt'], [`(${totalDebt})`]],
+                label: [['Total Debt'], [`${currency} ${totalDebt}`]],
+                // label: ['Total Debt'],
                 data: [totalDebt],
-                // backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 backgroundColor: 'blue',
                 borderWidth: 1,
             },
@@ -32,20 +32,23 @@ const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
         indexAxis: 'x',
         plugins: {
             legend: {
-                // display: false,
                 position: 'bottom',
-                padding: 25,
                 align: 'start',
-                labels:{
-                    // padding:25,
-                    boxHeight:30,
-                    // boxHeight:(context) => context?.font?.size * 2,
-                }
+                labels: {
+                    boxHeight: 30,
+                    // font: {
+                    //     weight: 'bold',
+                    // },
+                },
+
             },
             title: {
-                display: false,
-                // text: `Remaining Debt: ${remainingDebt}\nTotal Debt: ${totalDebt}`,
-                // padding: { top: 10, bottom: 30 }, // Adjust the padding as needed
+                display: true,
+                text: labels,
+                font: {
+                    size: 18,
+                    weight: 'bold',
+                },
             },
         },
         scales: {
@@ -53,32 +56,11 @@ const RenderBarChart = ({ totalDebt, remainingDebt, labels }) => {
                 stacked: true,
             },
             y: {
-                // stacked: true,
                 stacked: false,
             },
         },
-        // layout: {
-        //     padding: {
-        //         top: 50, // Increase top padding to make the chart taller
-        //     },
-        // },
         responsive: true,
-        // interaction: {
-        //     mode: 'index',
-        //     intersect: true
-        // },
         maintainAspectRatio: false,
-        // callbacks: {
-        //     footer: (context) => {
-        //         const data = context.dataset.data;
-        //         if (data.length > 0) {
-        //             const remainingDebt = data[0];
-        //             const totalDebt = data[1];
-        //             return `Remaining Debt: ${remainingDebt}\nTotal Debt: ${totalDebt}`;
-        //         }
-        //         return '';
-        //     },
-        // },
     };
 
     return <BarChart data={data} options={options} />;

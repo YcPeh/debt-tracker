@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    userInfo: null,
-    selectedUserInfo: null,
+    userInfo: [],
+    selectedUserInfo: [],
     showForm: false,
     colWidthUser: 12,
     colWidthAddButton: 12,
