@@ -24,15 +24,15 @@ export const UserTransaction = () =>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const getData = async () => {
+    const getData = () => {
         try {
-            const res = await axios.get('http://localhost:5000/userTransaction')
-            const transaction = res.data.data.map(({
-                userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
-            }) => ({
-                userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
-            }));
-            dispatch(initiliaseTransaction(transaction));
+            // const res = await axios.get('http://localhost:5000/userTransaction')
+            // const transaction = res.data.data.map(({
+            //     userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
+            // }) => ({
+            //     userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
+            // }));
+            // dispatch(initiliaseTransaction(transaction));
             dispatch(calculateDebtRepaymentBalance(userNameCustomId));
         } catch (error) {
             console.log(error)
@@ -47,7 +47,8 @@ export const UserTransaction = () =>{
 
     const { name, customId } = selectedUserInfo;
     if (!name || !customId) {
-        return <div>Loading selectedUserInfo from Redux store, go check redux console...</div>
+        navigate('/');
+        // return <div>Loading selectedUserInfo from Redux store, go check redux console...</div>
     }
 
     const handleDelete = async (customId) => {
@@ -75,8 +76,9 @@ export const UserTransaction = () =>{
                 if (trans.userNameCustomId === selectedUserInfo.customId) {
                     if (trans.category === category) {
                         const bodyInfo = [
-                            { label: 'type', value: trans.type },
+                            { label: 'date', value: trans.date },
                             { label: 'category', value: trans.category },
+                            { label: 'type', value: trans.type },
                             { label: 'description', value: trans.description },
                         ];
                         return (
@@ -103,13 +105,13 @@ export const UserTransaction = () =>{
                                         </Col>
                                         <Col xs={{ span: 9, offset: 0 }}>
                                             <Accordion.Header>
-                                                <Col className="p-0 d-flex justify-content-center text-center" xs={{ span: 5, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-center text-center text-wrapper" xs={{ span: 5, offset: 0 }}>
                                                     {trans.title}
                                                 </Col>
                                                 <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
                                                     |
                                                 </Col>
-                                                <Col className="p-0 d-flex justify-content-end" xs={{ span: 3, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-end text-wrapper" xs={{ span: 3, offset: 0 }}>
                                                     {trans.currency} {trans.amount}
                                                 </Col>
                                             </Accordion.Header>
@@ -118,13 +120,13 @@ export const UserTransaction = () =>{
                                     <Accordion.Body>
                                         {bodyInfo.map((info, innerIndex) => (
                                             <Row key={innerIndex}>
-                                                <Col className="p-0 d-flex justify-content-start" xs={{ span: 3, offset: 1 }}>
+                                                <Col className="p-0 d-flex justify-content-start text-wrapper" xs={{ span: 3, offset: 1 }}>
                                                     {info.label}
                                                 </Col>
                                                 <Col className="p-0 d-flex justify-content-center" xs={{ span: 1, offset: 0 }}>
                                                     :
                                                 </Col>
-                                                <Col className="p-0 d-flex justify-content-start" xs={{ span: 7, offset: 0 }}>
+                                                <Col className="p-0 d-flex justify-content-start text-wrapper" xs={{ span: 7, offset: 0 }}>
                                                     {info.value}
                                                 </Col>
                                             </Row>

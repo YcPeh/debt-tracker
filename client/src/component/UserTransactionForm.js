@@ -51,15 +51,20 @@ export const UserTransactionForm = () => {
                 // millisecond: 'numeric',
                 fractionalSecondDigits: 3,
             };
-            const date = selectedDate.toLocaleString(undefined,options);
+            // const date = selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-');
+            const date = selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-');
             const category = e.target.elements.category.value;
             const type = e.target.elements.type.value;
             const currency = e.target.elements.currency.value;
-            const amount = e.target.elements.amount.value;
+            const amount = parseFloat(e.target.elements.amount.value);
             const description = e.target.elements.description.value;
 
-            // console.log('date inside handleSubmit')
-            // console.log(date)
+            // console.log('typeof(amount) in UserTransactionForm')
+            // console.log(typeof(amount))
+            console.log('date inside handleSubmit')
+            console.log(date)
+            console.log('selectedDate')
+            console.log(selectedDate)
             // console.log('Rawdate inside handleSubmit')
             // console.log(Rawdate)
             // console.log('dateLocale inside handleSubmit')

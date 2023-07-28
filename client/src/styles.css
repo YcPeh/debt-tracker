@@ -143,7 +143,7 @@ section {
 
 .accordion-button::after {
     margin: 0;
-    margin-left:0;
+    margin-left: 0;
 }
 
 /* 
@@ -158,5 +158,12 @@ section {
 } */
 
 .bar-chart {
-    height:20vh;
+    height: 20vh;
+}
+
+.text-wrapper {
+    max-width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+    /* width: 200px; */
 }

@@ -14,6 +14,11 @@ ChartJS
 - https://www.chartjs.org/docs/latest/ 
 How to Add Text in Center of Donut Chart in React Chart JS 2
 - https://youtu.be/IqlmFSII8AY
+How to Create Time Scale in Line Chart with React Chart JS
+- https://youtu.be/rILKHZDDpq4
+How to use timescales and how to enter dates and time in Chart JS
+- https://youtu.be/H1y66SPBlRI
+
 
 # Getting Started with Create React App
 

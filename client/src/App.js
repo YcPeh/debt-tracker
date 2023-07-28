@@ -10,6 +10,7 @@ import { UserTransaction } from "./component/UserTransaction";
 import { NotFound } from "./component/NotFound";
 import { UserTransactionForm } from "./component/UserTransactionForm";
 import { UserTransactionRoutes } from "./component/UserTransactionRoutes";
+import { initiliaseTransaction } from "./features/transaction/transactionSlice";
 
 
 
@@ -23,6 +24,13 @@ function App() {
       const userInfo = res.data.data.map(({ name, imageName, customId, _id }) => ({ name, imageName, customId, _id }))
       console.log('initialising UseEffect')
       dispatch(initialiseUserInfo(userInfo));
+      const res2 = await axios.get('http://localhost:5000/userTransaction')
+      const transaction = res2.data.data.map(({
+        userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
+      }) => ({
+        userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
+      }));
+      dispatch(initiliaseTransaction(transaction));
     } catch (error) {
       console.log(error, "it has an error");
     }
@@ -33,16 +41,6 @@ function App() {
     getData();
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000")
-  //     .then((res) => {
-  //       const userInfo = res.data.data.map(({name, imageName, customId, _id }) => ({name, imageName, customId, _id}))
-  //       console.log('initialising UseEffect')
-  //       dispatch(initialiseUserInfo(userInfo));
-  //     })
-  //     .catch((err) => console.log(err, "it has an error"));
-  // },[]);
 
   console.log('App.js')
   return (
@@ -53,7 +51,7 @@ function App() {
       {console.log('inside Routes in App.js')}
       <Route path='/' element={<MainContainer />} />
       <Route path="/userRegisterForm" element={<UserRegisterForm />} />
-      <Route path='/userTransaction' element={<UserTransaction />} /> 
+      <Route path='/userTransaction' element={<UserTransaction />} />
       <Route path="/userTransaction/*" element={<UserTransactionRoutes />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
