@@ -10,7 +10,7 @@ import { UserTransaction } from "./component/UserTransaction";
 import { NotFound } from "./component/NotFound";
 import { UserTransactionForm } from "./component/UserTransactionForm";
 import { UserTransactionRoutes } from "./component/UserTransactionRoutes";
-import { initiliaseTransaction } from "./features/transaction/transactionSlice";
+import { initiliaseTransaction, loadLineChart } from "./features/transaction/transactionSlice";
 
 
 
@@ -22,7 +22,7 @@ function App() {
     try {
       const res = await axios.get('http://localhost:5000');
       const userInfo = res.data.data.map(({ name, imageName, customId, _id }) => ({ name, imageName, customId, _id }))
-      console.log('initialising UseEffect')
+      // console.log('initialising UseEffect')
       dispatch(initialiseUserInfo(userInfo));
       const res2 = await axios.get('http://localhost:5000/userTransaction')
       const transaction = res2.data.data.map(({
@@ -31,6 +31,7 @@ function App() {
         userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
       }));
       dispatch(initiliaseTransaction(transaction));
+      dispatch(loadLineChart());
     } catch (error) {
       console.log(error, "it has an error");
     }
@@ -42,13 +43,13 @@ function App() {
   }, []);
 
 
-  console.log('App.js')
+  // console.log('App.js')
   return (
     // <>
     //   <MainContainer/>
     // </>
     <Routes>
-      {console.log('inside Routes in App.js')}
+      {/* {console.log('inside Routes in App.js')} */}
       <Route path='/' element={<MainContainer />} />
       <Route path="/userRegisterForm" element={<UserRegisterForm />} />
       <Route path='/userTransaction' element={<UserTransaction />} />

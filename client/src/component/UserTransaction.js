@@ -95,6 +95,7 @@ export const UserTransaction = () =>{
                                                 userNameCustomId: customId,
                                                 userName: name,
                                                 title: trans.title,
+                                                date: trans.date,
                                                 category: trans.category,
                                                 type: trans.type,
                                                 currency: trans.currency,

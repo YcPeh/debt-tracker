@@ -29,10 +29,10 @@ exports.deleteTransaction = async (req, res, next) => {
         // const transaction = await transactionModel.findByIdAndRemove(req.params.idFromFrontEnd);
         const transaction = await transactionModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
 
-        console.log('req.params.idFromFrontEnd')
-        console.log(req.params.idFromFrontEnd)
-        console.log('transaction')
-        console.log(transaction)
+        // console.log('req.params.idFromFrontEnd')
+        // console.log(req.params.idFromFrontEnd)
+        // console.log('transaction')
+        // console.log(transaction)
         if (!transaction) {
             return res.status(404).json({
                 success: false,
@@ -51,10 +51,10 @@ exports.deleteTransaction = async (req, res, next) => {
 
 exports.updateTransaction = async (req, res, next) => {
     try {
-        console.log('req.body')
-        console.log(req.body)
-        console.log('req.params')
-        console.log(req.params)
+        // console.log('req.body')
+        // console.log(req.body)
+        // console.log('req.params')
+        // console.log(req.params)
         const { idFromFrontEnd } = req.params;
         const { userNameCustomId, userName, customId, title, date, category, type, currency, amount, description } = req.body;
         const updatedUser = await transactionModel.findOneAndUpdate({ customId: idFromFrontEnd }, { title, date, category, type, currency, amount, description }, { new: true });

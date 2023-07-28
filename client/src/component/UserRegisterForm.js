@@ -30,25 +30,25 @@ export const UserRegisterForm = () => {
             // dispatch(closeForm())
 
             navigate('/');
-            console.log('navigate to /');
+            // console.log('navigate to /');
 
             dispatch(addUserInfo({ name: name, imageName: imageFileName, customId: timeForCustomId }));
-            console.log('dispatch addUserInfo');
+            // console.log('dispatch addUserInfo');
 
             const formData = new FormData();
             formData.append('name', name);
             formData.append('image', imageFile)
             formData.append('customId', timeForCustomId)
 
-            console.log('before axios post')
+            // console.log('before axios post')
             const res = await axios.post('http://localhost:5000', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log('after axios post');
-            console.log('res from server.js in UserRegisterForm.js')
-            console.log(res)
+            // console.log('after axios post');
+            // console.log('res from server.js in UserRegisterForm.js')
+            // console.log(res)
 
 
         } catch (error) {

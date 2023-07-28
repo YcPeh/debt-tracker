@@ -19,36 +19,42 @@ ChartJS.register(
     Legend
 );
 
-const RenderLineChart = ({labels,dataIn}) => {
-    console.log('RenderLineChart labels')
-    console.log(labels)
-    console.log('RenderLineChart dataIn')
-    console.log(dataIn)
+const RenderLineChart = ({ labels, dataIn, userName }) => {
+    // console.log('RenderLineChart labels')
+    // console.log(labels)
+    // console.log('RenderLineChart dataIn')
+    // console.log(dataIn)
     const data = {
-        // labels: ['2023-06-01', '2023-06-01', '2023-07-02', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-04', '2023-07-04', '2023-07-05'],
+        // labels: ['2023-06-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05']
         labels: labels,
+        // labels: [['2023-06-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05'],['2023-06-02', '2023-07-04', '2023-07-06', '2023-07-07', '2023-07-08']],
         datasets: [
             {
-                label: 'Data Set 1',
-                // data: [5, 10, 25, 6, 15, 30, 4, 12, 20],
+                // label: ['Data Set 1'],
+                label: [userName],
+                // data: [5, 10, 25, 6, 15],
                 data: dataIn,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 fill: true,
                 stepped: 'before',
+                pointStyle: 'rectRot',
+                pointRadius: 5,
+                pointBorderColor: 'rgb(75, 192, 192)',
+                // labels:['2023-06-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05']
             },
         ],
     };
-    
-    
+
+
     // const calculateCumulativeSum = (data) => {
     //     const labels = [];
     //     const cumulativeSum = [];
-    
+
     //     for (let i = 0; i < data.labels.length; i++) {
     //         const date = data.labels[i];
     //         const value = data.datasets[0].data[i];
-    
+
     //         if (!labels.includes(date)) {
     //             labels.push(date);
     //             cumulativeSum.push(value);
@@ -57,11 +63,11 @@ const RenderLineChart = ({labels,dataIn}) => {
     //             cumulativeSum[index] = cumulativeSum[index] + value;
     //         }
     //     }
-    
+
     //     return { labels, datasets: [{ ...data.datasets[0], data: cumulativeSum }] };
     // };
-    
-    
+
+
     // const data = calculateCumulativeSum(originalData);
 
 

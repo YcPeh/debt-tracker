@@ -18,8 +18,8 @@ How to Create Time Scale in Line Chart with React Chart JS
 - https://youtu.be/rILKHZDDpq4
 How to use timescales and how to enter dates and time in Chart JS
 - https://youtu.be/H1y66SPBlRI
-
-
+Download image/icon with transaparent background
+- https://www.flaticon.com/search?word=line%20graph
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

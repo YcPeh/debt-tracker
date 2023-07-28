@@ -24,7 +24,6 @@ exports.getUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    console.log("hihi get error")
     return res.status(500).json({
       success: false,
       error: 'Server Error',
@@ -35,11 +34,11 @@ exports.getUser = async (req, res, next) => {
 exports.addUser = async (req, res, next) => {
   try {
     upload(req, res, async (err) => {
-      console.log('addUser upload')
-      console.log('req.body')
-      console.log(req.body)
-      console.log('req.file')
-      console.log(req.file)
+      // console.log('addUser upload')
+      // console.log('req.body')
+      // console.log(req.body)
+      // console.log('req.file')
+      // console.log(req.file)
       const newUser = new UserModel({
         customId: req.body.customId,
         name: req.body.name,
@@ -66,10 +65,10 @@ exports.deleteUser = async (req, res, next) => {
   try {
     // const deleteUser = await UserModel.findByIdAndRemove(req.params.idFromFrontEnd)
     const deleteUser = await UserModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
-    console.log('req.params.idFromFrontEnd')
-    console.log(req.params.idFromFrontEnd)
-    console.log('req.params')
-    console.log(req.params)
+    // console.log('req.params.idFromFrontEnd')
+    // console.log(req.params.idFromFrontEnd)
+    // console.log('req.params')
+    // console.log(req.params)
     if (!deleteUser) {
       return res.status(404).json({
         success: false,
@@ -121,13 +120,13 @@ exports.updateUserPhoto = async (req, res, next) => {
     upload(req, res, async (err) => {
       const { idFromFrontEnd } = req.params;
       const { image, imageName } = req.body;
-      console.log('updateUserPhoto upload')
-      console.log('req.body')
-      console.log(req.body)
-      console.log('image')
-      console.log(image)
-      console.log('req.file')
-      console.log(req.file)
+      // console.log('updateUserPhoto upload')
+      // console.log('req.body')
+      // console.log(req.body)
+      // console.log('image')
+      // console.log(image)
+      // console.log('req.file')
+      // console.log(req.file)
 
       const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName: req.file.filename }, { new: true });
       if (!updatedUser) {

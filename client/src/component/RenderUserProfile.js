@@ -8,8 +8,8 @@ import { AddButton } from "./AddButton";
 export const RenderUserProfiles = () => {
     const { userInfo } = useSelector((store) => store.user);
 
-    console.log('userInfo inside MainContainer.js but outside of return statement')
-    console.log(userInfo)
+    // console.log('userInfo inside MainContainer.js but outside of return statement')
+    // console.log(userInfo)
     const rows = [];
     if (userInfo.length > 0) {
         for (let i = 0; i < userInfo.length; i += 3) {
@@ -27,7 +27,7 @@ export const RenderUserProfiles = () => {
                 colWidthUser = 4;
                 colWidthAddButton = 4;
             }
-            console.log('renderUserProfiles for loop')
+            // console.log('renderUserProfiles for loop')
             const user3Columns = userInfo.slice(i, i + 3).map((user) => (
                 <UserProfile key={user.customId} user={user} colWidthUser={colWidthUser} />
             ))

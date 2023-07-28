@@ -1,8 +1,9 @@
 import { Button, Image } from "react-bootstrap"
 import { DeleteButton } from "./DeleteButton"
 import { EditButton } from "./EditButton"
+import { LineChartButton } from "./LineChartButton"
 
-export const UserTopRightIcons = ({handleDelete,handleUpdate,handleFileChange,inputRef}) => {
+export const UserTopRightIcons = ({handleDelete,handleUpdate,handleFileChange,inputRef,handleLineChartClick}) => {
     return (
         <div className="topRightUserIcons">
             <input
@@ -11,24 +12,9 @@ export const UserTopRightIcons = ({handleDelete,handleUpdate,handleFileChange,in
                 type="file"
                 onChange={handleFileChange}
             />
+            <LineChartButton handleLineChartClick={handleLineChartClick}/>
             <EditButton handleUpdate={handleUpdate}/>
-            {/* <Button className="change-photo" variant='outline-primary' onClick={handleUpdate}>
-                <Image
-                    className="change-photo-image"
-                    src="change photo.png"
-                    alt="Change Photo"
-                    roundedCircle
-                />
-            </Button> */}
             <DeleteButton handleDelete={handleDelete}/>
-            {/* <Button className="cross-button" variant='outline-primary' onClick={handleDelete}>
-                <Image
-                    className="cross-button-image"
-                    src="cross button.png"
-                    alt="Cross Button"
-                    roundedCircle
-                />
-            </Button> */}
         </div>
     )
 

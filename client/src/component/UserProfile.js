@@ -6,7 +6,7 @@ import axios from "axios";
 import { deleteUserInfo, selectUser, updateUserPhoto } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { UserTopRightIcons } from "./UserTopRightIcons";
-import { calculateDebtRepaymentBalance } from "../features/transaction/transactionSlice";
+import { calculateDebtRepaymentBalance, loadLineChart } from "../features/transaction/transactionSlice";
 
 export const UserProfile = ({user,colWidthUser}) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -39,7 +39,7 @@ export const UserProfile = ({user,colWidthUser}) => {
   };
   
   const handleUpdate = async (e) => {
-    console.log('handleUpdate')
+    // console.log('handleUpdate')
     inputRef.current.click();
   }
 
@@ -64,8 +64,8 @@ export const UserProfile = ({user,colWidthUser}) => {
             "Content-Type": "multipart/form-data",
         },
     });
-      console.log('res')
-      console.log(res)
+      // console.log('res')
+      // console.log(res)
     } catch (error) {
       console.log(error);
     }
@@ -91,6 +91,16 @@ export const UserProfile = ({user,colWidthUser}) => {
     dispatch(selectUser(user));
   }
 
+  const handleLineChartClick = () => {
+    console.log('user in handleLineChartClick')
+    console.log(user)
+    console.log('user.customId in handleLineChartClick')
+    console.log(user.customId)
+    console.log('user.name in handleLineChartClick')
+    console.log(user.name)
+    dispatch(loadLineChart({userNameCustomId:user.customId, userNameForLineChart:user.name}));
+  }
+
   const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`
   return (
     <Col xs={colWidthUser} className="userColumn">
@@ -106,7 +116,8 @@ export const UserProfile = ({user,colWidthUser}) => {
         handleDelete={handleDelete} 
         handleUpdate={handleUpdate} 
         handleFileChange={handleFileChange} 
-        inputRef={inputRef}/>
+        inputRef={inputRef}
+        handleLineChartClick={handleLineChartClick}/>
         }
         <h1><input type="text" value={editedName} onChange={handleNameChange} onBlur={handleNameUpdate} /></h1>
       </div>

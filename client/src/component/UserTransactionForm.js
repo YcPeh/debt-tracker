@@ -17,13 +17,15 @@ export const UserTransactionForm = () => {
     const { userNameCustomId,
         userName,
         title,
+        date,
         category,
         type,
         currency,
         amount,
         description,
         customId, } = location.state || {};
-
+    // console.log('date in UserTransactionForm')
+    // console.log(date)
     const [isEditMode, setIsEditMode] = useState(!!location.state?.title);
 
     const handleClose = () => {
@@ -61,10 +63,10 @@ export const UserTransactionForm = () => {
 
             // console.log('typeof(amount) in UserTransactionForm')
             // console.log(typeof(amount))
-            console.log('date inside handleSubmit')
-            console.log(date)
-            console.log('selectedDate')
-            console.log(selectedDate)
+            // console.log('date inside handleSubmit')
+            // console.log(date)
+            // console.log('selectedDate')
+            // console.log(selectedDate)
             // console.log('Rawdate inside handleSubmit')
             // console.log(Rawdate)
             // console.log('dateLocale inside handleSubmit')
@@ -84,8 +86,8 @@ export const UserTransactionForm = () => {
                     description,
                     customId,
                 };
-                // console.log('userNameCustomId to pass in calculateDebtRepaymentBalance after submit EDIT')
-                // console.log(userNameCustomId)
+                // console.log('date in edit mode')
+                // console.log(date)
                 dispatch(updateTransaction(data))
                 dispatch(calculateDebtRepaymentBalance(userNameCustomId));
                 const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
@@ -144,6 +146,7 @@ export const UserTransactionForm = () => {
                                     onChange={(date) => setSelectedDate(date)}
                                     dateFormat="yyyy-MM-dd"
                                     className="date"
+                                    value={date}
                                 />
                             </Col>
                         </Form.Group>
