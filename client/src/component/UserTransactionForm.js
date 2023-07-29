@@ -31,7 +31,7 @@ export const UserTransactionForm = () => {
     const handleClose = () => {
         setShow(false);
         // navigate('/userTransaction');
-        navigate(`/userTransaction`, { state: userNameCustomId });
+        navigate('/userTransaction', { state: {userNameCustomId,userName} });
 
     }
     // const handleShow = () => setShow(true);
@@ -86,8 +86,8 @@ export const UserTransactionForm = () => {
                     description,
                     customId,
                 };
-                // console.log('date in edit mode')
-                // console.log(date)
+                console.log('description in edit mode')
+                console.log(description)
                 dispatch(updateTransaction(data))
                 dispatch(calculateDebtRepaymentBalance(userNameCustomId));
                 const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {

@@ -4,23 +4,72 @@ import '../styles.css';
 import { UserProfile } from './UserProfile';
 import { AddButton } from './AddButton';
 import { UserRegisterForm } from './UserRegisterForm';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { RenderUserProfiles } from './RenderUserProfile';
 import RenderLineChart from './RenderLineChart';
 import { Row, Col } from 'react-bootstrap';
 import { useEffect } from 'react';
-import { loadLineChart } from '../features/transaction/transactionSlice';
+import { initiliaseTransaction, loadLineChart } from '../features/transaction/transactionSlice';
 // import { UserTransaction } from './UserTransaction';
 
 export const MainContainer = () => {
 
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((store) => store.user);
-  const { transaction,sortedSingleDateTransactionWithNettAmount, userNameForLineChart } = useSelector((store) => store.transaction);
+  const { userInfo, selectedUserInfo } = useSelector((store) => store.user);
+  const { transaction, sortedSingleDateTransactionWithNettAmount, userNameForLineChart } = useSelector((store) => store.transaction);
+  const location = useLocation();
+  // console.log('location.state in MainContainer')
+  // console.log(location.state)
+  // console.log('userNameForLineChart in MainContainer')
+  // console.log(userNameForLineChart)
+  // const userNameForLineChart = location.state || {}
+
 
   // useEffect(() => {
-  //   dispatch(loadLineChart());
-  // },[])
+  //   let userNameCustomId;
+  //   let userNameForLineChart;
+  //   if (selectedUserInfo.length > 0) {
+  //     console.log('userInfo')
+  //     console.log(selectedUserInfo)
+  //     console.log('userInfo.length')
+  //     console.log(selectedUserInfo.length)
+  //     setTimeout(() => {
+  //       userNameCustomId = selectedUserInfo.customId;
+  //       userNameForLineChart = selectedUserInfo.name;
+  //       console.log('useEffect in MainContainer delay')
+  //       console.log('userNameCustomId')
+  //       console.log(userNameCustomId)
+  //       console.log('userNameForLineChart')
+  //       console.log(userNameForLineChart)
+  //       dispatch(loadLineChart(userNameCustomId, userNameForLineChart));
+  //     }, 500)
+  //   }
+  // });
+
+  // useEffect(() => {
+  //   let userNameCustomId;
+  //   let userNameForLineChart;
+  //   console.log('userInfo')
+  //   console.log(userInfo)
+
+  //   if (Array.isArray(userInfo) && userInfo.length === 0) {
+  //     console.log('if')
+  //     userNameCustomId = '';
+  //     userNameForLineChart = '';
+  //   } else {
+  //     console.log('else')
+  //     console.log('userInfo in else')
+  //     console.log(userInfo)
+  //     userNameCustomId = userInfo[0].customId;
+  //     userNameForLineChart = userInfo[0].name;
+  //   }
+
+  //   console.log('userNameCustomId')
+  //   console.log(userNameCustomId)
+  //   console.log('userNameForLineChart')
+  //   console.log(userNameForLineChart)
+  //   dispatch(loadLineChart({ userNameCustomId: userNameCustomId, userNameForLineChart: userNameForLineChart }));
+  // }, [])
 
   // const getSortedDateTransaction = (transaction) => {
   //   const trimmedData = transaction.filter((trans) => trans.userNameCustomId === '1690575496106')
@@ -70,7 +119,7 @@ export const MainContainer = () => {
   // const sortedDateTransaction = getSortedDateTransaction(transaction);
   // const sortedDateTransactionWithNettAmount = getNettAmount(sortedDateTransaction);
   // const sortedSingleDateTransactionWithNettAmount = getSingleDate(sortedDateTransactionWithNettAmount);
-  
+
   // console.log('sortedDateTransaction')
   // console.log(sortedDateTransaction)
   // console.log('sortedDateTransactionWithNettAmount')
@@ -85,7 +134,7 @@ export const MainContainer = () => {
     <Container>
       <Row>
         <Col xs={{ span: 12, offset: 0 }}>
-          <RenderLineChart labels={dateList} dataIn={amountList} userName={userNameForLineChart}/>
+          <RenderLineChart labels={dateList} dataIn={amountList} userName={userNameForLineChart} />
         </Col>
       </Row>
       {/* {console.log('inside return statement of MainContainer.js')} */}

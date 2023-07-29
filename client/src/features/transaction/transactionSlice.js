@@ -74,12 +74,14 @@ const transactionSlice = createSlice({
             state.transaction = state.transaction.filter((trans) => trans.customId !== idToRemove)
         },
         updateTransaction: (state, action) => {
-            // console.log('action.payload in updateTransaction')
-            // console.log(action.payload)
-            const { customId, date } = action.payload;
+            console.log('action.payload in updateTransaction')
+            console.log(action.payload)
+            const { customId, ...updatedData } = action.payload;
+            // console.log('...updatedData')
+            // console.log(...updatedData)
             state.transaction = state.transaction.map((trans) => {
                 if (trans.customId === customId) {
-                    return { ...trans, date }
+                    return { ...trans, ...updatedData }
                 } else {
                     return trans
                 }
@@ -171,7 +173,7 @@ const transactionSlice = createSlice({
 
             let userNameCustomId;
             let userNameForLineChart;
-            if (action.payload === undefined) {
+            if (action.payload === undefined || action.payload.userNameCustomId === '' || action.payload.userNameForLineChart === '') {
                 userNameCustomId = state.transaction[0].userNameCustomId;
                 userNameForLineChart = state.transaction[0].userName;
             } else {
@@ -187,8 +189,8 @@ const transactionSlice = createSlice({
             // const userNameForLineChart = action.payload || state.transaction[0].userNameCustomId;
 
             const sortedDateTransaction = getSortedDateTransaction(state.transaction,userNameCustomId);
-            console.log('sortedDateTransaction in loadLineChart reducer')
-            console.log(sortedDateTransaction)
+            // console.log('sortedDateTransaction in loadLineChart reducer')
+            // console.log(sortedDateTransaction)
             const sortedDateTransactionWithNettAmount = getNettAmount(sortedDateTransaction);
             const sortedSingleDateTransactionWithNettAmount = getSingleDate(sortedDateTransactionWithNettAmount);
             state.sortedSingleDateTransactionWithNettAmount = sortedSingleDateTransactionWithNettAmount;

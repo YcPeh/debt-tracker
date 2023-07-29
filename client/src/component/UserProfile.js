@@ -85,7 +85,7 @@ export const UserProfile = ({user,colWidthUser}) => {
   };
 
   const handleUserImageClick = () => {
-    navigate(`/userTransaction`, {state:user.customId});
+    navigate(`/userTransaction`, {state:{userNameCustomId:user.customId,userName:user.name}});
     // navigate(`/userTransaction`, {state:transaction});
     // navigate('/userTransaction');
     dispatch(selectUser(user));

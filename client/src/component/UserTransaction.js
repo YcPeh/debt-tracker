@@ -4,7 +4,7 @@ import { AddButton } from "./AddButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
-import { calculateDebtRepaymentBalance, deleteTransaction, initiliaseTransaction } from "../features/transaction/transactionSlice";
+import { calculateDebtRepaymentBalance, deleteTransaction, initiliaseTransaction, loadLineChart } from "../features/transaction/transactionSlice";
 import { DeleteButton } from "./DeleteButton";
 import { EditButton } from "./EditButton";
 import { HomeButton } from "./HomeButton";
@@ -13,7 +13,9 @@ import RenderDoughnutChart from "./RenderDoughnutChart";
 
 export const UserTransaction = () =>{ 
     const location = useLocation();
-    const userNameCustomId = location.state || {}; 
+    const {userNameCustomId, userName} = location.state || {}; 
+    console.log('location.state UserTransaction')
+    console.log(location.state)
     // console.log('userNameCustomId in UserTransaction')
     // console.log(userNameCustomId)
     const { selectedUserInfo } = useSelector((store) => store.user);
@@ -68,6 +70,11 @@ export const UserTransaction = () =>{
         // console.log('props')
         // console.log(props)
         navigate('/userTransaction/userTransactionForm', {state: props})
+    }
+
+    const handleHome = () => {
+        dispatch(loadLineChart({userNameCustomId,userNameForLineChart:userName}));
+        navigate('/');
     }
 
     const handleTransaction = (category) => {
@@ -147,7 +154,7 @@ export const UserTransaction = () =>{
         <Container fluid>
             <Row>
                 <Col className="d-flex justify-content-end" xs={{ offset: 11, span: 1 }}>
-                    <HomeButton linkToRoute={'/'}/>
+                    <HomeButton handleHome={handleHome}/>
                 </Col>
             </Row>
             <Row>

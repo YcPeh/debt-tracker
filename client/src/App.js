@@ -17,6 +17,8 @@ import { initiliaseTransaction, loadLineChart } from "./features/transaction/tra
 
 function App() {
   const dispatch = useDispatch();
+  const {selectedUserInfo} = useSelector((store) => store.user);
+  const {transaction,transType} = useSelector((store) => store.transaction);
 
   const getData = async () => {
     try {
@@ -31,6 +33,7 @@ function App() {
         userName, userNameCustomId, customId, title, date, category, type, currency, amount, description,
       }));
       dispatch(initiliaseTransaction(transaction));
+      console.log('useEffect App js dispatch loadLineChart')
       dispatch(loadLineChart());
     } catch (error) {
       console.log(error, "it has an error");
