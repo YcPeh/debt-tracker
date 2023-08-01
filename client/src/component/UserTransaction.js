@@ -14,8 +14,8 @@ import RenderDoughnutChart from "./RenderDoughnutChart";
 export const UserTransaction = () =>{ 
     const location = useLocation();
     const {userNameCustomId, userName} = location.state || {}; 
-    console.log('location.state UserTransaction')
-    console.log(location.state)
+    // console.log('location.state UserTransaction')
+    // console.log(location.state)
     // console.log('userNameCustomId in UserTransaction')
     // console.log(userNameCustomId)
     const { selectedUserInfo } = useSelector((store) => store.user);

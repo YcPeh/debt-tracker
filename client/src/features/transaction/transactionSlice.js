@@ -74,8 +74,8 @@ const transactionSlice = createSlice({
             state.transaction = state.transaction.filter((trans) => trans.customId !== idToRemove)
         },
         updateTransaction: (state, action) => {
-            console.log('action.payload in updateTransaction')
-            console.log(action.payload)
+            // console.log('action.payload in updateTransaction')
+            // console.log(action.payload)
             const { customId, ...updatedData } = action.payload;
             // console.log('...updatedData')
             // console.log(...updatedData)
@@ -168,8 +168,8 @@ const transactionSlice = createSlice({
             state.transType = transType;
         },
         loadLineChart: (state, action) => {
-            console.log('action.payload in loadLineChart')
-            console.log(action.payload)
+            // console.log('action.payload in loadLineChart')
+            // console.log(action.payload)
 
             let userNameCustomId;
             let userNameForLineChart;

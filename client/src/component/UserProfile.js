@@ -92,12 +92,12 @@ export const UserProfile = ({user,colWidthUser}) => {
   }
 
   const handleLineChartClick = () => {
-    console.log('user in handleLineChartClick')
-    console.log(user)
-    console.log('user.customId in handleLineChartClick')
-    console.log(user.customId)
-    console.log('user.name in handleLineChartClick')
-    console.log(user.name)
+    // console.log('user in handleLineChartClick')
+    // console.log(user)
+    // console.log('user.customId in handleLineChartClick')
+    // console.log(user.customId)
+    // console.log('user.name in handleLineChartClick')
+    // console.log(user.name)
     dispatch(loadLineChart({userNameCustomId:user.customId, userNameForLineChart:user.name}));
   }
 

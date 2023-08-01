@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, FloatingLabel, Form, Modal, Row } from "react-bootstrap"
 import { UserTransaction } from "./UserTransaction";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export const UserTransactionForm = () => {
     const [show, setShow] = useState(true);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [dateConverted, setDateConverted] = useState();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
@@ -24,8 +25,45 @@ export const UserTransactionForm = () => {
         amount,
         description,
         customId, } = location.state || {};
+
+    useEffect(() => {
+        if (date !== undefined) {
+            const dateString = date.replace(',', '.');
+            setDateConverted(new Date(dateString));
+        }
+    }, [date]);
+
+    // const timeZone = 'Asia/Kuala_Lumpur';
+    // const options = {
+    //     timeZone: timeZone,
+    //     year: 'numeric',
+    //     month: '2-digit',
+    //     day: '2-digit',
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit',
+    //     // millisecond: 'numeric',
+    //     fractionalSecondDigits: 3,
+    // };
+
+    // if (date !== undefined) {
+    //     const dateString = date.replace(',', '.');
+    //     // const dateConverted = new Date(dateString);
+    //     const dateConverted = new Date(dateString);
+    //     // console.log('date')
+    //     // console.log(date)
+    //     // console.log('dateString')
+    //     // console.log(dateString)
+    //     console.log('dateConverted in if consition')
+    //     console.log(dateConverted)
+    //     setDateConverted(new Date(dateString))
+    //     // setSelectedDate(dateConverted)
+    // }
+
     // console.log('date in UserTransactionForm')
     // console.log(date)
+    console.log('selectedDate in UserTransactionForm')
+    console.log(selectedDate)
     const [isEditMode, setIsEditMode] = useState(!!location.state?.title);
 
     const handleClose = () => {
@@ -54,7 +92,14 @@ export const UserTransactionForm = () => {
                 fractionalSecondDigits: 3,
             };
             // const date = selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-');
-            const date = selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-');
+            // console.log("selectedDate.toLocaleString('sv-SE',options)")
+            // console.log(selectedDate.toLocaleString('sv-SE',options))
+            // console.log("selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-')")
+            // console.log(selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-'))
+            // const date = selectedDate.toLocaleString('sv-SE',options).replace(/\//g, '-');
+            const date = selectedDate.toLocaleString('sv-SE',options)
+            // console.log('date withoout replace function')
+            // console.log(date)
             const category = e.target.elements.category.value;
             const type = e.target.elements.type.value;
             const currency = e.target.elements.currency.value;
@@ -86,8 +131,8 @@ export const UserTransactionForm = () => {
                     description,
                     customId,
                 };
-                console.log('description in edit mode')
-                console.log(description)
+                // console.log('description in edit mode')
+                // console.log(description)
                 dispatch(updateTransaction(data))
                 dispatch(calculateDebtRepaymentBalance(userNameCustomId));
                 const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
@@ -142,11 +187,18 @@ export const UserTransactionForm = () => {
                             <Form.Label column sm={2}>Date:</Form.Label>
                             <Col sm={10}>
                                 <DatePicker
-                                    selected={selectedDate}
-                                    onChange={(date) => setSelectedDate(date)}
+                                    // selected={selectedDate}
+                                    // selected={(date === undefined) ? selectedDate : date}
+                                    selected={(dateConverted === undefined) ? selectedDate : dateConverted}
+                                    onChange={(date) => {
+                                        setSelectedDate(date);
+                                        setDateConverted(date);
+                                    }}
                                     dateFormat="yyyy-MM-dd"
                                     className="date"
-                                    value={date}
+                                    // value={date}
+                                    // value={dateConverted}
+                                    // value={selectedDate}
                                 />
                             </Col>
                         </Form.Group>
