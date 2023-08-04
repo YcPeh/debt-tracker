@@ -10,6 +10,10 @@
     align-items: center;
 }
 
+/* .add-button-column {
+    height: 57px;
+} */
+
 .divContainerAddButton {
     height: calc(var(--user-image-container-size) + 13.28px);
     display: flex;
@@ -18,10 +22,13 @@
 }
 
 .divContainerAddButtonTransaction {
-    height: calc(var(--user-image-container-size) / 6);
+    height: calc(var(--user-image-container-size) / 4);
+    /* max-height: 50%; */
+    /* max-height: inherit; */
     display: flex;
     justify-content: end;
     align-items: center;
+    /* align-items: stretch; */
 }
 
 .userImage {
@@ -42,6 +49,7 @@
     position: relative;
     width: calc(var(--user-image-container-size)/4);
     height: calc(var(--user-image-container-size)/4);
+    max-height: 100%;
     background-color: transparent;
 }
 
@@ -106,7 +114,9 @@ h5,
 .UserTransactionTitles {
     display: flex;
     align-items: center;
+    /* align-items: stretch; */
     justify-content: space-between;
+    /* height: 57px; */
 }
 
 h1 {

@@ -22,6 +22,9 @@ Download image/icon with transaparent background
 - https://www.flaticon.com/search?word=line%20graph
 Get Locale Short Date Format using javascript
 - https://stackoverflow.com/questions/2388115/get-locale-short-date-format-using-javascript
+How to dump MongoDB Atlas db/collection to a different project or local device
+- https://youtu.be/aL10yv5fAJ0
+
 
 # Getting Started with Create React App
 

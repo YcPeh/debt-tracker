@@ -8,7 +8,7 @@ export const AddButton = ({ colWidthAddButton, divClassName, linkToRoute, propsT
   const dispatch = useDispatch();
 
   return (
-    <Col xs={colWidthAddButton}>
+    <Col xs={colWidthAddButton} className="add-button-column">
       <div className={divClassName}>
         <Button className='addButtonButton' variant='outline-primary'>
         {/* <Button className='addButtonButton' variant='outline-primary' onClick={()=>dispatch(openForm())}> */}

@@ -198,9 +198,9 @@ export const UserTransaction = () =>{
                         <Col xs={10}>
                             <h1>Debts</h1>
                         </Col>
-                        <Col xs={2}>
-                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{ category: 'Debts', userNameCustomId: customId, userName: name }} />
-                        </Col>
+                        {/* <Col xs={2}> */}
+                        <AddButton colWidthAddButton={2} divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{ category: 'Debts', userNameCustomId: customId, userName: name }} />
+                        {/* </Col> */}
                     </Row>
                     <Row>
                         {handleTransaction('Debts')}
@@ -212,9 +212,9 @@ export const UserTransaction = () =>{
                         <Col xs={10}>
                             <h1>Repayments</h1>
                         </Col>
-                        <Col xs={2}>
-                            <AddButton divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{ category: 'Repayments', userNameCustomId: customId, userName: name }} />
-                        </Col>
+                        {/* <Col xs={2}> */}
+                            <AddButton colWidthAddButton={2} divClassName={'divContainerAddButtonTransaction'} linkToRoute={'/userTransaction/userTransactionForm'} propsToPass={{ category: 'Repayments', userNameCustomId: customId, userName: name }} />
+                        {/* </Col> */}
                     </Row>
                     <Row>
                         {handleTransaction('Repayments')}
