@@ -1,6 +1,5 @@
 import { Doughnut  } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
-import '../styles.css';
 
 export const DoughnutChart = ({ data, options, plugins }) => {
     return (

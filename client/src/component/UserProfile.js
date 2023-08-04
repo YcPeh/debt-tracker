@@ -1,6 +1,5 @@
 import { Button, Col, Image } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-// import '../styles.css';
 import { useState, useRef } from "react";
 import axios from "axios";
 import { deleteUserInfo, selectUser, updateUserPhoto } from "../features/user/userSlice";
@@ -98,7 +97,7 @@ export const UserProfile = ({user,colWidthUser}) => {
     // console.log(user.customId)
     // console.log('user.name in handleLineChartClick')
     // console.log(user.name)
-    dispatch(loadLineChart({userNameCustomId:user.customId, userNameForLineChart:user.name}));
+    dispatch(loadLineChart({userNameCustomIdForLineChart:user.customId, userNameForLineChart:user.name}));
   }
 
   const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`

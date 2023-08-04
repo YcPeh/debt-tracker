@@ -169,3 +169,15 @@ section {
     word-break: break-all;
     /* width: 200px; */
 }
+
+.line-chart-currency-button {
+    background-color: rgba(75, 192, 192, 1);
+    border-color: rgba(75, 192, 192, 1);
+    color: white;
+}
+
+.line-chart-currency-button:hover {
+    background-color: rgba(75, 192, 192, 0.8);
+    border-color: rgba(75, 192, 192, 0.8);
+    color: white;
+}

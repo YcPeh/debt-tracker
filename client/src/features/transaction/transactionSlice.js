@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const getSortedDateTransaction = (transaction,userNameCustomId) => {
-    const trimmedData = transaction.filter((trans) => trans.userNameCustomId === userNameCustomId)
+const getSortedDateTransaction = (transaction,userNameCustomId,currency) => {
+    const trimmedData = transaction.filter((trans) => trans.userNameCustomId === userNameCustomId && trans.currency === currency)
         .map((trans) => {
             return {
                 date: trans.date.substring(0, 10),
@@ -52,6 +52,8 @@ const initialState = {
     transType: [],
     sortedSingleDateTransactionWithNettAmount:[],
     userNameForLineChart:'',
+    currencyForLineChart:'RM',
+    userNameCustomIdForLineChart:'',
 }
 
 const transactionSlice = createSlice({
@@ -167,38 +169,38 @@ const transactionSlice = createSlice({
             state.debtRepayment = debtRepayment;
             state.transType = transType;
         },
+        toggleLineChartCurency: (state, action) => {
+            state.currencyForLineChart = (state.currencyForLineChart==="THB"?"RM":"THB");
+            console.log('state.currencyForLineChart')
+            console.log(state.currencyForLineChart)
+        },
         loadLineChart: (state, action) => {
             // console.log('action.payload in loadLineChart')
             // console.log(action.payload)
 
-            let userNameCustomId;
+            let userNameCustomIdForLineChart;
             let userNameForLineChart;
-            if (action.payload === undefined || action.payload.userNameCustomId === '' || action.payload.userNameForLineChart === '') {
-                userNameCustomId = state.transaction[0].userNameCustomId;
+            if (action.payload === undefined || action.payload.userNameCustomIdForLineChart === '' || action.payload.userNameForLineChart === '') {
+                userNameCustomIdForLineChart = state.transaction[0].userNameCustomId;
                 userNameForLineChart = state.transaction[0].userName;
             } else {
-                userNameCustomId = action.payload.userNameCustomId
+                userNameCustomIdForLineChart = action.payload.userNameCustomIdForLineChart
                 userNameForLineChart = action.payload.userNameForLineChart
             }
-                
             
-
-            // const userNameCustomId = action.payload.userNameCustomId || state.transaction[0].userNameCustomId;
-            // const userNameForLineChart = action.payload.userNameForLineChart || state.transaction[0].userNameCustomId;
-            // const userNameCustomId = action.payload || state.transaction[0].userNameCustomId;
-            // const userNameForLineChart = action.payload || state.transaction[0].userNameCustomId;
-
-            const sortedDateTransaction = getSortedDateTransaction(state.transaction,userNameCustomId);
-            // console.log('sortedDateTransaction in loadLineChart reducer')
-            // console.log(sortedDateTransaction)
+            // const currency = 'THB';
+            const sortedDateTransaction = getSortedDateTransaction(state.transaction,userNameCustomIdForLineChart,state.currencyForLineChart);
+            console.log('sortedDateTransaction in loadLineChart reducer')
+            console.log(sortedDateTransaction)
             const sortedDateTransactionWithNettAmount = getNettAmount(sortedDateTransaction);
             const sortedSingleDateTransactionWithNettAmount = getSingleDate(sortedDateTransactionWithNettAmount);
             state.sortedSingleDateTransactionWithNettAmount = sortedSingleDateTransactionWithNettAmount;
 
             state.userNameForLineChart = userNameForLineChart;
+            state.userNameCustomIdForLineChart = userNameCustomIdForLineChart;
         },
     }
 });
 
-export const { initiliaseTransaction, addTransaction, deleteTransaction, updateTransaction, calculateDebtRepaymentBalance, loadLineChart } = transactionSlice.actions;
+export const { initiliaseTransaction, addTransaction, deleteTransaction, updateTransaction, calculateDebtRepaymentBalance, toggleLineChartCurency, loadLineChart } = transactionSlice.actions;
 export default transactionSlice.reducer;

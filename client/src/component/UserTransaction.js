@@ -73,7 +73,7 @@ export const UserTransaction = () =>{
     }
 
     const handleHome = () => {
-        dispatch(loadLineChart({userNameCustomId,userNameForLineChart:userName}));
+        dispatch(loadLineChart({userNameCustomIdForLineChart:userNameCustomId,userNameForLineChart:userName}));
         navigate('/');
     }
 

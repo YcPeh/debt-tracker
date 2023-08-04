@@ -47,29 +47,6 @@ const RenderLineChart = ({ labels, dataIn, userName }) => {
     };
 
 
-    // const calculateCumulativeSum = (data) => {
-    //     const labels = [];
-    //     const cumulativeSum = [];
-
-    //     for (let i = 0; i < data.labels.length; i++) {
-    //         const date = data.labels[i];
-    //         const value = data.datasets[0].data[i];
-
-    //         if (!labels.includes(date)) {
-    //             labels.push(date);
-    //             cumulativeSum.push(value);
-    //         } else {
-    //             const index = labels.indexOf(date);
-    //             cumulativeSum[index] = cumulativeSum[index] + value;
-    //         }
-    //     }
-
-    //     return { labels, datasets: [{ ...data.datasets[0], data: cumulativeSum }] };
-    // };
-
-
-    // const data = calculateCumulativeSum(originalData);
-
 
     const options = {
         scales: {
