@@ -1,6 +1,8 @@
-const transactionModel = require('../models/Transaction');
+// const transactionModel = require('../models/Transaction');
+import transactionModel from '../models/Transaction.js';
 
-exports.getTransaction = async (req, res, next) => {
+// exports.getTransaction = async (req, res, next) => {
+export const getTransaction = async (req, res, next) => {
     try {
         const transaction = await transactionModel.find();
         return res.status(200).json({
@@ -12,7 +14,8 @@ exports.getTransaction = async (req, res, next) => {
         res.status(500).json({ error: error.message });
     }
 };
-exports.addTransaction = async (req, res, next) => {
+// exports.addTransaction = async (req, res, next) => {
+export const addTransaction = async (req, res, next) => {
     try {
         const { userNameCustomId, userName, customId, title, date, category, type, currency, amount, description } = req.body;
         const transaction = await transactionModel.create({ userNameCustomId, userName, customId, title, date, category, type, currency, amount, description });
@@ -24,7 +27,8 @@ exports.addTransaction = async (req, res, next) => {
         res.status(500).json({ error: error.message });
     }
 };
-exports.deleteTransaction = async (req, res, next) => {
+// exports.deleteTransaction = async (req, res, next) => {
+export const deleteTransaction = async (req, res, next) => {
     try {
         // const transaction = await transactionModel.findByIdAndRemove(req.params.idFromFrontEnd);
         const transaction = await transactionModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
@@ -49,7 +53,8 @@ exports.deleteTransaction = async (req, res, next) => {
     }
 };
 
-exports.updateTransaction = async (req, res, next) => {
+// exports.updateTransaction = async (req, res, next) => {
+export const updateTransaction = async (req, res, next) => {
     try {
         // console.log('req.body')
         // console.log(req.body)

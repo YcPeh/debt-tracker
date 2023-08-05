@@ -1,20 +1,18 @@
 // https://youtu.be/GyzC-30Bqfc
 // https://youtu.be/NzROCbkvIE0 
 // app.js or server.js
-const express = require('express');
-const dotenv = require('dotenv');
-const morgan = require('morgan');
-const multer = require('multer');
-const cors = require('cors');
-const path = require('path');
-// const UserModel = require('./models/User')
-const fs = require('fs');
-// const fs = require('fs').promises; // Use fs.promises for async file operations
+// const express = require('express');
+// const multer = require('multer');
+// const cors = require('cors');
+// const connectDB = require('./config/db');
+// const User = require('./routes/user');
 
+import express from 'express';
+import multer from 'multer';
+import cors from 'cors';
+import connectDB from './config/db.js';
+import User from './routes/user.js';
 
-
-const connectDB = require('./config/db');
-const User = require('./routes/user');
 
 const app = express();
 

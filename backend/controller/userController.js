@@ -1,6 +1,10 @@
-const UserModel = require('../models/User')
-const multer = require('multer');
-const fs = require('fs');
+// const UserModel = require('../models/User')
+// const multer = require('multer');
+// const fs = require('fs');
+
+import UserModel from '../models/User.js';
+import multer from 'multer';
+import fs from 'fs';
 
 
 const Storage = multer.diskStorage({
@@ -14,7 +18,8 @@ const upload = multer({
   storage: Storage
 }).single('image');
 
-exports.getUser = async (req, res, next) => {
+// exports.getUser = async (req, res, next) => {
+export const getUser = async (req, res, next) => {
   // res.send('GET user');
   try {
     const user = await UserModel.find();
@@ -31,7 +36,8 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
-exports.addUser = async (req, res, next) => {
+// exports.addUser = async (req, res, next) => {
+export const addUser = async (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       // console.log('addUser upload')
@@ -60,7 +66,8 @@ exports.addUser = async (req, res, next) => {
   }
 };
 
-exports.deleteUser = async (req, res, next) => {
+// exports.deleteUser = async (req, res, next) => {
+export const deleteUser = async (req, res, next) => {
   // res.send('DELETE user');
   try {
     // const deleteUser = await UserModel.findByIdAndRemove(req.params.idFromFrontEnd)
@@ -89,7 +96,8 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
-exports.updateUserName = async (req, res, next) => {
+// exports.updateUserName = async (req, res, next) => {
+export const updateUserName = async (req, res, next) => {
   try {
     const { idFromFrontEnd } = req.params;
     const { name } = req.body;
@@ -115,7 +123,8 @@ exports.updateUserName = async (req, res, next) => {
 };
 
 
-exports.updateUserPhoto = async (req, res, next) => {
+// exports.updateUserPhoto = async (req, res, next) => {
+export const updateUserPhoto = async (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       const { idFromFrontEnd } = req.params;

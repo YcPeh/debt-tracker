@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
     customId:{
@@ -30,4 +31,5 @@ const UserSchema = new mongoose.Schema({
     // },
 })
 
-module.exports = mongoose.model('UserModel', UserSchema);
+// module.exports = mongoose.model('UserModel', UserSchema);
+export default mongoose.model('UserModel', UserSchema);
