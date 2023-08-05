@@ -39,7 +39,7 @@ const RenderLineChart = ({ labels, dataIn, userName }) => {
                 fill: true,
                 stepped: 'before',
                 pointStyle: 'rectRot',
-                pointRadius: 5,
+                pointRadius: 10,
                 pointBorderColor: 'rgb(75, 192, 192)',
                 // labels:['2023-06-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05']
             },
