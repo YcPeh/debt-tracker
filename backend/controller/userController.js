@@ -8,7 +8,7 @@ import fs from 'fs';
 
 
 const Storage = multer.diskStorage({
-  destination: 'client/public/uploads',
+  destination: 'frontend/public/uploads',
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -50,7 +50,7 @@ export const addUser = async (req, res, next) => {
         name: req.body.name,
         imageName: req.file.filename,
         image: {
-          data: fs.readFileSync("client/public/uploads/" + req.file.filename),
+          data: fs.readFileSync("frontend/public/uploads/" + req.file.filename),
           contentType: 'image/png',
         }
       })
