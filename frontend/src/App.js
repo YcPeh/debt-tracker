@@ -55,7 +55,7 @@ function App() {
       {/* {console.log('inside Routes in App.js')} */}
       <Route path='/' element={<MainContainer />} />
       <Route path="/userRegisterForm" element={<UserRegisterForm />} />
-      <Route path='/userTransaction' element={<UserTransaction />} />
+      {/* <Route path='/userTransaction' element={<UserTransaction />} /> */}
       <Route path="/userTransaction/*" element={<UserTransactionRoutes />} />
       <Route path='*' element={<NotFound />} />
     </Routes>

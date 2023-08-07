@@ -61,7 +61,7 @@ export const updateTransaction = async (req, res, next) => {
         // console.log('req.params')
         // console.log(req.params)
         const { idFromFrontEnd } = req.params;
-        const { userNameCustomId, userName, customId, title, date, category, type, currency, amount, description } = req.body;
+        const { title, date, category, type, currency, amount, description } = req.body;
         const updatedUser = await transactionModel.findOneAndUpdate({ customId: idFromFrontEnd }, { title, date, category, type, currency, amount, description }, { new: true });
         if (!updatedUser) {
             return res.status(404).json({

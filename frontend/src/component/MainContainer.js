@@ -10,6 +10,8 @@ import RenderLineChart from './RenderLineChart';
 import { Row, Col } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { initiliaseTransaction, loadLineChart } from '../features/transaction/transactionSlice';
+import { Header } from './Header';
+import { Hero } from './Hero';
 // import { UserTransaction } from './UserTransaction';
 
 export const MainContainer = () => {
@@ -23,17 +25,18 @@ export const MainContainer = () => {
   const amountList = sortedSingleDateTransactionWithNettAmount.map((amount) => amount.amount);
 
   return (
-    <Container>
-      <Row>
-        <Col xs={{ span: 11, offset: 0 }}>
-          <RenderLineChart labels={dateList} dataIn={amountList} userName={userNameForLineChart} />
-        </Col>
-      </Row>
-      {/* {console.log('inside return statement of MainContainer.js')} */}
-      {/* {userInfo !== null && renderUserProfiles()} */}
-      {/* {userInfo !== null && <RenderUserProfiles userInfo={userInfo}/>} */}
-      <RenderUserProfiles />
-    </Container>
+    <>
+      <Header />
+      <Hero />
+      <Container>
+        <Row>
+          <Col xs={{ span: 11, offset: 0 }}>
+            <RenderLineChart labels={dateList} dataIn={amountList} userName={userNameForLineChart} />
+          </Col>
+        </Row>
+        <RenderUserProfiles />
+      </Container>
+    </>
   );
 
 }

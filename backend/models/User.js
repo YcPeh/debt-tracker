@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     customId:{
         type: String,
         // required:[true, 'Mongoose backend require name of user']
@@ -32,4 +32,4 @@ const UserSchema = new mongoose.Schema({
 })
 
 // module.exports = mongoose.model('UserModel', UserSchema);
-export default mongoose.model('UserModel', UserSchema);
+export default mongoose.model('userModel', userSchema);

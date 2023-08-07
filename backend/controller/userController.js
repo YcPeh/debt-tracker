@@ -1,8 +1,8 @@
-// const UserModel = require('../models/User')
+// const userModel = require('../models/User')
 // const multer = require('multer');
 // const fs = require('fs');
 
-import UserModel from '../models/User.js';
+import userModel from '../models/User.js';
 import multer from 'multer';
 import fs from 'fs';
 
@@ -22,7 +22,7 @@ const upload = multer({
 export const getUser = async (req, res, next) => {
   // res.send('GET user');
   try {
-    const user = await UserModel.find();
+    const user = await userModel.find();
     return res.status(200).json({
       success: true,
       count: user.length,
@@ -45,7 +45,7 @@ export const addUser = async (req, res, next) => {
       // console.log(req.body)
       // console.log('req.file')
       // console.log(req.file)
-      const newUser = new UserModel({
+      const newUser = new userModel({
         customId: req.body.customId,
         name: req.body.name,
         imageName: req.file.filename,
@@ -70,8 +70,8 @@ export const addUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   // res.send('DELETE user');
   try {
-    // const deleteUser = await UserModel.findByIdAndRemove(req.params.idFromFrontEnd)
-    const deleteUser = await UserModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
+    // const deleteUser = await userModel.findByIdAndRemove(req.params.idFromFrontEnd)
+    const deleteUser = await userModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
     // console.log('req.params.idFromFrontEnd')
     // console.log(req.params.idFromFrontEnd)
     // console.log('req.params')
@@ -101,8 +101,8 @@ export const updateUserName = async (req, res, next) => {
   try {
     const { idFromFrontEnd } = req.params;
     const { name } = req.body;
-    // const updatedUser = await UserModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
-    const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { name }, { new: true });
+    // const updatedUser = await userModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
+    const updatedUser = await userModel.findOneAndUpdate({ customId: idFromFrontEnd }, { name }, { new: true });
     if (!updatedUser) {
       return res.status(404).json({
         success: false,
@@ -137,7 +137,7 @@ export const updateUserPhoto = async (req, res, next) => {
       // console.log('req.file')
       // console.log(req.file)
 
-      const updatedUser = await UserModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName: req.file.filename }, { new: true });
+      const updatedUser = await userModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName: req.file.filename }, { new: true });
       if (!updatedUser) {
         return res.status(404).json({
           success: false,

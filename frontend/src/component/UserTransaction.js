@@ -151,7 +151,7 @@ export const UserTransaction = () =>{
     // console.log('transaction in UserTransaction end (before return)')
 
     return (
-        <Container fluid>
+        <Container fluid className="user-transaction-container">
             <Row>
                 <Col className="d-flex justify-content-end" xs={{ offset: 11, span: 1 }}>
                     <HomeButton handleHome={handleHome}/>

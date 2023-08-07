@@ -7,7 +7,7 @@ export const UserTransactionRoutes = () => {
     return(
         <Routes>
             <Route element={<UserTransactionLayout />}>
-                {/* <Route index element={<UserTransaction />} /> */}
+                <Route index element={<UserTransaction />} />
                 <Route path="userTransactionForm" element={<UserTransactionForm/>} />
             </Route>
         </Routes>
