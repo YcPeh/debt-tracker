@@ -26,7 +26,8 @@ function App() {
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000");
+      // const res = await axios.get("http://localhost:5000");
+      const res = await axios.get("/api");
       const userInfo = res.data.data.map(
         ({ name, imageName, customId, _id }) => ({
           name,
@@ -37,7 +38,8 @@ function App() {
       );
       // console.log('initialising UseEffect')
       dispatch(initialiseUserInfo(userInfo));
-      const res2 = await axios.get("http://localhost:5000/userTransaction");
+      // const res2 = await axios.get("http://localhost:5000/userTransaction");
+      const res2 = await axios.get("/api/userTransaction");
       const transaction = res2.data.data.map(
         ({
           userName,

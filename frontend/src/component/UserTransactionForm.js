@@ -131,11 +131,14 @@ export const UserTransactionForm = () => {
                     description,
                     customId,
                 };
-                // console.log('description in edit mode')
-                // console.log(description)
                 dispatch(updateTransaction(data))
                 dispatch(calculateDebtRepaymentBalance(userNameCustomId));
-                const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
+                // const res = await axios.put(`http://localhost:5000/userTransaction/${customId}`, data, {
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //     },
+                // });
+                const res = await axios.put(`/api/userTransaction/${customId}`, data, {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -157,8 +160,13 @@ export const UserTransactionForm = () => {
                 };
                 dispatch(addTransaction(data))
                 dispatch(calculateDebtRepaymentBalance(userNameCustomId));
-                const res = await axios.post('http://localhost:5000/userTransaction', data, {
-                    headers: {
+                // const res = await axios.post('http://localhost:5000/userTransaction', data, {
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //     },
+                // });
+                const res = await axios.post('/api/userTransaction', data, {
+                    headaers: {
                         "Content-Type": "application/json",
                     },
                 });

@@ -1,13 +1,20 @@
-import { Button, Col, Image } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import { Button, Col, Image } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef } from "react";
 import axios from "axios";
-import { deleteUserInfo, selectUser, updateUserPhoto } from "../features/user/userSlice";
+import {
+  deleteUserInfo,
+  selectUser,
+  updateUserPhoto,
+} from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { UserTopRightIcons } from "./UserTopRightIcons";
-import { calculateDebtRepaymentBalance, loadLineChart } from "../features/transaction/transactionSlice";
+import {
+  calculateDebtRepaymentBalance,
+  loadLineChart,
+} from "../features/transaction/transactionSlice";
 
-export const UserProfile = ({user,colWidthUser}) => {
+export const UserProfile = ({ user, colWidthUser }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [editedName, setEditedName] = useState(user.name);
   const dispatch = useDispatch();
@@ -22,25 +29,27 @@ export const UserProfile = ({user,colWidthUser}) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/${user.customId}`);
-      dispatch(deleteUserInfo(user.customId))
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleNameUpdate = async () => {
-    try {
-      await axios.put(`http://localhost:5000/${user.customId}`, { name: editedName });
+      // await axios.delete(`http://localhost:5000/${user.customId}`);
+      await axios.delete(`/api/${user.customId}`);
+      dispatch(deleteUserInfo(user.customId));
     } catch (error) {
       console.log(error);
     }
   };
-  
+
+  const handleNameUpdate = async () => {
+    try {
+      // await axios.put(`http://localhost:5000/${user.customId}`, { name: editedName });
+      await axios.put(`/api/${user.customId}`, { name: editedName });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleUpdate = async (e) => {
     // console.log('handleUpdate')
     inputRef.current.click();
-  }
+  };
 
   const handleFileChange = async (e) => {
     try {
@@ -48,27 +57,28 @@ export const UserProfile = ({user,colWidthUser}) => {
       if (!imageFile) {
         return;
       }
-      // console.log('imageFile is', imageFile)
-      // console.log(e.target.files);;
-      // e.target.value = null;
-      // console.log(e.target.files);
-      // console.log(imageFile);
-      // console.log(imageFile.name);
-      dispatch(updateUserPhoto({ imageName: imageFile.name, customId: user.customId }));
+      dispatch(
+        updateUserPhoto({ imageName: imageFile.name, customId: user.customId })
+      );
       const formData = new FormData();
       formData.append("image", imageFile);
-      // formData.append("imageName", imageFile.name);
-      const res = await axios.put(`http://localhost:5000/${user.customId}/userPhoto`, formData, {
+      // const res = await axios.put(
+      //   `http://localhost:5000/${user.customId}/userPhoto`,
+      //   formData,
+      //   {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   }
+      // );
+      const res = await axios.put(`/api/${user.customId}/userPhoto`, formData, {
         headers: {
-            "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data",
         },
-    });
-      // console.log('res')
-      // console.log(res)
+      });
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   const handleNameChange = (e) => {
@@ -84,11 +94,13 @@ export const UserProfile = ({user,colWidthUser}) => {
   };
 
   const handleUserImageClick = () => {
-    navigate(`/userTransaction`, {state:{userNameCustomId:user.customId,userName:user.name}});
+    navigate(`/userTransaction`, {
+      state: { userNameCustomId: user.customId, userName: user.name },
+    });
     // navigate(`/userTransaction`, {state:transaction});
     // navigate('/userTransaction');
     dispatch(selectUser(user));
-  }
+  };
 
   const handleLineChartClick = () => {
     // console.log('user in handleLineChartClick')
@@ -97,30 +109,47 @@ export const UserProfile = ({user,colWidthUser}) => {
     // console.log(user.customId)
     // console.log('user.name in handleLineChartClick')
     // console.log(user.name)
-    dispatch(loadLineChart({userNameCustomIdForLineChart:user.customId, userNameForLineChart:user.name}));
-  }
+    dispatch(
+      loadLineChart({
+        userNameCustomIdForLineChart: user.customId,
+        userNameForLineChart: user.name,
+      })
+    );
+  };
 
-  const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`
+  const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`;
   return (
     <Col xs={colWidthUser} className="userColumn">
-      <div className="divContainerUser" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div
+        className="divContainerUser"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Image
-          className='userImage'
+          className="userImage"
           src={imagePath}
           alt={user.name}
           roundedCircle
           onClick={handleUserImageClick}
         />
-        {isHovered && <UserTopRightIcons 
-        handleDelete={handleDelete} 
-        handleUpdate={handleUpdate} 
-        handleFileChange={handleFileChange} 
-        inputRef={inputRef}
-        handleLineChartClick={handleLineChartClick}/>
-        }
-        <h1><input type="text" value={editedName} onChange={handleNameChange} onBlur={handleNameUpdate} /></h1>
+        {isHovered && (
+          <UserTopRightIcons
+            handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
+            handleFileChange={handleFileChange}
+            inputRef={inputRef}
+            handleLineChartClick={handleLineChartClick}
+          />
+        )}
+        <h1>
+          <input
+            type="text"
+            value={editedName}
+            onChange={handleNameChange}
+            onBlur={handleNameUpdate}
+          />
+        </h1>
       </div>
-
     </Col>
-  )
-}
+  );
+};

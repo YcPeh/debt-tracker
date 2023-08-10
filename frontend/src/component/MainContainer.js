@@ -13,7 +13,7 @@ export const MainContainer = () => {
       <Header />
       <ToastContainer />
       <Outlet />
-      {/* <UserMainPage/> */}
+      <UserMainPage />
     </>
   );
 };
