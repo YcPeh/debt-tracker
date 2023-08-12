@@ -18,6 +18,8 @@ import { UserMainPage } from "./component/UserMainPage";
 import LoginScreen from "./screen/LoginScreen";
 import HomeScreen from "./screen/HomeScreen";
 import RegisterScreen from "./screen/RegisterScreen";
+import ProfileScreen from "./screen/ProfileScreen";
+import PrivateRoute from "./component/PrivateRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -83,6 +85,9 @@ function App() {
         <Route index path="/" element={<HomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
+        <Route path="" element={<PrivateRoute />}>
+          <Route path="/profile" element={<ProfileScreen />} />
+        </Route>
       </Route>
       <Route path="/userRegisterForm" element={<UserRegisterForm />} />
       {/* <Route path='/userTransaction' element={<UserTransaction />} /> */}

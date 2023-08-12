@@ -4,8 +4,8 @@ import generateToken from "../utils/generateToken.js";
 
 export const authRegistrant = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log("email");
-  console.log(email);
+  // console.log("email");
+  // console.log(email);
   const registrant = await registrantModel.findOne({ email });
   // console.log('registrant')
   // console.log(registrant)
@@ -74,6 +74,8 @@ export const getRegistrantProfile = asyncHandler(async (req, res) => {
 });
 
 export const updateRegistrantProfile = asyncHandler(async (req, res) => {
+  console.log("req.registrant");
+  console.log(req.registrant);
   const registrant = await registrantModel.findById(req.registrant._id);
   if (registrant) {
     registrant.name = req.body.name || registrant.name;

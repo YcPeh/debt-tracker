@@ -13,7 +13,32 @@ export const registrantApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    logout: builder.mutation({
+      query: () => ({
+        url: `${USERS_URL}/registrant/logout`,
+        method: "POST",
+      }),
+    }),
+    register: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/registrant`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    update: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/registrant/profile`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = registrantApiSlice;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+  useUpdateMutation,
+} = registrantApiSlice;
