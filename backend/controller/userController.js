@@ -2,25 +2,55 @@
 // const multer = require('multer');
 // const fs = require('fs');
 
-import userModel from '../models/User.js';
-import multer from 'multer';
-import fs from 'fs';
-
+import userModel from "../models/User.js";
+import multer from "multer";
+import fs from "fs";
 
 const Storage = multer.diskStorage({
-  destination: 'frontend/public/uploads',
+  destination: "frontend/public/uploads",
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
 
 const upload = multer({
-  storage: Storage
-}).single('image');
+  storage: Storage,
+}).single("image");
 
-// exports.getUser = async (req, res, next) => {
+// export const addUser = async (req, res, next) => {
+//   try {
+//     await new Promise((resolve, reject) => {
+//       upload(req, res, async (err) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         // Save the user data after image is uploaded
+//         const newUser = new userModel({
+//           customId: req.body.customId,
+//           name: req.body.name,
+//           imageName: req.file.filename,
+//           image: {
+//             data: fs.readFileSync(
+//               "frontend/public/uploads/" + req.file.filename
+//             ),
+//             contentType: "image/png",
+//           },
+//         });
+//         await newUser.save();
+//         resolve();
+//       });
+//     });
+//     res.send("(addUser) successfully uploaded");
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       error: "Server Error",
+//     });
+//   }
+// };
+
 export const getUser = async (req, res, next) => {
-  // res.send('GET user');
   try {
     const user = await userModel.find();
     return res.status(200).json({
@@ -31,32 +61,37 @@ export const getUser = async (req, res, next) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      error: 'Server Error',
+      error: "Server Error",
     });
   }
 };
 
-// exports.addUser = async (req, res, next) => {
-export const addUser = async (req, res, next) => {
+export const checkDeleteLocalUserImage = async (req, res, next) => {
   try {
-    upload(req, res, async (err) => {
-      // console.log('addUser upload')
-      // console.log('req.body')
-      // console.log(req.body)
-      // console.log('req.file')
-      // console.log(req.file)
-      const newUser = new userModel({
-        customId: req.body.customId,
-        name: req.body.name,
-        imageName: req.file.filename,
-        image: {
-          data: fs.readFileSync("frontend/public/uploads/" + req.file.filename),
-          contentType: 'image/png',
-        }
-      })
-      await newUser.save();
-      res.send("(addUser) successfully uploaded");
-    })
+    const imageFilePath = "frontend/public/uploads/" + req.body.imageName;
+    // console.log("req.body");
+    // console.log(req.body);
+    // console.log("imageFilePath");
+    // console.log(imageFilePath);
+    if (fs.existsSync(imageFilePath)) {
+      fs.unlinkSync(imageFilePath);
+      console.log(`Deleted existing file: ${imageFilePath}`);
+      return res.status(200).json({
+        success: true,
+        message: `Deleted existing file: ${imageFilePath}`,
+      });
+    } else {
+      // return res.status(404).json({
+      //   success: false,
+      //   message: `File not found: ${imageFilePath}`,
+      // });
+      console.log(`${imageFilePath} does not exist yet`);
+      // next();
+      return res.status(200).json({
+        success: true,
+        message: `${imageFilePath} does not exist yet`,
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -66,32 +101,53 @@ export const addUser = async (req, res, next) => {
   }
 };
 
-// exports.deleteUser = async (req, res, next) => {
-export const deleteUser = async (req, res, next) => {
-  // res.send('DELETE user');
+export const addUser = async (req, res, next) => {
   try {
-    // const deleteUser = await userModel.findByIdAndRemove(req.params.idFromFrontEnd)
-    const deleteUser = await userModel.findOneAndDelete({ customId: req.params.idFromFrontEnd });
-    // console.log('req.params.idFromFrontEnd')
-    // console.log(req.params.idFromFrontEnd)
-    // console.log('req.params')
-    // console.log(req.params)
+    upload(req, res, async (err) => {
+      const imageFilePath = "frontend/public/uploads/" + req.file.filename;
+
+      const newUser = new userModel({
+        customId: req.body.customId,
+        name: req.body.name,
+        imageName: req.file.filename,
+        image: {
+          data: fs.readFileSync(imageFilePath),
+          contentType: "image/png",
+        },
+      });
+      await newUser.save();
+      console.log(`successfully uploaded ${req.file.filename}`);
+      res.send("(addUser) successfully uploaded");
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error: "Server Error",
+    });
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const deleteUser = await userModel.findOneAndDelete({
+      customId: req.params.idFromFrontEnd,
+    });
     if (!deleteUser) {
       return res.status(404).json({
         success: false,
-        error: 'No transaction found'
+        error: "No transaction found",
       });
     }
-    // await deleteUser.remove();
     return res.status(200).json({
       success: true,
-      data: {}
-    })
+      data: {},
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({
       success: false,
-      error: 'Server Error',
+      error: "Server Error",
     });
   }
 };
@@ -102,11 +158,15 @@ export const updateUserName = async (req, res, next) => {
     const { idFromFrontEnd } = req.params;
     const { name } = req.body;
     // const updatedUser = await userModel.findByIdAndUpdate(idFromFrontEnd, { name }, { new: true });
-    const updatedUser = await userModel.findOneAndUpdate({ customId: idFromFrontEnd }, { name }, { new: true });
+    const updatedUser = await userModel.findOneAndUpdate(
+      { customId: idFromFrontEnd },
+      { name },
+      { new: true }
+    );
     if (!updatedUser) {
       return res.status(404).json({
         success: false,
-        error: 'User not found',
+        error: "User not found",
       });
     }
     return res.status(200).json({
@@ -117,11 +177,10 @@ export const updateUserName = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: 'Server Error',
+      error: "Server Error",
     });
   }
 };
-
 
 // exports.updateUserPhoto = async (req, res, next) => {
 export const updateUserPhoto = async (req, res, next) => {
@@ -137,24 +196,27 @@ export const updateUserPhoto = async (req, res, next) => {
       // console.log('req.file')
       // console.log(req.file)
 
-      const updatedUser = await userModel.findOneAndUpdate({ customId: idFromFrontEnd }, { image, imageName: req.file.filename }, { new: true });
+      const updatedUser = await userModel.findOneAndUpdate(
+        { customId: idFromFrontEnd },
+        { image, imageName: req.file.filename },
+        { new: true }
+      );
       if (!updatedUser) {
         return res.status(404).json({
           success: false,
-          error: 'User not found',
+          error: "User not found",
         });
       }
       return res.status(200).json({
         success: true,
         data: updatedUser,
       });
-
-    })
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: 'Server Error',
+      error: "Server Error",
     });
   }
 };

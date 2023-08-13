@@ -9,6 +9,12 @@ import { useLoginMutation } from "../features/register/registrantApiSlice";
 import { setCredentials } from "../features/register/authSlice";
 import { toast } from "react-toastify";
 import Loader from "../component/Loader";
+import axios from "axios";
+import {
+  initiliaseTransaction,
+  loadLineChart,
+} from "../features/transaction/transactionSlice";
+import { initialiseUserInfo } from "../features/user/userSlice";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -21,9 +27,64 @@ const LoginScreen = () => {
 
   const { registrantInfo } = useSelector((store) => store.auth);
 
+  const getData = async () => {
+    try {
+      const res = await axios.get("/api");
+      const userInfo = res.data.data.map(
+        ({ name, imageName, customId, _id }) => ({
+          name,
+          imageName,
+          customId,
+          _id,
+        })
+      );
+      // console.log('initialising UseEffect')
+      dispatch(initialiseUserInfo(userInfo));
+      const res2 = await axios.get("/api/userTransaction");
+      const transaction = res2.data.data.map(
+        ({
+          userName,
+          userNameCustomId,
+          customId,
+          title,
+          date,
+          category,
+          type,
+          currency,
+          amount,
+          description,
+        }) => ({
+          userName,
+          userNameCustomId,
+          customId,
+          title,
+          date,
+          category,
+          type,
+          currency,
+          amount,
+          description,
+        })
+      );
+      dispatch(initiliaseTransaction(transaction));
+      // console.log('useEffect App js dispatch loadLineChart')
+      dispatch(loadLineChart());
+    } catch (error) {
+      console.log(error, "it has an error");
+    }
+  };
+
   useEffect(() => {
     if (registrantInfo) {
-      navigate("/");
+      console.log("registrantInfo in useEffect of loginScreen");
+      console.log(registrantInfo);
+      const registrantId = registrantInfo._id;
+      const registrantName = registrantInfo.name;
+      const registrantEmail = registrantInfo.email;
+      getData();
+      navigate("/userMainPage", {
+        state: { registrantId, registrantName, registrantEmail },
+      });
     }
   }, [navigate, registrantInfo]);
 
@@ -36,7 +97,15 @@ const LoginScreen = () => {
       console.log(res);
       // dispatch(setCredentials({ ...res }));
       dispatch(setCredentials(res));
-      navigate("/");
+      // navigate("/");
+      console.log("registrantInfo in loginScreen");
+      console.log(registrantInfo);
+      const registrantId = registrantInfo._id;
+      const registrantName = registrantInfo.name;
+      const registrantEmail = registrantInfo.email;
+      navigate("/userMainPage", {
+        state: { registrantId, registrantName, registrantEmail },
+      });
     } catch (err) {
       // console.log(err?.data?.message || err.error);
       // console.log(err);

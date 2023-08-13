@@ -10,7 +10,8 @@ export const AddButton = ({
   propsToPass,
 }) => {
   const dispatch = useDispatch();
-
+  // console.log("propsToPass");
+  // console.log(propsToPass);
   return (
     <Col xs={colWidthAddButton} className="add-button-column">
       <div className={divClassName}>

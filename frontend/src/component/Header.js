@@ -8,8 +8,8 @@ import { logout } from "../features/register/authSlice";
 
 export const Header = () => {
   const { registrantInfo } = useSelector((store) => store.auth);
-  console.log("registrantInfo");
-  console.log(registrantInfo);
+  // console.log("registrantInfo");
+  // console.log(registrantInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
@@ -38,6 +38,9 @@ export const Header = () => {
                   <NavDropdown title={registrantInfo.name} id="registrantname">
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/userMainPage">
+                      <NavDropdown.Item>Users</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout

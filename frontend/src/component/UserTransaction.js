@@ -46,10 +46,10 @@ export const UserTransaction = (imageSrc) => {
   }, []);
 
   const { name, customId } = selectedUserInfo;
-  if (!name || !customId) {
-    navigate("/");
-    // return <div>Loading selectedUserInfo from Redux store, go check redux console...</div>
-  }
+  // if (!name || !customId) {
+  //   navigate("/");
+  //   // return <div>Loading selectedUserInfo from Redux store, go check redux console...</div>
+  // }
 
   const handleDelete = async (customId) => {
     try {
@@ -76,7 +76,7 @@ export const UserTransaction = (imageSrc) => {
         userNameForLineChart: userName,
       })
     );
-    navigate("/");
+    navigate("/userMainPage");
   };
 
   const handleTransaction = (category) => {

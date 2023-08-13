@@ -57,9 +57,13 @@ export const UserProfile = ({ user, colWidthUser }) => {
       if (!imageFile) {
         return;
       }
+      await axios.post("/api/deleteImage", {
+        imageName: imageFile.name,
+      });
       dispatch(
         updateUserPhoto({ imageName: imageFile.name, customId: user.customId })
       );
+      navigate("/userMainPage");
       const formData = new FormData();
       formData.append("image", imageFile);
       // const res = await axios.put(
