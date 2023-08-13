@@ -1,5 +1,5 @@
 import { Button, Container, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addUserInfo,
   closeForm,
@@ -17,59 +17,9 @@ import { useState } from "react";
 export const UserRegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log("location.state in UserRegisterForm");
-  console.log(location.state);
+  const { registrantInfo } = useSelector((store) => store.auth);
+  const registrantId = registrantInfo._id;
   const [submitting, setSubmitting] = useState(false);
-
-  // const getData = async () => {
-  //   try {
-  //     // const res = await axios.get("http://localhost:5000");
-  //     const res = await axios.get("/api");
-  //     const userInfo = res.data.data.map(
-  //       ({ name, imageName, customId, _id }) => ({
-  //         name,
-  //         imageName,
-  //         customId,
-  //         _id,
-  //       })
-  //     );
-  //     // console.log('initialising UseEffect')
-  //     dispatch(initialiseUserInfo(userInfo));
-  //     // const res2 = await axios.get("http://localhost:5000/userTransaction");
-  //     const res2 = await axios.get("/api/userTransaction");
-  //     const transaction = res2.data.data.map(
-  //       ({
-  //         userName,
-  //         userNameCustomId,
-  //         customId,
-  //         title,
-  //         date,
-  //         category,
-  //         type,
-  //         currency,
-  //         amount,
-  //         description,
-  //       }) => ({
-  //         userName,
-  //         userNameCustomId,
-  //         customId,
-  //         title,
-  //         date,
-  //         category,
-  //         type,
-  //         currency,
-  //         amount,
-  //         description,
-  //       })
-  //     );
-  //     dispatch(initiliaseTransaction(transaction));
-  //     // console.log('useEffect App js dispatch loadLineChart')
-  //     dispatch(loadLineChart());
-  //   } catch (error) {
-  //     console.log(error, "it has an error");
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     try {
@@ -89,6 +39,7 @@ export const UserRegisterForm = () => {
           name: name,
           imageName: imageFileName,
           customId: timeForCustomId,
+          registrantId: registrantId,
         })
       );
       console.log("after dispatch addUserInfo");
@@ -100,6 +51,7 @@ export const UserRegisterForm = () => {
       formData.append("name", name);
       formData.append("image", imageFile);
       formData.append("customId", timeForCustomId);
+      formData.append("registrantId", registrantId);
 
       const res = await axios.post("/api", formData, {
         headers: {

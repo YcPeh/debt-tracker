@@ -2,9 +2,9 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  //   registrantId: {
-  //     type: String,
-  //   },
+  registrantId: {
+    type: String,
+  },
   customId: {
     type: String,
   },

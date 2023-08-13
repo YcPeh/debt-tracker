@@ -4,8 +4,8 @@ import { UserTransaction } from "./UserTransaction";
 
 export const UserTransactionLayout = () => {
   const location = useLocation();
-  console.log("location");
-  console.log(location);
+  // console.log("location");
+  // console.log(location);
   return (
     <div>
       {/* <UserTransaction /> */}

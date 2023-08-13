@@ -53,7 +53,7 @@ export const RenderUserProfiles = () => {
               colWidthAddButton={colWidthAddButton}
               divClassName={"divContainerAddButton"}
               linkToRoute={"/userRegisterForm"}
-              propsToPass={{ registrantId }}
+              // propsToPass={{ registrantId }}
             />
           )}
         </Row>
@@ -69,8 +69,7 @@ export const RenderUserProfiles = () => {
           colWidthAddButton={12}
           divClassName={"divContainerAddButton"}
           linkToRoute={"/userRegisterForm"}
-          propsToPass={{ registrantId }}
-          //   propsToPass={{registrantId}}
+          // propsToPass={{ registrantId }}
         />
       </Row>
     );

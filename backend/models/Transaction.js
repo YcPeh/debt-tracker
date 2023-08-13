@@ -2,9 +2,9 @@
 import mongoose from "mongoose";
 
 const transactionSchema = new mongoose.Schema({
-  //   registrantId: {
-  //     type: String,
-  //   },
+  registrantId: {
+    type: String,
+  },
   userNameCustomId: {
     type: String,
   },

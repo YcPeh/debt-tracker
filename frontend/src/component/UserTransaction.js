@@ -27,8 +27,10 @@ export const UserTransaction = (imageSrc) => {
   const { transaction, debtRepayment, transType } = useSelector(
     (store) => store.transaction
   );
-  // console.log('transaction in UserTransaction start')
-  // console.log(transaction)
+  // const { registrantInfo } = useSelector((store) => store.auth);
+  // const registrantId = registrantInfo._id;
+  // console.log("registrantId in UserTransaction");
+  // console.log(registrantId);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -263,6 +265,7 @@ export const UserTransaction = (imageSrc) => {
                 category: "Debts",
                 userNameCustomId: customId,
                 userName: name,
+                // registrantId: registrantId,
               }}
             />
             {/* </Col> */}
@@ -284,6 +287,7 @@ export const UserTransaction = (imageSrc) => {
                 category: "Repayments",
                 userNameCustomId: customId,
                 userName: name,
+                // registrantId: registrantId,
               }}
             />
             {/* </Col> */}

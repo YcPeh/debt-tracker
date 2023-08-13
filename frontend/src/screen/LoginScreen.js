@@ -30,42 +30,44 @@ const LoginScreen = () => {
   const getData = async () => {
     try {
       const res = await axios.get("/api");
-      const userInfo = res.data.data.map(
-        ({ name, imageName, customId, _id }) => ({
+      const userInfo = res.data.data
+        .filter((data) => data.registrantId === registrantInfo._id)
+        .map(({ name, imageName, customId, _id }) => ({
           name,
           imageName,
           customId,
           _id,
-        })
-      );
+        }));
       // console.log('initialising UseEffect')
       dispatch(initialiseUserInfo(userInfo));
       const res2 = await axios.get("/api/userTransaction");
-      const transaction = res2.data.data.map(
-        ({
-          userName,
-          userNameCustomId,
-          customId,
-          title,
-          date,
-          category,
-          type,
-          currency,
-          amount,
-          description,
-        }) => ({
-          userName,
-          userNameCustomId,
-          customId,
-          title,
-          date,
-          category,
-          type,
-          currency,
-          amount,
-          description,
-        })
-      );
+      const transaction = res2.data.data
+        .filter((data) => data.registrantId === registrantInfo._id)
+        .map(
+          ({
+            userName,
+            userNameCustomId,
+            customId,
+            title,
+            date,
+            category,
+            type,
+            currency,
+            amount,
+            description,
+          }) => ({
+            userName,
+            userNameCustomId,
+            customId,
+            title,
+            date,
+            category,
+            type,
+            currency,
+            amount,
+            description,
+          })
+        );
       dispatch(initiliaseTransaction(transaction));
       // console.log('useEffect App js dispatch loadLineChart')
       dispatch(loadLineChart());
@@ -76,8 +78,8 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (registrantInfo) {
-      console.log("registrantInfo in useEffect of loginScreen");
-      console.log(registrantInfo);
+      // console.log("registrantInfo in useEffect of loginScreen");
+      // console.log(registrantInfo);
       const registrantId = registrantInfo._id;
       const registrantName = registrantInfo.name;
       const registrantEmail = registrantInfo.email;

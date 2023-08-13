@@ -105,9 +105,11 @@ export const addUser = async (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       const imageFilePath = "frontend/public/uploads/" + req.file.filename;
-
+      console.log("req.body.registrantId");
+      console.log(req.body.registrantId);
       const newUser = new userModel({
         customId: req.body.customId,
+        registrantId: req.body.registrantId,
         name: req.body.name,
         imageName: req.file.filename,
         image: {

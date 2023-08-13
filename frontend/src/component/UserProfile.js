@@ -5,6 +5,7 @@ import axios from "axios";
 import {
   deleteUserInfo,
   selectUser,
+  updateUserName,
   updateUserPhoto,
 } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +40,17 @@ export const UserProfile = ({ user, colWidthUser }) => {
 
   const handleNameUpdate = async () => {
     try {
+      if (user.name !== editedName) {
+        dispatch(updateUserName({ customId: user.customId, name: editedName }));
+        // const changedUser = { ...user, name: editedName };
+        // dispatch(selectUser(changedUser));
+        dispatch(
+          loadLineChart({
+            userNameCustomIdForLineChart: user.customId,
+            userNameForLineChart: editedName,
+          })
+        );
+      }
       // await axios.put(`http://localhost:5000/${user.customId}`, { name: editedName });
       await axios.put(`/api/${user.customId}`, { name: editedName });
     } catch (error) {

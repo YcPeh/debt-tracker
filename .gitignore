@@ -4,6 +4,7 @@
 dump
 node_modules
 .env
+password.txt
 
 # dependencies
 /.pnp
