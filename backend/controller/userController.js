@@ -7,7 +7,7 @@ import multer from "multer";
 import fs from "fs";
 
 const Storage = multer.diskStorage({
-  destination: "frontend/public/uploads",
+  destination: "../frontend/public/uploads",
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -68,7 +68,7 @@ export const getUser = async (req, res, next) => {
 
 export const checkDeleteLocalUserImage = async (req, res, next) => {
   try {
-    const imageFilePath = "frontend/public/uploads/" + req.body.imageName;
+    const imageFilePath = "../frontend/public/uploads/" + req.body.imageName;
     // console.log("req.body");
     // console.log(req.body);
     // console.log("imageFilePath");
@@ -104,7 +104,7 @@ export const checkDeleteLocalUserImage = async (req, res, next) => {
 export const addUser = async (req, res, next) => {
   try {
     upload(req, res, async (err) => {
-      const imageFilePath = "frontend/public/uploads/" + req.file.filename;
+      const imageFilePath = "../frontend/public/uploads/" + req.file.filename;
       console.log("req.body.registrantId");
       console.log(req.body.registrantId);
       const newUser = new userModel({
