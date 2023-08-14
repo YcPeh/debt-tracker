@@ -1,3 +1,5 @@
+# Links i referred
+
 Set up backend with NodeJS and express by referrring to the video below
 
 - https://youtu.be/KyWaXA_NvT0
@@ -29,6 +31,8 @@ Set up backend with NodeJS and express by referrring to the video below
 - https://youtu.be/R4AhvYORZRY
   Verifying an Email Address Without Sending an Email in NodeJS
 - https://soshace.com/verifying-an-email-address-without-sending-an-email-in-nodejs/
+  How to deploy MERN project (NodeJS, React) using render and netlify.
+- https://youtu.be/AjaGmTVBIfI
 
 # Getting Started with Create React App
 
