@@ -1,2 +1,2 @@
-/api/* https://debt-tracker-1.onrender.com/:splat 200
+/api/* https://debt-tracker-1.onrender.com/api/:splat 200
 /* /index.html 200   
