@@ -126,7 +126,7 @@ export const UserTransactionForm = () => {
         //     },
         // });
         const res = await axios.post("/api/userTransaction", data, {
-          headaers: {
+          headers: {
             "Content-Type": "application/json",
           },
         });

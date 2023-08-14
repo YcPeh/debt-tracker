@@ -20,64 +20,12 @@ import HomeScreen from "./screen/HomeScreen";
 import RegisterScreen from "./screen/RegisterScreen";
 import ProfileScreen from "./screen/ProfileScreen";
 import PrivateRoute from "./component/PrivateRoute";
+import ForgotPasswordScreen from "./screen/ForgotPasswordScreen";
 
 function App() {
   const dispatch = useDispatch();
   const { selectedUserInfo } = useSelector((store) => store.user);
   const { transaction, transType } = useSelector((store) => store.transaction);
-
-  // const getData = async () => {
-  //   try {
-  //     // const res = await axios.get("http://localhost:5000");
-  //     const res = await axios.get("/api");
-  //     const userInfo = res.data.data.map(
-  //       ({ name, imageName, customId, _id }) => ({
-  //         name,
-  //         imageName,
-  //         customId,
-  //         _id,
-  //       })
-  //     );
-  //     // console.log('initialising UseEffect')
-  //     dispatch(initialiseUserInfo(userInfo));
-  //     // const res2 = await axios.get("http://localhost:5000/userTransaction");
-  //     const res2 = await axios.get("/api/userTransaction");
-  //     const transaction = res2.data.data.map(
-  //       ({
-  //         userName,
-  //         userNameCustomId,
-  //         customId,
-  //         title,
-  //         date,
-  //         category,
-  //         type,
-  //         currency,
-  //         amount,
-  //         description,
-  //       }) => ({
-  //         userName,
-  //         userNameCustomId,
-  //         customId,
-  //         title,
-  //         date,
-  //         category,
-  //         type,
-  //         currency,
-  //         amount,
-  //         description,
-  //       })
-  //     );
-  //     dispatch(initiliaseTransaction(transaction));
-  //     // console.log('useEffect App js dispatch loadLineChart')
-  //     dispatch(loadLineChart());
-  //   } catch (error) {
-  //     console.log(error, "it has an error");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
 
   return (
     <Routes>
@@ -85,6 +33,7 @@ function App() {
         <Route index path="/" element={<HomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/forgotPassword" element={<ForgotPasswordScreen />} />
         <Route path="" element={<PrivateRoute />}>
           <Route path="/profile" element={<ProfileScreen />} />
           {/* <Route path="/test" element={<Test />} /> */}

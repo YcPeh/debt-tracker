@@ -1,33 +1,34 @@
 Set up backend with NodeJS and express by referrring to the video below
+
 - https://youtu.be/KyWaXA_NvT0
-Uploading an Image using Nodejs and Retrive Image in React | Multer | Mongo db
+  Uploading an Image using Nodejs and Retrive Image in React | Multer | Mongo db
 - https://youtu.be/NzROCbkvIE0
-Nodejs Image Upload using Multer | Nodejs and Expressjs and MongoDB
+  Nodejs Image Upload using Multer | Nodejs and Expressjs and MongoDB
 - https://youtu.be/GyzC-30Bqfc
-Image and File Uploading in React JS with Axios and FormData
+  Image and File Uploading in React JS with Axios and FormData
 - https://youtu.be/YOGgaYUW1OA
-Open a file input box on button click in React
+  Open a file input box on button click in React
 - https://bobbyhadz.com/blog/react-open-file-input-on-button-click#:~:text=To%20open%20a%20file%20input,prop%20on%20the%20file%20input.
-ChartJS
+  ChartJS
 - npm i react-chartjs-2 chart.js
 - https://www.npmjs.com/package/react-chartjs-2
-- https://www.chartjs.org/docs/latest/ 
-How to Add Text in Center of Donut Chart in React Chart JS 2
+- https://www.chartjs.org/docs/latest/
+  How to Add Text in Center of Donut Chart in React Chart JS 2
 - https://youtu.be/IqlmFSII8AY
-How to Create Time Scale in Line Chart with React Chart JS
+  How to Create Time Scale in Line Chart with React Chart JS
 - https://youtu.be/rILKHZDDpq4
-How to use timescales and how to enter dates and time in Chart JS
+  How to use timescales and how to enter dates and time in Chart JS
 - https://youtu.be/H1y66SPBlRI
-Download image/icon with transaparent background
+  Download image/icon with transaparent background
 - https://www.flaticon.com/search?word=line%20graph
-Get Locale Short Date Format using javascript
+  Get Locale Short Date Format using javascript
 - https://stackoverflow.com/questions/2388115/get-locale-short-date-format-using-javascript
-How to dump MongoDB Atlas db/collection to a different project or local device
+  How to dump MongoDB Atlas db/collection to a different project or local device
 - https://youtu.be/aL10yv5fAJ0
-MERN Crash Course | JWT Authentication, Redux Toolkit, Deployment & More
+  MERN Crash Course | JWT Authentication, Redux Toolkit, Deployment & More
 - https://youtu.be/R4AhvYORZRY
-
-
+  Verifying an Email Address Without Sending an Email in NodeJS
+- https://soshace.com/verifying-an-email-address-without-sending-an-email-in-nodejs/
 
 # Getting Started with Create React App
 

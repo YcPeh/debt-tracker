@@ -117,6 +117,24 @@ const LoginScreen = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    // const isValidEmail = (email) => {
+    //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //   return emailRegex.test(email);
+    // }
+
+    const res = await axios.post("/api/registrant/email", {
+      email: email,
+    });
+    console.log("res");
+    console.log(res);
+    if (res.data.success === false) {
+      toast.error(res.data.message);
+    } else {
+      toast.success(res.data.message);
+    }
+  };
+
   return (
     <FormContainer>
       <h1>Sign In</h1>
@@ -144,8 +162,13 @@ const LoginScreen = () => {
           Sign In
         </Button>
         <Row className="py-3">
-          <Col>
+          <Col className="text-start">
             New User? <Link to="/register">Register</Link>
+          </Col>
+          <Col className="text-end">
+            <a href="#" onClick={handleForgotPassword}>
+              Forgot Password?
+            </a>
           </Col>
         </Row>
       </Form>
