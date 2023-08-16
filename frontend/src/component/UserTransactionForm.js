@@ -15,8 +15,13 @@ import "react-datepicker/dist/react-datepicker.css";
 export const UserTransactionForm = () => {
   const { registrantInfo } = useSelector((store) => store.auth);
   const [show, setShow] = useState(true);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(new Date());
   const [dateConverted, setDateConverted] = useState();
+
+  // console.log("selectedDate");
+  // console.log(selectedDate);
+  // console.log("dateConverted");
+  // console.log(dateConverted);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -37,9 +42,14 @@ export const UserTransactionForm = () => {
   //   console.log("registrantId in UserTransactionForm");
   //   console.log(registrantId);
   useEffect(() => {
+    console.log("date");
+    console.log(date);
     if (date !== undefined) {
       const dateString = date.replace(",", ".");
       setDateConverted(new Date(dateString));
+      console.log("dateConverted IS set");
+    } else {
+      console.log("dateConverted NOT set");
     }
   }, [date]);
 
@@ -56,6 +66,10 @@ export const UserTransactionForm = () => {
     try {
       e.preventDefault();
       handleClose();
+      // console.log("selectedDate");
+      // console.log(selectedDate);
+      console.log("dateConverted");
+      console.log(dateConverted);
       const title = e.target.elements.title.value;
       const timeZone = "Asia/Kuala_Lumpur";
       const options = {
@@ -69,7 +83,8 @@ export const UserTransactionForm = () => {
         // millisecond: 'numeric',
         fractionalSecondDigits: 3,
       };
-      const date = selectedDate.toLocaleString("sv-SE", options);
+      // const date = selectedDate.toLocaleString("sv-SE", options);
+      const date = dateConverted.toLocaleString("sv-SE", options);
       const category = e.target.elements.category.value;
       const type = e.target.elements.type.value;
       const currency = e.target.elements.currency.value;
@@ -161,11 +176,12 @@ export const UserTransactionForm = () => {
                 <DatePicker
                   // selected={selectedDate}
                   // selected={(date === undefined) ? selectedDate : date}
-                  selected={
-                    dateConverted === undefined ? selectedDate : dateConverted
-                  }
+                  // selected={
+                  //   dateConverted === undefined ? selectedDate : dateConverted
+                  // }
+                  selected={dateConverted}
                   onChange={(date) => {
-                    setSelectedDate(date);
+                    // setSelectedDate(date);
                     setDateConverted(date);
                   }}
                   dateFormat="yyyy-MM-dd"
