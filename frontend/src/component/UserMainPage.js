@@ -20,16 +20,13 @@ import axios from "axios";
 // import { UserTransaction } from './UserTransaction';
 
 export const UserMainPage = () => {
-  const dispatch = useDispatch();
-  const { userInfo, selectedUserInfo } = useSelector((store) => store.user);
   const {
     transaction,
     sortedSingleDateTransactionWithNettAmount,
     userNameForLineChart,
   } = useSelector((store) => store.transaction);
+  const { userInfo } = useSelector((store) => store.user);
   const location = useLocation();
-  // console.log("location.state UserMainPage");
-  // console.log(location.state);
   const { registrantId, registrantName, registrantEmail } =
     location.state || {};
 

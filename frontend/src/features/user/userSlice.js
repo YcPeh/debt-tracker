@@ -23,8 +23,8 @@ export const userSlice = createSlice({
     },
     addUserInfo: (state, action) => {
       const newUser = action.payload;
-      console.log("uerSlice addUserInfo newUser");
-      console.log(newUser);
+      // console.log("uerSlice addUserInfo newUser");
+      // console.log(newUser);
       // state.userInfo.push(newUser);
       state.userInfo = [...state.userInfo, newUser];
     },
@@ -35,8 +35,8 @@ export const userSlice = createSlice({
       );
     },
     updateUserPhoto: (state, action) => {
-      console.log("updateUserPhoto action.payload");
-      console.log(action.payload);
+      // console.log("updateUserPhoto action.payload");
+      // console.log(action.payload);
       const { customId, imageName } = action.payload;
       state.userInfo = state.userInfo.map((user) => {
         // console.log(' inside updateUserPhoto map function')

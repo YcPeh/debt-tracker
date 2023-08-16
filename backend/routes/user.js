@@ -11,13 +11,15 @@ import {
   deleteUser,
   updateUserName,
   updateUserPhoto,
-  checkDeleteLocalUserImage,
+  // checkDeleteLocalUserImage,
 } from "../controller/userController.js";
 
 router.route("/").get(getUser).post(addUser);
-router.route("/deleteImage").post(checkDeleteLocalUserImage);
+// router.route("/deleteImage").post(checkDeleteLocalUserImage);
 router.route("/:idFromFrontEnd").delete(deleteUser).put(updateUserName);
+router.route("/:idFromFrontEnd").put(updateUserName);
 router.route("/:idFromFrontEnd/userPhoto").put(updateUserPhoto);
+// router.route("/").delete(deleteUser);
 
 // module.exports = router;
 export default router;

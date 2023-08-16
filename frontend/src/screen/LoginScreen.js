@@ -30,11 +30,14 @@ const LoginScreen = () => {
   const getData = async () => {
     try {
       const res = await axios.get("/api");
+      console.log("res.data.data in Login Screen");
+      console.log(res.data.data);
       const userInfo = res.data.data
         .filter((data) => data.registrantId === registrantInfo._id)
-        .map(({ name, imageName, customId, _id }) => ({
+        .map(({ name, imageName, imageUrl, customId, _id }) => ({
           name,
           imageName,
+          imageUrl,
           customId,
           _id,
         }));

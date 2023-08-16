@@ -3,7 +3,8 @@ import registrantModel from "../models/Registrant.js";
 import generateToken from "../utils/generateToken.js";
 import nodemailer from "nodemailer";
 import emailValidator from "deep-email-validator";
-import bcrypt from "bcryptjs";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export const sendEmail = asyncHandler(async (req, res) => {
   const transporter = nodemailer.createTransport({

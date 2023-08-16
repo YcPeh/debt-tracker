@@ -1,9 +1,10 @@
 import { Button, Col, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import {
   deleteUserInfo,
+  initialiseUserInfo,
   selectUser,
   updateUserName,
   updateUserPhoto,
@@ -21,17 +22,46 @@ export const UserProfile = ({ user, colWidthUser }) => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  // const {transaction} = useSelector((store) => store.transaction);
+  const { registrantInfo } = useSelector((store) => store.auth);
+  const { userInfo } = useSelector((store) => store.user);
 
-  // console.log('user in UserProfile.js')
-  // console.log(user)
-  // console.log('colWidthUser')
-  // console.log(colWidthUser)
+  // useEffect(() => {
+  //   getData(); // Call getData when userInfo changes
+  // }, []);
+
+  const getData = async () => {
+    const res = await axios.get("/api");
+    console.log("res.data.data in UserRegisterForm");
+    console.log(res.data.data);
+    const userInfo = res.data.data
+      .filter((data) => data.registrantId === registrantInfo._id)
+      .map(({ name, imageName, imageUrl, customId, _id }) => ({
+        name,
+        imageName,
+        imageUrl,
+        customId,
+        _id,
+      }));
+    // console.log('initialising UseEffect')
+    dispatch(initialiseUserInfo(userInfo));
+  };
 
   const handleDelete = async () => {
     try {
       // await axios.delete(`http://localhost:5000/${user.customId}`);
-      await axios.delete(`/api/${user.customId}`);
+      console.log("user before delete");
+      console.log(user);
+      await axios.delete(`/api/${user.customId}`, {
+        data: {
+          imageName: user.imageName,
+        },
+      });
+      // await axios.delete("/api", {
+      //   data: {
+      //     imageName: user.imageName,
+      //     customId: user.customId,
+      //   },
+      // });
       dispatch(deleteUserInfo(user.customId));
     } catch (error) {
       console.log(error);
@@ -69,29 +99,21 @@ export const UserProfile = ({ user, colWidthUser }) => {
       if (!imageFile) {
         return;
       }
-      await axios.post("/api/deleteImage", {
-        imageName: imageFile.name,
-      });
-      dispatch(
-        updateUserPhoto({ imageName: imageFile.name, customId: user.customId })
-      );
-      navigate("/userMainPage");
+      // console.log("before deleteImage");
+      // await axios.post("/api/deleteImage", {
+      //   imageName: imageFile.name,
+      // });
+      // navigate("/userMainPage");
       const formData = new FormData();
       formData.append("image", imageFile);
-      // const res = await axios.put(
-      //   `http://localhost:5000/${user.customId}/userPhoto`,
-      //   formData,
-      //   {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   }
-      // );
+      formData.append("imageNameToDelete", user.imageName);
       const res = await axios.put(`/api/${user.customId}/userPhoto`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+      getData();
+      // navigate("/userMainPage");
     } catch (error) {
       console.log(error);
     }
@@ -132,8 +154,16 @@ export const UserProfile = ({ user, colWidthUser }) => {
       })
     );
   };
-
-  const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`;
+  // console.log("process.env.PUBLIC_URL");
+  // console.log(process.env.PUBLIC_URL);
+  // const imagePath = `${process.env.PUBLIC_URL}/uploads/${user.imageName}`;
+  // const imagePath = `/uploads/${user.imageName}`;
+  const imagePath = `${user.imageUrl}`;
+  // const imagePath = `https://firebasestorage.googleapis.com/v0/b/debt-tracker-d5aaa.appspot.com/o/Users%2Fnetlify_2023-8-16_3%3A3%3A36.png?alt=media&token=c8d05f4f-08cf-4ed8-a728-50cdb270ec2a`;
+  // console.log("user");
+  // console.log(user);
+  // console.log("imagePath");
+  // console.log(imagePath);
   return (
     <Col xs={colWidthUser} className="userColumn">
       <div

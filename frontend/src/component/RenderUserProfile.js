@@ -6,15 +6,7 @@ import { AddButton } from "./AddButton";
 
 export const RenderUserProfiles = () => {
   const { userInfo } = useSelector((store) => store.user);
-  const { registrantInfo } = useSelector((store) => store.auth);
-  //   console.log("registrantInfo._id");
-  //   console.log(registrantInfo._id);
-  const registrantId = registrantInfo._id;
-  //   console.log("registrantId");
-  //   console.log(registrantId);
 
-  // console.log('userInfo inside MainContainer.js but outside of return statement')
-  // console.log(userInfo)
   const rows = [];
   if (userInfo.length > 0) {
     for (let i = 0; i < userInfo.length; i += 3) {
@@ -32,7 +24,6 @@ export const RenderUserProfiles = () => {
         colWidthUser = 4;
         colWidthAddButton = 4;
       }
-      // console.log('renderUserProfiles for loop')
       const user3Columns = userInfo
         .slice(i, i + 3)
         .map((user) => (

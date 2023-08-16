@@ -1,12 +1,3 @@
-// https://youtu.be/GyzC-30Bqfc
-// https://youtu.be/NzROCbkvIE0
-// app.js or server.js
-// const express = require('express');
-// const multer = require('multer');
-// const cors = require('cors');
-// const connectDB = require('./config/db');
-// const User = require('./routes/user');
-
 import express, { urlencoded } from "express";
 import dotenv from "dotenv";
 dotenv.config();

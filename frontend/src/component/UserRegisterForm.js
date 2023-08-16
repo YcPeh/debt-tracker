@@ -20,6 +20,22 @@ export const UserRegisterForm = () => {
   const { registrantInfo } = useSelector((store) => store.auth);
   const registrantId = registrantInfo._id;
   const [submitting, setSubmitting] = useState(false);
+  const getData = async () => {
+    const res = await axios.get("/api");
+    console.log("res.data.data in UserRegisterForm");
+    console.log(res.data.data);
+    const userInfo = res.data.data
+      .filter((data) => data.registrantId === registrantInfo._id)
+      .map(({ name, imageName, imageUrl, customId, _id }) => ({
+        name,
+        imageName,
+        imageUrl,
+        customId,
+        _id,
+      }));
+    // console.log('initialising UseEffect')
+    dispatch(initialiseUserInfo(userInfo));
+  };
 
   const handleSubmit = async (e) => {
     try {
@@ -30,18 +46,20 @@ export const UserRegisterForm = () => {
       const imageFileName = e.target.elements.imageFile.files[0].name;
       const timeForCustomId = new Date().getTime().toString();
 
-      await axios.post("/api/deleteImage", {
-        imageName: imageFileName,
-      });
+      // await axios.post("/api/deleteImage", {
+      //   data: {
+      //     imageName: imageFileName,
+      //   },
+      // });
 
-      dispatch(
-        addUserInfo({
-          name: name,
-          imageName: imageFileName,
-          customId: timeForCustomId,
-          registrantId: registrantId,
-        })
-      );
+      // dispatch(
+      //   addUserInfo({
+      //     name: name,
+      //     imageName: imageFileName,
+      //     customId: timeForCustomId,
+      //     registrantId: registrantId,
+      //   })
+      // );
       console.log("after dispatch addUserInfo");
 
       navigate("/userMainPage");
@@ -50,6 +68,7 @@ export const UserRegisterForm = () => {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("image", imageFile);
+      formData.append("imageName", imageFileName);
       formData.append("customId", timeForCustomId);
       formData.append("registrantId", registrantId);
 
@@ -59,6 +78,8 @@ export const UserRegisterForm = () => {
         },
       });
       console.log("after axios post");
+
+      getData();
     } catch (error) {
       console.log("Submit form fail");
       console.log(error);
