@@ -91,7 +91,9 @@ export const authRegistrant = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Invalid email or password");
+    throw new Error(
+      $`Invalid email or password, registrant variable: ${registrant}`
+    );
   }
 });
 

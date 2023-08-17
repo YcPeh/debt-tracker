@@ -33,6 +33,8 @@ Set up backend with NodeJS and express by referrring to the video below
 - https://soshace.com/verifying-an-email-address-without-sending-an-email-in-nodejs/
   How to deploy MERN project (NodeJS, React) using render and netlify.
 - https://youtu.be/AjaGmTVBIfI
+  Deploy your MERN app (Node & React) to Render & Netlify
+- https://youtu.be/o_UtxjDYb78
   Upload Images / Files to Firebase In React - Firebase V9 File Upload Tutorial
 - https://youtu.be/YOAeBSCkArA
   Upload Images / Files to Firebase Cloud Storage using Node JS
