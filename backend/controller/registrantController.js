@@ -81,7 +81,8 @@ export const authRegistrant = asyncHandler(async (req, res) => {
   const registrant = await registrantModel.findOne({ email });
   console.log("registrant");
   console.log(registrant);
-  if (registrant && (await registrant.matchPassword(password))) {
+  const matchPassword = await registrant.matchPassword(password);
+  if (registrant && matchPassword) {
     generateToken(res, registrant._id);
     res.status(201).json({
       _id: registrant._id,
@@ -94,9 +95,10 @@ export const authRegistrant = asyncHandler(async (req, res) => {
     // throw new Error("Invalid email or password");
     const error = new Error("Invalid email or password");
     error.statusCode = 401;
-    error.email = email; // Append email to the error object
-    error.password = password; // Append password to the error object
-    error.registrant = registrant; // Append registrant to the error object
+    error.email = email;
+    error.password = password;
+    error.registrant = registrant;
+    error.matchPassword = matchPassword;
     throw error;
   }
 });

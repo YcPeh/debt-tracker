@@ -19,6 +19,7 @@ export const errorHandler = (err, req, res, next) => {
     email: err.email,
     password: err.password,
     registrant: err.registrant,
+    matchPassword: err.matchPassword,
     stack: err.stack,
   });
 };
