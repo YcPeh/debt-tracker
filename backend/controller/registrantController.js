@@ -90,8 +90,14 @@ export const authRegistrant = asyncHandler(async (req, res) => {
       // token:generateToken(res,registrant._id)
     });
   } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
+    // res.status(401);
+    // throw new Error("Invalid email or password");
+    const error = new Error("Invalid email or password");
+    error.statusCode = 401;
+    error.email = email; // Append email to the error object
+    error.password = password; // Append password to the error object
+    error.registrant = registrant; // Append registrant to the error object
+    throw error;
   }
 });
 
