@@ -26,7 +26,8 @@
     /* max-height: 50%; */
     /* max-height: inherit; */
     display: flex;
-    justify-content: end;
+    /* justify-content: end; */
+    justify-content: flex-end;
     align-items: center;
     /* align-items: stretch; */
 }

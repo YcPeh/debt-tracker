@@ -7,6 +7,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export const sendEmail = asyncHandler(async (req, res) => {
+  console.log("sendEmail backend");
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -66,9 +67,13 @@ export const sendEmail = asyncHandler(async (req, res) => {
       .status(200)
       .json({ success: true, message: "Email sent successfully" });
   } else {
-    return res
-      .status(200)
-      .json({ success: false, message: validators[reason].reason });
+    return res.status(200).json({
+      success: false,
+      message: validators[reason].reason,
+      valid: valid,
+      reason: reason,
+      validators: validators,
+    });
   }
 });
 
