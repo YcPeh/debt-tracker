@@ -81,8 +81,8 @@ export const sendEmail = asyncHandler(async (req, res) => {
 
   // const { valid, reason, validators } = await isEmailValid(email);
 
+  const registrant = await registrantModel.findOne({ email });
   if (registrant) {
-    const registrant = await registrantModel.findOne({ email });
     const randomPassword = Math.random().toString(36).slice(-8);
 
     registrant.password = randomPassword;
