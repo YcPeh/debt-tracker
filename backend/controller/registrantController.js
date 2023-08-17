@@ -74,13 +74,13 @@ export const sendEmail = asyncHandler(async (req, res) => {
 
 export const authRegistrant = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  // console.log("password");
-  // console.log(password);
-  // console.log("email");
-  // console.log(email);
+  console.log("password");
+  console.log(password);
+  console.log("email");
+  console.log(email);
   const registrant = await registrantModel.findOne({ email });
-  // console.log('registrant')
-  // console.log(registrant)
+  console.log("registrant");
+  console.log(registrant);
   if (registrant && (await registrant.matchPassword(password))) {
     generateToken(res, registrant._id);
     res.status(201).json({
