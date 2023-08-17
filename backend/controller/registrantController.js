@@ -74,7 +74,6 @@ export const sendEmail = asyncHandler(async (req, res) => {
       valid,
       reason,
       validators,
-      randomPassword,
     });
   }
 });
