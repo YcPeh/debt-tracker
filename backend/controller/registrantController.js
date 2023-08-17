@@ -70,9 +70,11 @@ export const sendEmail = asyncHandler(async (req, res) => {
     return res.status(200).json({
       success: false,
       message: validators[reason].reason,
-      valid: valid,
-      reason: reason,
-      validators: validators,
+      email,
+      valid,
+      reason,
+      validators,
+      randomPassword,
     });
   }
 });
