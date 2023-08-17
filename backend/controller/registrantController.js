@@ -81,28 +81,35 @@ export const sendEmail = asyncHandler(async (req, res) => {
 
   // const { valid, reason, validators } = await isEmailValid(email);
 
-  const registrant = await registrantModel.findOne({ email });
-  const randomPassword = Math.random().toString(36).slice(-8);
+  if (registrant) {
+    const registrant = await registrantModel.findOne({ email });
+    const randomPassword = Math.random().toString(36).slice(-8);
 
-  registrant.password = randomPassword;
-  await registrant.save();
+    registrant.password = randomPassword;
+    await registrant.save();
 
-  console.log("randomPassword");
-  console.log(randomPassword);
+    console.log("randomPassword");
+    console.log(randomPassword);
 
-  await transporter.sendMail({
-    from: process.env.MAIL_USERNAME,
-    to: email,
-    subject: "Debt Tracker App Password Recovery",
-    html: `
+    await transporter.sendMail({
+      from: process.env.MAIL_USERNAME,
+      to: email,
+      subject: "Debt Tracker App Password Recovery",
+      html: `
     <p>Your temporary password is:</p>
     <p><strong>${randomPassword}</strong></p>
     <p>Please delete this email once you reset your password.</p>
   `,
-  });
-  return res
-    .status(200)
-    .json({ success: true, message: "Email sent successfully" });
+    });
+    return res
+      .status(200)
+      .json({ success: true, message: "Email sent successfully" });
+  } else {
+    return res.status(200).json({
+      success: false,
+      message: "Email does not exist in database",
+    });
+  }
 });
 
 export const authRegistrant = asyncHandler(async (req, res) => {
